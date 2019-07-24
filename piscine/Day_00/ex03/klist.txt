@@ -1,0 +1,7 @@
+Credentials cache: API:35063
+        Principal: hypark@42.US.ORG
+
+  Issued                Expires               Principal
+May 15 08:04:54 2018  May 15 18:04:54 2018  krbtgt/42.US.ORG@42.US.ORG
+May 15 08:04:55 2018  May 15 18:04:54 2018  ldap/ldap-proxy.42.us.org@42.US.ORG
+May 15 08:29:59 2018  May 15 18:04:54 2018  ldap/ldap-master.42.us.org@42.US.ORG
