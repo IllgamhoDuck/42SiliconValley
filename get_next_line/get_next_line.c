@@ -6,66 +6,118 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 05:50:38 by hypark            #+#    #+#             */
-/*   Updated: 2019/07/28 07:53:42 by hypark           ###   ########.fr       */
+/*   Updated: 2019/07/30 03:21:38 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char				get_next_char(t_finfo *f)
+static t_finfo		*init(const int fd)
 {
-	if (f->index < f->length)
-		return (f->buf[f->index++]);
-	f->length = read(f->fd, f->buf, BUFF_SIZE);
-	f->index = 0;
-	if (f->length <= 0)
+	t_finfo			*f;
+
+	if (!(f = (t_finfo *)malloc(sizeof(t_finfo))))
 		return (0);
-	else
-		return (f->buf[r->index++]);
-}
-
-void				init(t_finfo *f, const int fd)
-{
-	f->buf = (char *)malloc(sizeof(char) * BUFF_SIZE);
-	f->index = 0;
-	f->length = 0;
+	if (!(f->storage = (char *)malloc(sizeof(char) * 1)))
+		return (0);
+	f->storage[0] = '\0';
 	f->fd = fd;
-	f->next = NULL;
+	f->right = NULL;
+	f->left = NULL;
+	return (f);
 }
 
-one function if for searching fd and return the address of f
+/*
+** Searching the binary tree and search for the appropriate file
+** information of fd.
+** if there is file information return it or if there isn't
+** create the file information and return it.
+*/
 
-	if fd isn't on the linked list than init
+static t_finfo		*find_f(t_finfo *b_list, const int fd)
+{
+	while (1)
 	{
-	init(f, fd);
-	and connect it at the end of the linked list
+		if (b_list->fd == fd)
+			return (b_list);
+		if (b_list->fd < fd)
+		{
+			if (b_list->right == NULL)
+			{
+				b_list->right = init(fd);
+				b_list = b_list->right;
+				return (b_list);
+			}
+			b_list = b_list->right;
+		}
+		else
+		{
+			if (b_list->left == NULL)
+			{
+				b_list->left = init(fd);
+				b_list = b_list->left;
+				return (b_list);
+			}
+			b_list = b_list->left;
+		}
 	}
-	if fd is on the linked list than put it out
+}
 
-	and return address of f
+static int			fill_line(t_finfo *f, char **line)
+{
+	int				i;
+	char			*tmp;
 
-one function is to find the appropriate index where to save the line
+	i = 0;
+	while (f->storage[i] != '\n' && f->storage[i] != '\0')
+		i++;
+	*line = ft_strsub(f->storage, 0, i);
+	if (f->storage[i] == '\n')
+	{
+		tmp = ft_strdup(&(f->storage[i + 1]));
+		free(f->storage);
+		f->storage = tmp;
+	}
+	else if (f->storage[i] == '\0')
+	{
+		free(f->storage);
+		if (!(f->storage = (char *)malloc(sizeof(char) * 1)))
+			return (0);
+		f->storage[0] = '\0';
+	}
+	return (1);
+}
 
-the linux system will remember how far i parsed the text
-so what i need to store is how far i stored the buffer.
+static int			print_result(t_finfo *f, int result, char **line)
+{
+	if (result < 0)
+		return (-1);
+	if (result == 0 && f->storage[0] == '\0')
+		return (0);
+	return (fill_line(f, line));
+}
+
 int					get_next_line(const int fd, char **line)
 {
 	t_finfo			*f;
-	static t_finfo	*linked list;
-	unsigned int	i;
-	unsigned int	j;
-	char			word;
+	static t_finfo	*b_list;
+	char			buf[BUFF_SIZE + 1];
+	char			*tmp;
+	int				result;
 
-	i = 0;
-	j = 0;
-
-	while (1)
+	if (!b_list)
+		if (!(b_list = init(fd)))
+			return (-1);
+	if ((!line) || (fd < 0) || !(f = find_f(b_list, fd)))
+		return (-1);
+	while ((result = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		word = get_next_char(f);
-		if (word == 0 || word == '\0')
-			return (0);
-		if (word == '\n')
-			return (1);
-		line[i][j++] = word;
+		buf[result] = '\0';
+		tmp = ft_strjoin(f->storage, buf);
+		free(f->storage);
+		f->storage = tmp;
+		if (ft_strchr(f->storage, '\n'))
+			break ;
 	}
+	return (print_result(f, result, line));
 }
