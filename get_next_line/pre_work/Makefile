@@ -6,17 +6,16 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/23 23:36:24 by hypark            #+#    #+#              #
-#    Updated: 2019/07/30 16:11:18 by hypark           ###   ########.fr        #
+#    Updated: 2019/07/30 03:28:53 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a 
-TEST = test
+NAME = test 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-SRC = *.c 
-OBJ = $(SRC:.c=.o)
-INCLUDES = libft.h
+SRC = *.c ../libft/*.c
+OBJ = *.o
+INCLUDES = get_next_line.h
 
 .PHONY: all clean fclean re
 
@@ -24,15 +23,13 @@ all: $(NAME)
 
 $(NAME):
 	$(CC) $(CFLAGS) -I $(INCLUDES) -c $(SRC)
-	ar rc $(NAME) $(OBJ)
-	$(CC) $(CFLAGS) -o $(TEST) $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f $(TEST)
 
 re: fclean all
 
