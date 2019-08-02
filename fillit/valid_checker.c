@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 18:01:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/01 15:54:53 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 01:40:46 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,26 @@
 int					valid_char(char c)
 {
 	return (c == '#' || c == '.' || c == '\n' || c == '\0');
+}
+
+char				**valid_place(char **m, t_map *c_m, int y, int x)
+{
+	int				i;
+	int				j;
+
+	i = 0;
+	while (i < c_m->y_len)
+	{
+		j = 0;
+		while (j < c_m->x_len)
+		{
+			if (m[y + i][x + j] != '.' && c_m->map[i][j] != '.')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (copy_map(m, c_m, y, x));
 }
 
 /*

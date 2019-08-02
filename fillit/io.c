@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:58:36 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/01 17:49:50 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 03:31:46 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ char				get_next_char(t_reader *r)
 	}
 }
 
-t_tetris				*compress_input(t_reader *r, t_input *input)
+t_tetris			*compress_input(t_reader *r, t_input *input)
 {
-	t_tetris			*t;
+	t_tetris		*t;
 
 	t = (t_tetris *)malloc(sizeof(t_tetris));
 	t->total = r->total;
@@ -75,7 +75,7 @@ t_tetris				*compress_input(t_reader *r, t_input *input)
 	return (t);
 }
 
-t_tetris				*process_file(int fd)
+t_tetris			*process_file(int fd)
 {
 	t_reader		*r;
 	t_input			*input;
@@ -85,7 +85,7 @@ t_tetris				*process_file(int fd)
 		return (0);
 	if (!(r = init_reader(fd)))
 		return (0);
-	input = init_input();	
+	input = init_input();
 	input->reader = r;
 	if (!(fill_input(r, input)))
 		return (0);

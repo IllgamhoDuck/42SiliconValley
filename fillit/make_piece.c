@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 00:59:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/01 03:08:16 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 03:35:51 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void				translate_coord(t_reader *r)
 	int				y;
 	unsigned short	min_x;
 	unsigned short	min_y;
-	
+
 	i = -1;
 	min_x = 5;
 	min_y = 5;
@@ -78,16 +78,13 @@ int					fill_input(t_reader *r, t_input *input)
 	{
 		if (!(c = get_next_char(r)))
 			return (0);
-		if (i != 4 && i != 9 && i != 14 && i != 19) 
+		if (i != 4 && i != 9 && i != 14 && i != 19)
 		{
 			if (!(c = count_char(r, c, i)))
 				return (0);
 		}
-		else
-		{
-			if (c != '\n')
-				return (0);
-		}
+		else if (c != '\n')
+			return (0);
 		i++;
 	}
 	if (r->sharp_num != 4 || r->dot_num != 12)

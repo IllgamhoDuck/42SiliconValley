@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 22:08:50 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/01 03:29:21 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 01:19:16 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,39 @@ void				free_list(t_tetris *t, t_input *input, int iter_num)
 		free(input);
 		return ;
 	}
+}
+
+void				free_map(char **map, int size)
+{
+	int				i;
+
+	i = 0;
+	while (i < size)
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
+
+void				free_search(char **map, t_map *c_map)
+{
+	int				size;
+
+	size = c_map->m_size;
+	free_map(map, size);
+	free_map(c_map->map, c_map->y_len);
+	free(c_map);
+}
+
+int					free_error_no_c_m(char **map, int size)
+{
+	free_map(map, size);
+	return (0);
+}
+
+int					free_error_with_c_m(char **map, t_map *c_map)
+{
+	free_search(map, c_map);
+	return (0);
 }

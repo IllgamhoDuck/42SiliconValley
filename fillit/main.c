@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:34:35 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/01 20:16:32 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 03:32:09 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,46 @@
 ** and that will be feed to next node.
 */
 
+int					copy_between_map(char ***m1, char **m2, int size)
+{
+	unsigned short	i;
+	unsigned short	j;
+
+	if (*m1 == NULL)
+	{
+		if (!(*m1 = (char **)malloc(sizeof(char *) * size)))
+			return (0);
+		i = -1;
+		while (++i < size)
+			if (!((*m1)[i] = (char *)malloc(sizeof(char) * size)))
+				return (0);
+	}
+	i = -1;
+	while (++i < size)
+	{
+		j = -1;
+		while (++j < size)
+			(*m1)[i][j] = m2[i][j];
+	}
+	return (1);
+}
+
+void				free_tetris(t_tetris *t)
+{
+	int				i;
+
+	i = -1;
+	free(t->pieces);
+	free(t->piece_info);
+	free(t->x_info);
+	free(t->y_info);
+	free(t->alphabet);
+	free(t);
+}
+
 int					main(int ac, char **av)
 {
 	t_tetris		*t;
-	int				i;
-	int				j;
 	char			**solution;
 
 	if (ac == 2)
@@ -33,25 +68,15 @@ int					main(int ac, char **av)
 			print_error();
 			exit(1);
 		}
-		printf("The total number of pieces are : %d\n", t->total);
 		solution = NULL;
-		i = 0;
-		while (i < 19)
+		if (!find_solution(t, &solution))
 		{
-			j = 0;
-			while (j < t->y_info[i])
-			{
-				printf("%s\n", init_piece(t->piece_info[i], t->x_info[i], t->y_info[i])[j]);
-				j++;
-			}
-			printf("\n");
-			i++;
+			print_error();
+			exit(1);
 		}
-//		if(!find_solution(t, solution))
-//		{
-//			print_error();
-//			exit(1);
-//		}
+		print_solution(solution, t);
+		free_map(solution, t->m_size);
+		free_tetris(t);
 	}
 	else
 		ft_putstr("usage: fillit source file\n");
