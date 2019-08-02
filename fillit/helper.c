@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 22:53:24 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/02 03:32:40 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 04:22:38 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,58 @@ int					score_of_result(char ***map, int size)
 	}
 	return (max_x + max_y);
 }
+
+//int					score_of_result(char ***map, int size)
+//{
+//	int				i;
+//	int				j;
+//	int				total_x;
+//	int				total_y;
+//
+//	total_x = 0;
+//	total_y = 0;
+//	i = -1;
+//	while (++i < size)
+//	{
+//		j = -1;
+//		while (++j < size)
+//		{
+//			if ((*map)[i][j] != '.')
+//			{
+//				//total_x += j;
+//				total_y += i;
+//			}
+//		}
+//	}
+//	return (total_x + total_y);
+//}
+
+/*
+** int					score_of_result(char ***map, int size)
+** {
+** 	int				i;
+** 	int				j;
+** 	int				total_x;
+** 	int				total_y;
+** 
+** 	total_x = 0;
+** 	total_y = 0;
+** 	i = -1;
+** 	while (++i < size)
+** 	{
+** 		j = -1;
+** 		while (++j < size)
+** 		{
+** 			if ((*map)[i][j] != '.')
+** 			{
+** 				total_x += j;
+** 				total_y += i;
+** 			}
+** 		}
+** 	}
+** 	return (total_x + total_y);
+** }
+*/
 
 int					store_result(char ***a, char **m, t_tetris *t)
 {
