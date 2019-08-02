@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:34:35 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/02 03:32:09 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 12:30:11 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int					copy_between_map(char ***m1, char **m2, int size)
 		i = -1;
 		while (++i < size)
 			if (!((*m1)[i] = (char *)malloc(sizeof(char) * size)))
+			{
+				free(*m1);
 				return (0);
+			}
 	}
 	i = -1;
 	while (++i < size)

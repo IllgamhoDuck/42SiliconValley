@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 16:21:01 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/02 03:30:41 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 12:26:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,10 @@ int					search(char ***a, char **m, t_tetris *t, int iter_n)
 		while (++j < t->m_size - c_m->x_len + 1)
 		{
 			if ((tmp_m = valid_place(m, c_m, i, j)))
-				if (!(search_helper(a, tmp_m, t, iter_n)))
-					return (free_error_with_c_m(m, c_m));
-			if (c_m->error == 1)
-				return (free_error_with_c_m(m, c_m));
+				if (*a || !(search_helper(a, tmp_m, t, iter_n)))
+					return (free_with_c_m(m, c_m));
+			if (*a || c_m->error == 1)
+				return (free_with_c_m(m, c_m));
 		}
 	}
 	free_search(m, c_m);
@@ -119,7 +119,8 @@ int					find_solution(t_tetris *t, char ***solution)
 		t->m_size++;
 		map = init_map(t);
 		if (!search(solution, map, t, t->total))
-			return (0);
+			if (*solution == NULL)
+				return (0);
 	}
 	return (1);
 }

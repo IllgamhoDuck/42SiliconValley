@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:36:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/02 03:43:01 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 12:28:41 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int					find_solution(t_tetris *t, char ***solution);
 char				**copy_map(char **m, t_map *c_m, int y, int x);
 char				**apply_to_map(char **cp_m, t_map *c_m, int y, int x);
 int					search_helper(char ***a, char **m, t_tetris *t, int iter_n);
-int					score_of_result(char ***map, int size);
 int					store_result(char ***a, char **m, t_tetris *t);
 
 /*
@@ -142,6 +141,6 @@ void				free_list(t_tetris *t, t_input *input, int iter_num);
 void				free_map(char **map, int size);
 void				free_search(char **map, t_map *c_map);
 int					free_error_no_c_m(char **map, int size);
-int					free_error_with_c_m(char **map, t_map *c_map);
+int					free_with_c_m(char **map, t_map *c_map);
 
 #endif

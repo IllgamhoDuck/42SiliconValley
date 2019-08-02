@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 22:53:24 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/02 04:22:38 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 12:30:50 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,104 +69,13 @@ int					search_helper(char ***a, char **m, t_tetris *t, int iter_n)
 	return (1);
 }
 
-int					score_of_result(char ***map, int size)
-{
-	int				i;
-	int				j;
-	int				max_x;
-	int				max_y;
-
-	max_x = -1;
-	max_y = -1;
-	i = -1;
-	while (++i < size)
-	{
-		j = -1;
-		while (++j < size)
-		{
-			if ((*map)[i][j] != '.')
-			{
-				if (max_x < j)
-					max_x = j;
-				if (max_y < i)
-					max_y = i;
-			}
-		}
-	}
-	return (max_x + max_y);
-}
-
-//int					score_of_result(char ***map, int size)
-//{
-//	int				i;
-//	int				j;
-//	int				total_x;
-//	int				total_y;
-//
-//	total_x = 0;
-//	total_y = 0;
-//	i = -1;
-//	while (++i < size)
-//	{
-//		j = -1;
-//		while (++j < size)
-//		{
-//			if ((*map)[i][j] != '.')
-//			{
-//				//total_x += j;
-//				total_y += i;
-//			}
-//		}
-//	}
-//	return (total_x + total_y);
-//}
-
-/*
-** int					score_of_result(char ***map, int size)
-** {
-** 	int				i;
-** 	int				j;
-** 	int				total_x;
-** 	int				total_y;
-** 
-** 	total_x = 0;
-** 	total_y = 0;
-** 	i = -1;
-** 	while (++i < size)
-** 	{
-** 		j = -1;
-** 		while (++j < size)
-** 		{
-** 			if ((*map)[i][j] != '.')
-** 			{
-** 				total_x += j;
-** 				total_y += i;
-** 			}
-** 		}
-** 	}
-** 	return (total_x + total_y);
-** }
-*/
-
 int					store_result(char ***a, char **m, t_tetris *t)
 {
-	int				score_a;
-	int				score_m;
-
 	if (*a == NULL)
 	{
 		if (!(copy_between_map(a, m, t->m_size)))
 			return (0);
 		return (1);
 	}
-	score_a = score_of_result(a, t->m_size);
-	score_m = score_of_result(&m, t->m_size);
-	if (score_a > score_m)
-	{
-		free_map(*a, t->m_size);
-		*a = NULL;
-		if (!(copy_between_map(a, m, t->m_size)))
-			return (0);
-	}
-	return (1);
+	return (0);
 }

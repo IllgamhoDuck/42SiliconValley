@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 22:08:50 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/02 01:19:16 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/02 12:25:22 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int					free_error_no_c_m(char **map, int size)
 	return (0);
 }
 
-int					free_error_with_c_m(char **map, t_map *c_map)
+int					free_with_c_m(char **map, t_map *c_map)
 {
 	free_search(map, c_map);
 	return (0);
