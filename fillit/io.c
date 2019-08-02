@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:58:36 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/01 03:32:20 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/01 17:49:50 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_tetris				*compress_input(t_reader *r, t_input *input)
 	free(r->sharp);
 	free(r);
 	free_list(t, input, t->total);
+	if (!(fill_info(t)))
+		return (0);
 	return (t);
 }
 

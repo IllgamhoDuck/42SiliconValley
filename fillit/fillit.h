@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 17:36:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/01 03:18:33 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/01 19:49:55 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,22 @@ typedef	struct			s_input
 typedef	struct			s_tetris
 {
 	char				*pieces;
+	unsigned short		m_size;
+	char				**piece_info;
+	char				*x_info;
+	char				*y_info;
+	char				*alphabet;
 	int					total;
 }						t_tetris;
+
+/*
+** solution.c
+*/
+
+int						find_map_size(int total);
+char					**init_piece(char *piece, int x_len, int y_len);
+int						search(char **a, char **m, t_tetris *t, int iter_n);
+int						find_solution(t_tetris *t, char **solution);
 
 /*
 ** io.c
@@ -54,6 +68,16 @@ t_reader				*init_reader(int fd);
 char					get_next_char(t_reader *r);
 t_tetris				*compress_input(t_reader *r, t_input *input);
 t_tetris				*process_file(int fd);
+
+/*
+** fill_info.c
+*/
+
+int						fill_alphabet(t_tetris *t);
+void					fill_x_len(t_tetris *t);
+void					fill_y_len(t_tetris *t);
+void					fill_piece_info(t_tetris *t);
+int						fill_info(t_tetris *t);
 
 /*
 ** valid_checker.c
@@ -85,9 +109,5 @@ int						fill_repeat(t_reader *r, t_input *input);
 */
 
 void					free_list(t_tetris *t, t_input *input, int iter_num);
-
-/*
-** str.c
-*/
 
 #endif

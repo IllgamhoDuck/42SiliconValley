@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/30 18:01:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/01 02:12:40 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/01 15:54:53 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int					valid_piece(t_reader *r, t_input *input)
 			result = i + 1;
 		i++;
 	}
+	free(cmp_list);
 	if (result == 0)
 		return (0);
 	input->piece = result;
