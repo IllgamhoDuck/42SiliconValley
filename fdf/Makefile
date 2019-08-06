@@ -6,7 +6,7 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/02 22:46:07 by hypark            #+#    #+#              #
-#    Updated: 2019/08/03 17:43:46 by hypark           ###   ########.fr        #
+#    Updated: 2019/08/04 01:01:35 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 SRC = *.c $(wildcard $(SRCDIR)/*.c)
 OBJ = *.o
-INCLUDES = $(wildcard $(FTDIR)/*.h) $(MLXDIR)/mlx.h
-LIB = $(FTDIR)/$(FTLIB) $(MLXDIR)/$(MLXLIB) \
+INCLUDES = -I$(wildcard $(FTDIR)/*.h) -I$(MLXDIR)/mlx.h -I$(wildcard ./*.h)
+LIB = -L $(FTDIR) -L $(MLXDIR) -lft \
 	  -lmlx -framework OpenGL -framework Appkit
 
 SRCDIR := ./src
@@ -27,7 +27,7 @@ FTLIB = libft.a
 FTDIR = ./libft
 
 MLX = mlx
-MLXLIB = mlxlib.a
+MLXLIB = libmlx.a
 MLXDIR = ./minilibx_macos
 
 .PHONY: all clean fclean re
@@ -35,8 +35,8 @@ MLXDIR = ./minilibx_macos
 all: $(NAME)
 
 $(NAME): $(FT) $(MLX)
-	$(CC) $(CFLAGS) -c $(SRC)
-	$(CC) $(CFLAGS) -o $(NAME) -I $(INCLUDES) -L $(LIB) $(OBJ)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRC)
+	$(CC) $(CFLAGS) $(LIB) $(OBJ) -o $(NAME) 
 
 .PHONY: libft
 $(FT):
