@@ -6,11 +6,26 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 01:41:06 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/06 03:01:50 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/07 02:47:50 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+t_pos				*position(t_fdf *fdf, int x, int y)
+{
+	t_pos			*pos;
+	int				index;
+
+	index = x + (y * fdf->map->width);
+	if (!(pos = (t_pos *)ft_memalloc(sizeof(t_pose))))
+		print_error("Memory allocating fail at t_pos");
+	pos->x = x;
+	pos->y = y;
+	pos->z = fdf->map->position[index];
+	pos->color = fdf->map->color[index];
+	return (pos);
+}
 
 static int			what_num(char c)
 {
