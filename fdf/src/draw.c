@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 00:24:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/09 02:38:45 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/09 13:33:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void			draw_line(t_fdf *fdf, t_pos *s, t_pos *e)
 			c->y += b.sign[1];
 		}
 	}
+	free_pos(s, e, c);
 }
 
 static void			draw_background(t_fdf *fdf)

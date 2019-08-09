@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/02 23:08:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/09 02:47:40 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/09 13:39:26 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,8 @@ t_map				*init_map(void);
 t_fdf				*init_fdf(t_map *map);
 
 void				free_reader(t_reader *reader);
+void				free_pos(t_pos *p1, t_pos *p2, t_pos *p3);
+void				free_fdf(t_fdf *fdf);
 
 void				print_error(char *str);
 void				print_sidebar(t_fdf *str);
