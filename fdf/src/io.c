@@ -6,21 +6,11 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 13:10:18 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/06 17:56:14 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/09 00:46:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-static int			decide_color(int z)
-{
-	if (z >= 5)
-		return (GOLD);
-	else if (z >= -5 && z < 5)
-		return (YELLOW);
-	else
-		return (LIGHT_GOLD);
-}
 
 static t_reader		*read_coord(char *coord)
 {
@@ -32,16 +22,17 @@ static t_reader		*read_coord(char *coord)
 	coord_info = ft_strsplit(coord, ',');
 	z = coord_info[0];
 	color = coord_info[1];
+	if (color < 0)
+		print_error("Invalid color!!");
 	if (coord_info[1])
 		reader = init_reader(ft_atoi(z), atoi_h(color));
 	else
-		reader = init_reader(ft_atoi(z), decide_color(ft_atoi(z)));
+		reader = init_reader(ft_atoi(z), -1);
 	return (reader);
 }
 
 static t_reader		*read_line(char **line, t_map *map, t_reader *reader)
 {
-	t_reader		*temp;
 	int				width;
 	int				i;
 
@@ -49,14 +40,8 @@ static t_reader		*read_line(char **line, t_map *map, t_reader *reader)
 	i = -1;
 	while (line[++i])
 	{
-		temp = read_coord(line[i]);
-		if (reader == NULL)
-			reader = temp;
-		else
-		{
-			reader->next = temp;
-			reader = reader->next;
-		}
+		reader->next = read_coord(line[i]);
+		reader = reader->next;
 		width++;
 	}
 	if (map->width == 0)
@@ -71,11 +56,9 @@ void				reader_data_to_map(t_map *map, t_reader *reader)
 	t_reader		*temp;
 	int				total;
 	int				i;
-	int				z_total;
 
 	i = -1;
 	temp = reader;
-	z_total = 0;
 	total = map->width * map->height;
 	if (!(map->position = (int *)ft_memalloc(sizeof(int) * total)))
 		print_error("Memory allocating fail");
@@ -84,14 +67,14 @@ void				reader_data_to_map(t_map *map, t_reader *reader)
 	while (++i < total)
 	{
 		map->position[i] = reader->z;
-		z_total += reader->z;
 		map->color[i] = reader->color;
+		if (reader->z > map->z_max)
+			map->z_max = reader->z;
+		if (reader->z < map->z_min)
+			map->z_min = reader->z;
 		if (reader->next)
 			reader = reader->next;
 	}
-	map->width_c = map->width / 2;
-	map->height_c = map->height / 2;
-	map->altitude_c = z_total / total;
 	free_reader(temp);
 }
 
@@ -102,8 +85,8 @@ t_reader			*process_file(int fd, t_map *map)
 	char			*line;
 	int				result;
 
-	reader = NULL;
-	current = NULL;
+	reader = init_reader(0, 0);
+	current = reader;
 	while ((result = get_next_line(fd, &line)))
 	{
 		if (result == -1)
@@ -112,9 +95,10 @@ t_reader			*process_file(int fd, t_map *map)
 			print_error("Error occured while reading the file");
 		}
 		current = read_line(ft_strsplit(line, ' '), map, current);
-		if (reader == NULL)
-			reader = current;
 		map->height++;
 	}
+	current = reader->next;
+	free(reader);
+	reader = current;
 	return (reader);
 }

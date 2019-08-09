@@ -6,26 +6,11 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 01:41:06 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/07 02:47:50 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/09 02:36:21 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-t_pos				*position(t_fdf *fdf, int x, int y)
-{
-	t_pos			*pos;
-	int				index;
-
-	index = x + (y * fdf->map->width);
-	if (!(pos = (t_pos *)ft_memalloc(sizeof(t_pose))))
-		print_error("Memory allocating fail at t_pos");
-	pos->x = x;
-	pos->y = y;
-	pos->z = fdf->map->position[index];
-	pos->color = fdf->map->color[index];
-	return (pos);
-}
 
 static int			what_num(char c)
 {
@@ -55,6 +40,30 @@ static void			string_upper(char *str)
 	}
 }
 
+t_pos				*make_pos(int x, int y, int z, int color)
+{
+	t_pos			*pos;
+
+	if (!(pos = (t_pos *)ft_memalloc(sizeof(t_pos))))
+		print_error("Memory allocating fail at t_pos");
+	pos->x = x;
+	pos->y = y;
+	pos->z = z;
+	pos->color = color;
+	return (pos);
+}
+
+int					ft_abs(int number)
+{
+	if (number == -2147483648)
+		print_error("-2147483648 is not supported number at ft_abs");
+	else if (number < 0)
+		return (-1 * number);
+	else if (number >= 0)
+		return (number);
+	return (0);
+}
+
 int					atoi_h(char *str)
 {
 	unsigned long	result;
@@ -73,7 +82,7 @@ int					atoi_h(char *str)
 	if (strcmp(str, "0x0") == 0)
 		return (0x000000);
 	if (strcmp(str, "0xFF") == 0)
-		return (0xFF0000);
+		return (0x0000FF);
 	if (strcmp(str, "0xFF00") == 0)
 		return (0x00FF00);
 	if (strcmp(str, "0xFFFF") == 0)

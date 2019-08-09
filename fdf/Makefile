@@ -6,16 +6,16 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/02 22:46:07 by hypark            #+#    #+#              #
-#    Updated: 2019/08/04 01:01:35 by hypark           ###   ########.fr        #
+#    Updated: 2019/08/09 02:48:29 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := fdf_test
+NAME := fdf
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
-SRC = *.c $(wildcard $(SRCDIR)/*.c)
+SRC = $(wildcard $(SRCDIR)/*.c)
 OBJ = *.o
-INCLUDES = -I$(wildcard $(FTDIR)/*.h) -I$(MLXDIR)/mlx.h -I$(wildcard ./*.h)
+INCLUDES = -I$(FTDIR) -I$(MLXDIR) -I$(INCDIR) 
 LIB = -L $(FTDIR) -L $(MLXDIR) -lft \
 	  -lmlx -framework OpenGL -framework Appkit
 

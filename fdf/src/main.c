@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 00:04:18 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/07 01:11:50 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/08 23:13:30 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int				main(int ac, char **av)
 	reader_data_to_map(map, reader);
 	fdf = init_fdf(map);
 	mouse_key(fdf);
-	draw(fdf);
+	draw_mode(fdf);
 	mlx_loop(fdf->mlx);
 	return (0);
 }
