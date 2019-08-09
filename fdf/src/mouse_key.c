@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 22:31:10 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/09 02:27:00 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/09 13:40:53 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,9 @@ int				mouse_move(int x, int y, void *param)
 
 int				x_button(void *param)
 {
-	param = 0;
+	t_fdf		*fdf;
+
+	fdf = (t_fdf *)param;
+	free(fdf);
 	exit(0);
 }
