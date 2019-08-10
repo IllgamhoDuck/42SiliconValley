@@ -6,13 +6,13 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/02 22:46:07 by hypark            #+#    #+#              #
-#    Updated: 2019/08/09 02:48:29 by hypark           ###   ########.fr        #
+#    Updated: 2019/08/09 20:53:41 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := fdf
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -O3
 SRC = $(wildcard $(SRCDIR)/*.c)
 OBJ = *.o
 INCLUDES = -I$(FTDIR) -I$(MLXDIR) -I$(INCDIR) 
