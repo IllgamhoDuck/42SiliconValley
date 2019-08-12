@@ -6,48 +6,57 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 19:51:24 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/11 02:01:02 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/12 13:31:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static const char	*read_flag(const char *s, t_print *p_info)
+static inline const char	*read_flag(const char *s, t_print *p)
 {
 	while (*s == ' ' || *s == '+' || *s == '-' || *s == '0' || *s == '#')
 	{
-		p_info->flag[p_info->flag_total] = *(s++);
-		p_info->flag_total++;
+		if (*s == ' ')
+			p->f |= FLS;
+		else if (*s == '+')
+			p->f |= FLP;
+		else if (*s == '-')
+			p->f |= FLM;
+		else if (*s == '0')
+			p->f |= FLZ;
+		else if (*s == '#')
+			p->f |= FLH;
+		s++;
 	}
 	return (s);
 }
 
-static const char	*read_width(const char *s, t_print *p_info)
+static inline const char	*read_width(const char *s, t_print *p)
 {
 	if (*s == '*')
 	{
-		p_info->w_a = 1;
+		p->w_a = 1;
 		s++;
 		return (s);
 	}
 	while (*s <= '9' && *s >= '0')
-		p_info->width = p_info->width * 10 + (*(s++) - '0');
+		p->w = p->w * 10 + (*(s++) - '0');
 	return (s);
 }
 
-static const char	*read_precision(const char *s, t_print *p_info)
+static inline const char	*read_precision(const char *s, t_print *p)
 {
-	if (*s == '.' && (p_info->precision = (*s == '.' ? 0 : 0)) == 0)
+	if (*s == '.' && (p->p = 0) == 0)
 	{
 		if (*(++s) == '*')
 		{
-			p_info->p_a = 1;
+			p->p_a = 1;
 			s++;
 			return (s);
 		}
 		s--;
 		while (*(++s) <= '9' && *s >= '0')
-			p_info->precision = p_info->precision * 10 + (*s - '0');
+			p->p = p->p * 10 + (*s - '0');
 	}
 	return (s);
 }
@@ -61,29 +70,27 @@ static const char	*read_precision(const char *s, t_print *p_info)
 ** increased by the syntax *(s++) = 'l' after checking it valid
 */
 
-static const char	*read_length(const char *s, t_print *p_info)
+static inline const char	*read_length(const char *s, t_print *p)
 {
-	if (*s == 'h' && *(s + 1) == 'h' && *(s++) == 'h' && *(s++) == 'h')
-		p_info->length = "hh";
-	else if (*s == 'l' && *(s + 1) == 'l' && *(s++) == 'l' && *(s++) == 'l')
-		p_info->length = "ll";
-	else if (*s == 'h' && *(s++) == 'h')
-		p_info->length = "h";
-	else if (*s == 'l' && *(s++) == 'l')
-		p_info->length = "l";
-	else if (*s == 'L' && *(s++) == 'L')
-		p_info->length = "L";
+	if (*s == 'h' && *(s + 1) == 'h' && s++ && s++)
+		p->length = "hh";
+	else if (*s == 'l' && *(s + 1) == 'l' && s++ && s++)
+		p->length = "ll";
+	else if (*s == 'h' && s++)
+		p->length = "h";
+	else if (*s == 'l' && s++)
+		p->length = "l";
+	else if (*s == 'L' && s++)
+		p->length = "L";
 	return (s);
 }
 
-const char			*read_information(const char *s, t_print *p_info)
+const char					*read_information(const char *s, t_print *p)
 {
-	if (*s == '%')
-		return (s);
-	s = read_flag(s, p_info);
-	s = read_width(s, p_info);
-	s = read_precision(s, p_info);
-	s = read_length(s, p_info);
-	p_info->format = *s;
+	s = read_flag(s, p);
+	s = read_width(s, p);
+	s = read_precision(s, p);
+	s = read_length(s, p);
+	p->format = *s;
 	return (s);
 }

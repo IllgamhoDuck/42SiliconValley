@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:16 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/11 02:41:26 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/12 13:38:23 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,45 @@
 
 // when we find {cyan} we set color {eoc} end the color
 
-static void			print_case(t_print *p_info)			
+static void			ft_printf_mod(t_print *p)
 {
-	if (p_info->w_a)
-		p_info->width = va_arg(p_info->ap, int);
-	if (p_info->p_a)
-		p_info->precision = va_arg(p_info->ap, int);
-	if (p_info->format == 'd' || p_info->format == 'i')
-		ft_printf_d(p_info);
+	p = 0;
+}
+
+static void			print_case(t_print *p)			
+{
+	if (p->w_a)
+		p->w = va_arg(p->ap, int);
+	if (p->p_a)
+		p->p = va_arg(p->ap, int);
+	//print_info(p);
+	if (p->format == 'd' || p->format == 'i' || p->format == 'D')
+		ft_printf_d(p);
+	else if (p->format == '%')
+		ft_printf_mod(p);
 }
 
 int					ft_printf(const char *str, ...)
 {
-	t_print			p_info;
+	t_print			p;
 
-	va_start(p_info.ap, str);
+	p.total_len = 0;
+	va_start(p.ap, str);
 	while (*str)
 	{
-		init_info(&p_info);
+		init_info(&p);
 		if (*str == '%')
-			str = read_information(++str, &p_info);
-		if (p_info.format)
-			print_case(&p_info);
+		{
+			str = read_information(++str, &p);
+			print_case(&p);
+		}
 		else
+		{
 			ft_putchar(*str);
+			p.total_len++;
+		}
 		str++;
 	}
-	va_end(p_info.ap);
-	return (0);
+	va_end(p.ap);
+	return (p.total_len);
 }

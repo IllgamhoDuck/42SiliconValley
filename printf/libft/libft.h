@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 23:06:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/10 01:14:47 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/12 00:22:07 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <string.h>
 
-# define BUFF_SIZE 64
+# define BUFF_SIZE 1024
 
 typedef struct		s_list
 {

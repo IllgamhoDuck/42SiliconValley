@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 20:40:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/11 02:00:24 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/12 13:39:47 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,53 @@ void				print_error(char *str)
 	exit(1);
 }
 
+inline void			print_sign(t_print *p)
+{
+	if (p->neg == -1)
+		p->output[p->print_len++] = '-';
+	else if (p->f & FLP)
+		p->output[p->print_len++] = '+';
+	else if (p->f & FLS)
+		p->output[p->print_len++] = ' ';
+}
+
+inline void			print_p(t_print *p)
+{
+	int				i;
+
+	i = 0;
+	while (i++ < p->p_pad)
+		p->output[p->print_len++] = '0';
+}
+
+inline void			print_pad(t_print *p)
+{
+	int				i;
+
+	i = 0;
+	while (i++ < p->pad)
+		p->output[p->print_len++] = p->f & FLZ ? '0' : ' ';
+}
+
 /*
-**void				print_info(t_print *p_info)
+**void				print_info(t_print *p)
 **{
 **	int				i;
 **
 **	i = 0;
 **	printf("\n");
-**	while (i < p_info->flag_total)
-**		printf("The flag stored is : %c\n", p_info->flag[i++]);
-**	printf("The width is : %d\n", p_info->width);
-**	printf("The width asterisk is : %d\n", p_info->w_a);
-**	printf("The precision is : %d\n", p_info->precision);
-**	printf("The precision asterisk is : %d\n", p_info->p_a);
-**	if (p_info->length)
-**		printf("The length is : %s\n", p_info->length);
-**	printf("The format is : %c\n", p_info->format);
+**	printf("The flag ' ' is : %d\n", p->f & FLS);
+**	printf("The flag '+' is : %d\n", p->f & FLP);
+**	printf("The flag '-' is : %d\n", p->f & FLM);
+**	printf("The flag '0' is : %d\n", p->f & FLZ);
+**	printf("The flag '#' is : %d\n", p->f & FLH);
+**	printf("p->f : %d\n", p->f);
+**	printf("The width is : %d\n", p->w);
+**	printf("The width asterisk is : %d\n", p->w_a);
+**	printf("The precision is : %d\n", p->p);
+**	printf("The precision asterisk is : %d\n", p->p_a);
+**	if (p->length)
+**		printf("The length is : %s\n", p->length);
+**	printf("The format is : %c\n", p->format);
 **}
 */

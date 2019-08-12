@@ -6,14 +6,14 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/10 01:06:12 by hypark            #+#    #+#              #
-#    Updated: 2019/08/10 23:26:42 by hypark           ###   ########.fr        #
+#    Updated: 2019/08/11 20:55:33 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := printf
 NAMELIB := libftprintf.a
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -g
 SRC = $(filter-out main.c, $(wildcard *.c)) $(wildcard $(SRCDIR)/*.c)
 OBJ := *.o
 
@@ -33,6 +33,7 @@ all: $(NAME)
 
 $(NAME): $(FT)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRC)
+	cp libft/libft.a ./$(NAMELIB)
 	ar rc $(NAMELIB) $(OBJ)
 	ranlib $(NAMELIB)
 	$(CC) $(CFLAGS) $(INCLUDES) -c main.c 
