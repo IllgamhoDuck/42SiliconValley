@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 19:51:24 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/12 13:31:56 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/12 22:13:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,25 +63,21 @@ static inline const char	*read_precision(const char *s, t_print *p)
 
 /*
 ** %[flag][width][.precision][length][format]
-** the *(s++) trick is simply increasing the s address when it is right
-** for example (*s == 'l' && *(s++) == 'l')
-** if *s is not 'l' then it will just pass with same address s
-** but if *s is 'l' then it will go to the right and s will be
-** increased by the syntax *(s++) = 'l' after checking it valid
+** the && s++ trick is simply increasing the s address when it is right
 */
 
 static inline const char	*read_length(const char *s, t_print *p)
 {
 	if (*s == 'h' && *(s + 1) == 'h' && s++ && s++)
-		p->length = "hh";
+		p->f |= HH;
 	else if (*s == 'l' && *(s + 1) == 'l' && s++ && s++)
-		p->length = "ll";
+		p->f |= LL;
 	else if (*s == 'h' && s++)
-		p->length = "h";
+		p->f |= H;
 	else if (*s == 'l' && s++)
-		p->length = "l";
+		p->f |= L;
 	else if (*s == 'L' && s++)
-		p->length = "L";
+		p->f |= L2;
 	return (s);
 }
 
