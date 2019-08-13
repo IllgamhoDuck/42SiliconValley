@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:16 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 00:22:47 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 02:09:48 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,31 @@ static void			ft_printf_mod(t_print *p)
 		ft_putchar(p->output[i++]);
 }
 
+static void			ft_printf_c(t_print *p)
+{
+	int				i;
+	char			c;
+
+	p->len = 1;
+	c = (char)va_arg(p->ap, int);
+	p->pad = p->w - p->len;
+	if (p->f & FLM)
+	{
+		print_c(p, c, 1);
+		print_c(p, ' ', p->pad);
+	}
+	else
+	{
+		print_c(p, ' ', p->pad);
+		print_c(p, c, 1);
+	}
+	p->output[p->print_len] = '\0';
+	p->total_len += p->print_len;
+	i = 0;
+	while (i < p->print_len)
+		ft_putchar(p->output[i++]);
+}
+
 static void			print_case(t_print *p)
 {
 	if (p->w_a)
@@ -56,6 +81,12 @@ static void			print_case(t_print *p)
 		ft_printf_di(p);
 	else if (p->cvs == 'u' || p->cvs == 'o' || p->cvs == 'x' || p->cvs == 'X')
 		ft_printf_uox(p);
+	else if (p->cvs == 'c')
+		ft_printf_c(p);
+	else if (p->cvs == 's')
+		ft_printf_s(p);
+	else if (p->cvs == 'p')
+		ft_printf_p(p);
 	else if (p->cvs == '%')
 		ft_printf_mod(p);
 }

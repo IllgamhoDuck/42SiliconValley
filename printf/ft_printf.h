@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 00:18:56 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 02:13:31 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ typedef struct		s_print
 	int				len;
 	int				p_pad;
 	int				pad;
-	int				neg;
 	uint8_t			base;
 }					t_print;
 
 int					ft_printf(const char *str, ...);
 void				ft_printf_di(t_print *p);
 void				ft_printf_uox(t_print *p);
+void				ft_printf_s(t_print *p);
+void				ft_printf_p(t_print *p);
 
 int					count_base(uintmax_t n, uint8_t base);
 void				store_n_base(t_print *p, uintmax_t n, int base, int u);
@@ -75,7 +76,7 @@ const char			*read_information(const char *s, t_print *p);
 void				print_error(char *str);
 void				print_sign(t_print *p);
 void				print_c(t_print *p, char c, int n);
-void				print_s(t_print *p, char *str);
+void				print_str(t_print *p, char *str, int len);
 void				print_info(t_print *p);
 
 #endif

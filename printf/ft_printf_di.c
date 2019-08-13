@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 23:38:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 00:23:15 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 00:50:12 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void					ft_printf_di(t_print *p)
 			p->len = p->p;
 	}
 	p->pad = p->w - p->len;
-	if ((p->f & FLS) || (p->f & FLP) || p->neg == -1)
+	if ((p->f & FLS) || (p->f & FLP) || p->f & NEG)
 		p->pad -= 1;
 	print_di(p, n2);
 }

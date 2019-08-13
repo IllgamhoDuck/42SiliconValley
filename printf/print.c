@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 20:40:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 00:20:29 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 01:43:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ inline void			print_c(t_print *p, char c, int n)
 		p->output[p->print_len++] = c;
 }
 
-inline void			print_s(t_print *p, char *str)
+inline void			print_str(t_print *p, char *str, int len)
 {
 	int				i;
 
 	i = 0;
-	while (str[i])
+	while (str[i] && i < len)
 		p->output[p->print_len++] = str[i++];
 }
 

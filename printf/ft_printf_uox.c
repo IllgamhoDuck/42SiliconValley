@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 23:39:17 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 00:30:43 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 01:29:45 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ inline static void		print_uox(t_print *p, uintmax_t n)
 	if (p->f & FLM)
 	{
 		if ((p->cvs == 'x' || p->cvs == 'X') && (p->f & FLH))
-			p->f & UPPER ? print_s(p, "0X") : print_s(p, "0x");
+			p->f & UPPER ? print_str(p, "0X", 2) : print_str(p, "0x", 2);
 		print_c(p, '0', p->p_pad);
 		store_n_base(p, n, p->base, (p->f & UPPER) >> 10);
 		print_c(p, (p->f & FLZ && p->p == -1) ? '0' : ' ', p->pad);
@@ -45,7 +45,7 @@ inline static void		print_uox(t_print *p, uintmax_t n)
 	{
 		print_c(p, (p->f & FLZ && p->p == -1) ? '0' : ' ', p->pad);
 		if ((p->cvs == 'x' || p->cvs == 'X') && (p->f & FLH))
-			p->f & UPPER ? print_s(p, "0X") : print_s(p, "0x");
+			p->f & UPPER ? print_str(p, "0X", 2) : print_str(p, "0x", 2);
 		print_c(p, '0', p->p_pad);
 		store_n_base(p, n, p->base, (p->f & UPPER) >> 10);
 	}

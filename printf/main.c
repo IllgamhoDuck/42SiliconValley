@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:19:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 00:31:52 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 02:16:32 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 int					main(void)
 {
 	int				ret;
+	char			*test_p;
+
+	ret = 0;
 //	// when flag is 000 no width
 //	printf("hello this is for testing %0.06d\n", 123);
 //	ft_printf("hello this is for testing %0.06d\n", 123);
+//	printf("%15.4d number\n", -42);
+//	ft_printf("%15.4d number\n", -42);
 //
 //	// when flag is 000006 flag has 5 0 and width is 6
 //	printf("hello this is for testing %0+00006d\n", 123);
@@ -211,10 +216,50 @@ int					main(void)
 //	ft_printf("positive number %-1.10x\n", 10);
 //	printf("positive number %015.10X\n", 10);
 //	ft_printf("positive number %015.10X\n", 10);
+	printf("%o number\n", 0);
+	ft_printf("%o number\n", 0);
 
-	ret = printf("%15.25d number %#015.10X %%%d\n", 10, 10, 10);
-	printf("Total length is : %d\n", ret);
-	ret = ft_printf("%15.25d number %#015.10X %%%d\n", 10, 10, 10);
-	printf("Total length is : %d\n", ret);
+//	ret = printf("%15.25d number %#015.10X %%%d\n", 10, 10, 10);
+//	printf("Total length is : %d\n", ret);
+//	ret = ft_printf("%15.25d number %#015.10X %%%d\n", 10, 10, 10);
+//	printf("Total length is : %d\n", ret);
+
+//	// char ======================================
+//	printf("testing char %c\n", 'p');
+//	ft_printf("testing char %c\n", 'p');
+//	printf("testing char %5c\n", 'p');
+//	ft_printf("testing char %5c\n", 'p');
+//	printf("testing char %-5c\n", 'p');
+//	ft_printf("testing char %-5c\n", 'p');
+
+	// string ======================================
+//	printf("testing char %-5s\n", "p");
+//	ft_printf("testing char %-5s\n", "p");
+//	printf("testing char %-51s\n", "hello");
+//	ft_printf("testing char %-51s\n", "hello");
+//	printf("testing char %51s\n", "hello");
+//	ft_printf("testing char %51s\n", "hello");
+//	printf("testing char %.1s\n", "hello");
+//	ft_printf("testing char %.1s\n", "hello");
+//	printf("testing char %.2s\n", "hello");
+//	ft_printf("testing char %.2s\n", "hello");
+//	printf("testing char %3.2s\n", "hello");
+//	ft_printf("testing char %3.2s\n", "hello");
+//	printf("testing char %3.10s\n", "hello");
+//	ft_printf("testing char %3.10s\n", "hello");
+//	printf("testing char %5.s\n", "hello");
+//	ft_printf("testing char %5.s\n", "hello");
+//	printf("testing char %5.s\n", NULL);
+//	ft_printf("testing char %5.s\n", NULL);
+//	printf("testing char %10s\n", NULL);
+//	ft_printf("testing char %10s\n", NULL);
+
+	// pointer ==============================
+	test_p = "hello";
+	printf("testing pointer %51p\n", NULL);
+	printf("testing pointer %-5p\n", test_p);
+	ft_printf("testing pointer %p\n", NULL);
+	printf("testing pointer %p\n", test_p);
+	ft_printf("testing pointer %p\n", test_p);
 	return (1);
 }
