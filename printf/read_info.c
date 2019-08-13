@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 19:51:24 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/12 22:13:36 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 00:23:34 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static inline const char	*read_precision(const char *s, t_print *p)
 }
 
 /*
-** %[flag][width][.precision][length][format]
+** %[flag][width][.precision][length][cvs]
 ** the && s++ trick is simply increasing the s address when it is right
 */
 
@@ -87,6 +87,6 @@ const char					*read_information(const char *s, t_print *p)
 	s = read_width(s, p);
 	s = read_precision(s, p);
 	s = read_length(s, p);
-	p->format = *s;
+	p->cvs = *s;
 	return (s);
 }

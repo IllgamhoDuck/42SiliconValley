@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/12 22:48:10 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 00:18:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 
 /*
 ** w_a - width asterisk p_a - precision asterisk
+** cvs - conversion
 ** flag[0] = ' '
 ** flag[1] = '+'
 ** flag[2] = '-'
@@ -50,7 +51,7 @@ typedef struct		s_print
 	int				w_a;
 	int				p;
 	int				p_a;
-	char			format;
+	char			cvs;
 	int				total_len;
 	char			output[PF_BUFF_SIZE];
 	int				print_len;
@@ -58,13 +59,15 @@ typedef struct		s_print
 	int				p_pad;
 	int				pad;
 	int				neg;
+	uint8_t			base;
 }					t_print;
 
 int					ft_printf(const char *str, ...);
-void				ft_printf_d(t_print *p);
+void				ft_printf_di(t_print *p);
+void				ft_printf_uox(t_print *p);
 
-int					count_d(uintmax_t n);
-void				store_nbr(t_print *p, uintmax_t n, int base, int u);
+int					count_base(uintmax_t n, uint8_t base);
+void				store_n_base(t_print *p, uintmax_t n, int base, int u);
 
 void				init_info(t_print *p);
 const char			*read_information(const char *s, t_print *p);
@@ -72,6 +75,7 @@ const char			*read_information(const char *s, t_print *p);
 void				print_error(char *str);
 void				print_sign(t_print *p);
 void				print_c(t_print *p, char c, int n);
+void				print_s(t_print *p, char *str);
 void				print_info(t_print *p);
 
 #endif

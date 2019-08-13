@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 20:40:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/12 22:30:21 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 00:20:29 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@ inline void			print_c(t_print *p, char c, int n)
 		p->output[p->print_len++] = c;
 }
 
+inline void			print_s(t_print *p, char *str)
+{
+	int				i;
+
+	i = 0;
+	while (str[i])
+		p->output[p->print_len++] = str[i++];
+}
+
 /*
 **void				print_info(t_print *p)
 **{
@@ -59,6 +68,6 @@ inline void			print_c(t_print *p, char c, int n)
 **	printf("The L is : %d\n", p->f & L2);
 **	printf("The h is : %d\n", p->f & H);
 **	printf("The hh is : %d\n", p->f & HH);
-**	printf("The format is : %c\n", p->format);
+**	printf("The conversion is : %c\n", p->cvs);
 **}
 */

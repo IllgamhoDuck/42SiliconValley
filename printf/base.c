@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper_d.c                                         :+:      :+:    :+:   */
+/*   base.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/12 21:48:23 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/12 22:48:12 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/12 23:46:35 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/12 23:46:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-inline int			count_d(uintmax_t n)
+inline int			count_base(uintmax_t n, uint8_t base)
 {
 	int				len;
 	
 	len = 0;
-	while (n >= 10)
+	while (n >= base)
 	{
 		len++;
-		n /= 10;
+		n /= base;
 	}
 	len++;
 	return (len);
@@ -41,12 +41,12 @@ static char			get_base_c(int n, int u)
 ** is 0 than lower case will be printed
 */
 
-void				store_nbr(t_print *p, uintmax_t n, int base, int u)
+void				store_n_base(t_print *p, uintmax_t n, int base, int u)
 {
 	uint8_t 		b;
 
 	b = base;
 	if (n >= b)
-		store_nbr(p, n / b, base, u);
+		store_n_base(p, n / b, base, u);
 	p->output[p->print_len++] = get_base_c(n % b, u);
 }

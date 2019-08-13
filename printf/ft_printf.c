@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:16 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/12 22:31:29 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 00:22:47 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,39 @@
 
 static void			ft_printf_mod(t_print *p)
 {
-	p = 0;
+	int				i;
+
+	p->len = 1;
+	p->pad = p->w - p->len;
+	if (p->f & FLM)
+	{
+		print_c(p, '%', 1);
+		print_c(p, (p->f & FLZ && p->p == -1) ? '0' : ' ', p->pad);
+	}
+	else
+	{
+		print_c(p, (p->f & FLZ && p->p == -1) ? '0' : ' ', p->pad);
+		print_c(p, '%', 1);
+	}
+	p->output[p->print_len] = '\0';
+	p->total_len += p->print_len;
+	i = 0;
+	while (i < p->print_len)
+		ft_putchar(p->output[i++]);
 }
 
-static void			print_case(t_print *p)			
+static void			print_case(t_print *p)
 {
 	if (p->w_a)
 		p->w = va_arg(p->ap, int);
 	if (p->p_a)
 		p->p = va_arg(p->ap, int);
 	//print_info(p);
-	if (p->format == 'd' || p->format == 'i' || p->format == 'D')
-		ft_printf_d(p);
-	else if (p->format == '%')
+	if (p->cvs == 'd' || p->cvs == 'i' || p->cvs == 'D')
+		ft_printf_di(p);
+	else if (p->cvs == 'u' || p->cvs == 'o' || p->cvs == 'x' || p->cvs == 'X')
+		ft_printf_uox(p);
+	else if (p->cvs == '%')
 		ft_printf_mod(p);
 }
 

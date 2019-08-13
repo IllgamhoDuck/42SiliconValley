@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:19:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/12 22:36:08 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 00:31:52 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int					main(void)
 {
+	int				ret;
 //	// when flag is 000 no width
 //	printf("hello this is for testing %0.06d\n", 123);
 //	ft_printf("hello this is for testing %0.06d\n", 123);
@@ -90,14 +91,14 @@ int					main(void)
 //	ft_printf("hello this is for testing %-3ld\n", (long)123);
 //
 	// flag = - width = 3 length = 'll'
-	printf("hello this is for testing %-3lld\n", (long long)112412412412412423);
-	ft_printf("hello this is for testing %-3lld\n", (long long)112412412412412423);
-	printf("hello this is for testing %-3lld\n", (long long)112412412412423);
-	ft_printf("hello this is for testing %-3lld\n", (long long)112412412412423);
-
-	// flag = - width = 3 length = 'll'
-	printf("hello this is for testing %-3lld\n", (unsigned long long)9223372036854775807);
-	ft_printf("hello this is for testing %-3lld\n", (unsigned long long)9223372036854775807);
+//	printf("hello this is for testing %-3lld\n", (long long)112412412412412423);
+//	ft_printf("hello this is for testing %-3lld\n", (long long)112412412412412423);
+//	printf("hello this is for testing %-3lld\n", (long long)112412412412423);
+//	ft_printf("hello this is for testing %-3lld\n", (long long)112412412412423);
+//
+//	// flag = - width = 3 length = 'll'
+//	printf("hello this is for testing %-3lld\n", (unsigned long long)9223372036854775807);
+//	ft_printf("hello this is for testing %-3lld\n", (unsigned long long)9223372036854775807);
 //
 //	// flag = 0 width = 3 length = 'h'
 //	printf("hello this is for testing %03hd\n", (short)123124124);
@@ -128,19 +129,28 @@ int					main(void)
 //	printf("Asterisk testing %*.3hhd\n", 7, (char)123);
 //	ft_printf("Asterisk testing %*.3hhd\n", 7, (char)123);
 
-	// test %%
-	// only %%
-	printf("\%\% testing %%%%%%\n");
-	ft_printf("\%\% testing %%%%%%\n");
-	printf("%5%\n");
-	ft_printf("%5%\n");
-	printf("%-5%\n");
-	ft_printf("%-5%\n");
-
-
-	// with %d
-	printf("\%\%\%d%%%d testing %%%%%%\n", 1, 2);
-	ft_printf("\%\%\%d%%%d testing %%%%%%\n", 1, 2);
+//	// test %%
+//	// only %%
+//	printf("\%\% testing %%%%%%\n");
+//	ft_printf("\%\% testing %%%%%%\n");
+//	printf("%5%\n");
+//	ft_printf("%5%\n");
+//	printf("%0 .5%\n");
+//	ft_printf("%0 .5%\n");
+//	printf("%-5%\n");
+//	ft_printf("%-5%\n");
+//	printf("%-.5%\n");
+//	ft_printf("%-.5%\n");
+//	printf("%-7.10%\n");
+//	ft_printf("%-7.10%\n");
+//	printf("%-7.5%\n");
+//	ft_printf("%-7.5%\n");
+//	printf("%+.5%\n");
+//	ft_printf("%+.5%\n");
+//
+//	// with %d
+//	printf("\%\%\%d%%%d testing %%%%%%\n", 1, 2);
+//	ft_printf("\%\%\%d%%%d testing %%%%%%\n", 1, 2);
 
 //	//+ and ' ' and - together
 //	printf("test number % -5.3d\n", 100);
@@ -161,5 +171,50 @@ int					main(void)
 //	ft_printf("positive number %+15.10d\n", 10);
 //	printf("positive number %15.10d\n", 10);
 //	ft_printf("positive number %15.10d\n", 10);
+
+//	// sign test octal and hexa
+//	printf("positive number %15.10ho\n", (short)-1);
+//	ft_printf("positive number %15.10ho\n", (short)-1);
+//	printf("positive number %15.10o\n", -1);
+//	ft_printf("positive number %15.10o\n", -1);
+//	printf("positive number %15.10u\n", -1);
+//	ft_printf("positive number %15.10u\n", -1);
+//	printf("positive number %15.10o\n", (unsigned int)-1);
+//	ft_printf("positive number %15.10o\n", (unsigned int)-1);
+//	printf("positive number %15.10lo\n", (unsigned long int)-1);
+//	ft_printf("positive number %15.10lo\n", (unsigned long int)-1);
+//	printf("positive number %15.10llo\n", (unsigned long long int)-1);
+//	ft_printf("positive number %15.10llo\n", (unsigned long long int)-1);
+//	printf("positive number %15.10o\n", 10);
+//	ft_printf("positive number %15.10o\n", 10);
+//	printf("positive number %15.10o\n", 010);
+//	ft_printf("positive number %15.10o\n", 010);
+//	printf("positive number %#15.10o\n", 10);
+//	ft_printf("positive number %#15.10o\n", 10);
+//	printf("positive number %15.10x\n", 10);
+//	ft_printf("positive number %15.10x\n", 10);
+//	printf("positive number %15.10X\n", 10);
+//	ft_printf("positive number %15.10X\n", 10);
+//	printf("positive number %#15.10o\n", 10);
+//	ft_printf("positive number %#15.10o\n", 10);
+//	printf("positive number %#15.10x\n", 10);
+//	ft_printf("positive number %#15.10x\n", 10);
+//	printf("positive number %#15.10X\n", 10);
+//	ft_printf("positive number %#15.10X\n", 10);
+//	printf("positive number %15.10x\n", 10);
+//	ft_printf("positive number %15.10x\n", 10);
+//	printf("positive number %15.10X\n", 10);
+//	ft_printf("positive number %15.10X\n", 10);
+//	printf("positive number %-1.10o\n", 10);
+//	ft_printf("positive number %-1.10o\n", 10);
+//	printf("positive number %-1.10x\n", 10);
+//	ft_printf("positive number %-1.10x\n", 10);
+//	printf("positive number %015.10X\n", 10);
+//	ft_printf("positive number %015.10X\n", 10);
+
+	ret = printf("%15.25d number %#015.10X %%%d\n", 10, 10, 10);
+	printf("Total length is : %d\n", ret);
+	ret = ft_printf("%15.25d number %#015.10X %%%d\n", 10, 10, 10);
+	printf("Total length is : %d\n", ret);
 	return (1);
 }
