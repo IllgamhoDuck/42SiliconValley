@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 15:20:47 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/14 05:43:57 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 ** flag[3] = '0'
 ** flag[4] = '#'
 ** L2 : L long double
-** NP : No Print when precision : 0 and number : 0 
+** NP : No Print when precision : 0 and number : 0
 */
 
 typedef struct		s_print
@@ -64,11 +64,22 @@ typedef struct		s_print
 	uint8_t			base;
 }					t_print;
 
+typedef struct		s_dec
+{
+	uint8_t			n;
+	struct s_dec	*next;
+	struct s_dec	*prev;
+}					t_dec;
+
+void				print_decimal(t_print *p, long double f, int len);
+
 int					ft_printf(const char *str, ...);
 void				ft_printf_di(t_print *p);
 void				ft_printf_uox(t_print *p);
+void				ft_printf_c(t_print *p);
 void				ft_printf_s(t_print *p);
 void				ft_printf_p(t_print *p);
+void				ft_printf_f(t_print *p);
 
 int					count_base(uintmax_t n, uint8_t base);
 void				store_n_base(t_print *p, uintmax_t n, int base, int u);
@@ -78,6 +89,7 @@ const char			*read_information(const char *s, t_print *p);
 
 void				print_error(char *str);
 void				print_sign(t_print *p);
+void				print_decimal(t_print *p, long double f, int len);
 void				print_c(t_print *p, char c, int n);
 void				print_str(t_print *p, char *str, int len);
 void				print_info(t_print *p);

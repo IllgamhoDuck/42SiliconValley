@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 23:39:17 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 18:53:31 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/14 05:42:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ inline static void		print_uox(t_print *p, uintmax_t n)
 		ft_putchar(p->output[i++]);
 }
 
-static inline void 		get_base(t_print *p, uintmax_t n)
+static inline void		get_base(t_print *p, uintmax_t n)
 {
 	if (p->cvs == 'o')
 	{
@@ -100,7 +100,7 @@ void					ft_printf_uox(t_print *p)
 			p->cvs == 'o' ? p->hash = 0 : 0;
 		}
 	}
-	!(p->cvs == 'o') && p->f & NP ? p->len-- : 0;
+	p->cvs != 'o' && p->f & NP ? p->len-- : 0;
 	p->pad = p->w - p->len;
 	if ((p->cvs == 'x' || p->cvs == 'X') && (p->f & FLH) && n)
 		p->pad -= 2;

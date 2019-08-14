@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 19:51:24 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 00:23:34 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 21:46:21 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,14 @@ static inline const char	*read_width(const char *s, t_print *p)
 	{
 		p->w_a = 1;
 		s++;
-		return (s);
 	}
 	while (*s <= '9' && *s >= '0')
 		p->w = p->w * 10 + (*(s++) - '0');
+	if (*s == '*')
+	{
+		p->w_a = 1;
+		s++;
+	}
 	return (s);
 }
 
@@ -52,11 +56,15 @@ static inline const char	*read_precision(const char *s, t_print *p)
 		{
 			p->p_a = 1;
 			s++;
-			return (s);
 		}
 		s--;
 		while (*(++s) <= '9' && *s >= '0')
 			p->p = p->p * 10 + (*s - '0');
+		if (*s == '*')
+		{
+			p->p_a = 1;
+			s++;
+		}
 	}
 	return (s);
 }

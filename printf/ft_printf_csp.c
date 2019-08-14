@@ -1,18 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_s.c                                      :+:      :+:    :+:   */
+/*   ft_printf_csp.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/13 01:03:30 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 16:56:57 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/13 21:59:05 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/14 05:41:31 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void			null_str(t_print *p)
+void					ft_printf_c(t_print *p)
+{
+	int					i;
+	char				c;
+
+	p->len = 1;
+	c = (char)va_arg(p->ap, int);
+	p->pad = p->w - p->len;
+	if (p->f & FLM)
+	{
+		print_c(p, c, 1);
+		print_c(p, ' ', p->pad);
+	}
+	else
+	{
+		print_c(p, ' ', p->pad);
+		print_c(p, c, 1);
+	}
+	p->output[p->print_len] = '\0';
+	p->total_len += p->print_len;
+	i = 0;
+	while (i < p->print_len)
+		ft_putchar(p->output[i++]);
+}
+
+static void				null_str(t_print *p)
 {
 	int					i;
 

@@ -6,14 +6,14 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/10 01:06:12 by hypark            #+#    #+#              #
-#    Updated: 2019/08/13 16:20:12 by hypark           ###   ########.fr        #
+#    Updated: 2019/08/14 04:34:45 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := printf
 NAMELIB := libftprintf.a
 CC := gcc
-CFLAGS := -Wall -Wextra
+CFLAGS := -Wall -Wextra -g
 SRC = $(filter-out main.c, $(wildcard *.c)) $(wildcard $(SRCDIR)/*.c)
 OBJ := *.o
 
