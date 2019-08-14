@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:19:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 02:16:32 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 18:34:47 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,8 +216,8 @@ int					main(void)
 //	ft_printf("positive number %-1.10x\n", 10);
 //	printf("positive number %015.10X\n", 10);
 //	ft_printf("positive number %015.10X\n", 10);
-	printf("%o number\n", 0);
-	ft_printf("%o number\n", 0);
+//	printf("%o number\n", 0);
+//	ft_printf("%o number\n", 0);
 
 //	ret = printf("%15.25d number %#015.10X %%%d\n", 10, 10, 10);
 //	printf("Total length is : %d\n", ret);
@@ -254,12 +254,109 @@ int					main(void)
 //	printf("testing char %10s\n", NULL);
 //	ft_printf("testing char %10s\n", NULL);
 
-	// pointer ==============================
+//	// pointer ==============================
 	test_p = "hello";
-	printf("testing pointer %51p\n", NULL);
-	printf("testing pointer %-5p\n", test_p);
-	ft_printf("testing pointer %p\n", NULL);
-	printf("testing pointer %p\n", test_p);
-	ft_printf("testing pointer %p\n", test_p);
+//	printf("testing pointer %51p\n", NULL);
+//	ft_printf("testing pointer %51p\n", NULL);
+//	printf("testing pointer %-5p\n", test_p);
+//	ft_printf("testing pointer %-5p\n", test_p);
+//	printf("testing pointer %p\n", test_p);
+//	ft_printf("testing pointer %p\n", test_p);
+//	printf("testing pointer %5p\n", test_p);
+//	ft_printf("testing pointer %5p\n", test_p);
+
+	// Fail cases at basic test
+//	printf("%#5x\n", 0);
+//	ft_printf("%#5x\n", 0);
+//	printf("%#08x\n", 42);
+//	ft_printf("%#08x\n", 42);
+
+//	printf("%#-08x", 42);
+//	ft_printf("%#-08x", 42);
+//
+//	printf("@moulitest: %#.x %#.0x\n", 0, 0);
+//	ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
+//	printf("@moulitest: %.x %.0x\n", 0, 0);	
+//	ft_printf("@moulitest: %.x %.0x\n", 0, 0);	
+//	printf("@moulitest: %5.x %5.0x\n", 0, 0);
+//	ft_printf("@moulitest: %5.x %5.0x\n", 0, 0);
+//	printf("@moulitest: %5.1x %5.10x\n", 0, 0);
+//	ft_printf("@moulitest: %5.1x %5.10x\n", 0, 0);
+	printf("thisis duck: %5.1x %5.0x\n", 125, 125);
+	ft_printf("thisis duck: %5.1x %5.0x\n", 125, 125);
+	printf("%#6o\n", 2500);
+	ft_printf("%#6o\n", 2500);
+	printf("%-#6o\n", 2500);
+	ft_printf("%-#6o\n", 2500);
+	printf("%-05o\n", 2500);
+	ft_printf("%-05o\n", 2500);
+	printf("@moulitest: %.o %.0o\n", 0, 0);
+	ft_printf("@moulitest: %.o %.0o\n", 0, 0);
+	printf("@moulitest: %5.o %5.0o\n", 0, 0);
+	ft_printf("@moulitest: %5.o %5.0o\n", 0, 0);
+	printf("@moulitest: %5.o %5.0o\n", 1, 0);
+	ft_printf("@moulitest: %5.o %5.0o\n", 1, 0);
+	printf("@moulitest: %5o %5o\n", 0, 0);
+	ft_printf("@moulitest: %5o %5o\n", 0, 0);
+	printf("%-05d\n", 42);
+	ft_printf("%-05d\n", 42);
+	printf("%-05d\n", -42);
+	ft_printf("%-05d\n", -42);
+	printf("@moulitest: %.d %.0d\n", 0, 0);
+	ft_printf("@moulitest: %.d %.0d\n", 0, 0);
+	printf("@moulitest: %5.d %5.0d\n", 0, 0);
+	ft_printf("@moulitest: %5.d %5.0d\n", 0, 0);
+	printf("@moulitest: %5d %5.0d\n", 0, 0);
+	ft_printf("@moulitest: %5d %5.0d\n", 0, 0);
+	printf("@moulitest: %#.x %#.0x\n", 0, 0);
+	ft_printf("@moulitest: %#.x %#.0x\n", 0, 0);
+	printf("@moulitest: %#.o %#.0o\n", 0, 0);
+	ft_printf("@moulitest: %#.o %#.0o\n", 0, 0);
+	printf("%#o\n", 0);
+	ft_printf("%#o\n", 0);
+	printf("%#3.5o\n", 0);
+	ft_printf("%#3.5o\n", 0);
+	printf("%o\n", 0);
+	ft_printf("%o\n", 0);
+	printf("%#x\n", 0);
+	ft_printf("%#x\n", 0);
+	printf("{%*d}\n", -5, 42);
+	ft_printf("{%*d}\n", -5, 42);
+	printf("%\n");
+	ft_printf("%\n");
+	printf("%5.0p, %.p\n", 0, 0);
+	ft_printf("%5.0p, %.p\n", 0, 0);
+	printf("printing%05.0p, %.p\n", 0, 0);
+	ft_printf("printing%05.0p, %.p\n", 0, 0);
+	printf("%05p, %.p\n", 0, 0);
+	ft_printf("%05p, %.p\n", 0, 0);
+	printf("%5.0p, %.p\n", 5, 0);
+	ft_printf("%5.0p, %.p\n", 5, 0);
+	printf("sharp%#5.0p, %.p\n", 5, 0);
+	ft_printf("sharp%#5.0p, %.p\n", 5, 0);
+	printf("%5.3p, %.p\n", 0, 0);
+	ft_printf("%5.3p, %.p\n", 0, 0);
+	printf("%5.3p, %.p\n", 5, 0);
+	ft_printf("%5.3p, %.p\n", 5, 0);
+	printf("%-7.3p, %.p\n", 5, 0);
+	ft_printf("%-7.3p, %.p\n", 5, 0);
+	printf("%0-7.3p, %.p\n", 5, 0);
+	ft_printf("%0-7.3p, %.p\n", 5, 0);
+	printf("sharp with num%#5.1o, %.o\n", 5, 0);
+	ft_printf("sharp with num%#5.1o, %.o\n", 5, 0);
+	printf("sharp with num%#5.1o, %.o\n", 2, 0);
+	ft_printf("sharp with num%#5.1o, %.o\n", 2, 0);
+	printf("sharp with num%#5.3o, %.o\n", 2, 0);
+	ft_printf("sharp with num%#5.3o, %.o\n", 2, 0);
+	printf("sharp with num%#5.2o, %.o\n", 2, 0);
+	ft_printf("sharp with num%#5.2o, %.o\n", 2, 0);
+	printf("%#5.3o\n", 1);
+	ft_printf("%#5.3o\n", 1);
+	printf("%#.3o\n", 1);
+	ft_printf("%#.3o\n", 1);
+	printf("%#.3o\n", 0);
+	ft_printf("%#.3o\n", 0);
+	printf("%#3o\n", 1);
+	ft_printf("%#3o\n", 1);
 	return (1);
 }

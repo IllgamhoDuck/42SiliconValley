@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_di.c                                     :+:      :+:    :+:   */
+/*   ft_printf_f.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/12 23:38:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 15:28:28 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/13 16:04:44 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/13 16:04:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ inline static void		print_di(t_print *p, uintmax_t n)
 		ft_putchar(p->output[i++]);
 }
 
-void					ft_printf_di(t_print *p)
+void					ft_printf_f(t_print *p)
 {
 	intmax_t			n1;
 	uintmax_t			n2;

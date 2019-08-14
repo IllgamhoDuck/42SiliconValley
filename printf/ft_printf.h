@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 02:13:31 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/13 15:20:47 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define L2 (1 << 9)
 # define UPPER (1 << 10)
 # define NEG (1 << 11)
+# define NP (1 << 12)
 
 /*
 ** w_a - width asterisk p_a - precision asterisk
@@ -41,6 +42,7 @@
 ** flag[3] = '0'
 ** flag[4] = '#'
 ** L2 : L long double
+** NP : No Print when precision : 0 and number : 0 
 */
 
 typedef struct		s_print
@@ -58,6 +60,7 @@ typedef struct		s_print
 	int				len;
 	int				p_pad;
 	int				pad;
+	char			*hash;
 	uint8_t			base;
 }					t_print;
 
