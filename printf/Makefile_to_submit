@@ -1,0 +1,48 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/08/10 01:06:12 by hypark            #+#    #+#              #
+#    Updated: 2019/08/15 11:55:52 by hypark           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME := libftprintf.a
+CC := gcc
+CFLAGS := -Wall -Wextra -Werror -g
+SRC = $(filter-out main.c, $(wildcard *.c)) $(wildcard $(SRCDIR)/*.c)
+OBJ := *.o
+
+SRCDIR := ./src
+INCDIR := ./includes
+
+FT := libft
+FTLIB := libft.a
+FTDIR := ./libft
+
+INCLUDES := -I$(FTDIR) -I$(INCDIR)
+LIB := -L $(FTDIR) -L ./ -lftprintf -lft
+
+.PHONY: all clean fclean re
+
+all: $(NAME)
+
+$(NAME):
+	$(MAKE) -sC $(FTDIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRC)
+	cp libft/libft.a ./$(NAME)
+	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
+
+clean:
+	$(MAKE) -sC $(FTDIR) clean
+	rm -f $(OBJ)
+
+fclean: clean
+	$(MAKE) -sC $(FTDIR) fclean
+	rm -f $(NAME)
+
+re: fclean all

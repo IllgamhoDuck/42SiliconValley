@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 23:38:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/15 11:23:42 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 01:41:57 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ inline static void		print_di(t_print *p, uintmax_t n)
 	p->total_len += p->print_len;
 	i = 0;
 	while (i < p->print_len)
-		ft_putchar(p->output[i++]);
+		ft_putchar_fd(p->output[i++], p->fd);
 }
 
 void					ft_printf_di(t_print *p)

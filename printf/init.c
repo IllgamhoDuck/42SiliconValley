@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/11 01:06:11 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/13 14:54:15 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 02:21:30 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 ** so we need to know there is precision or not
 ** if there is not precision it is -1
 */
+
+void				init_p(t_print *p)
+{
+	p->total_len = 0;
+	p->fd = 1;
+}
 
 void				init_info(t_print *p)
 {

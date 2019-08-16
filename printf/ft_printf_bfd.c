@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_uox.c                                    :+:      :+:    :+:   */
+/*   ft_printf_bfd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/12 23:39:17 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/14 05:42:06 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/16 01:35:36 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/16 01:54:05 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ inline static void		print_b(t_print *p, uintmax_t n)
 	p->total_len += p->print_len;
 	i = 0;
 	while (i < p->print_len)
-		ft_putchar(p->output[i++]);
+		ft_putchar_fd(p->output[i++], p->fd);
 }
 
 void					ft_printf_b(t_print *p)
@@ -75,4 +75,9 @@ void					ft_printf_b(t_print *p)
 	if (p->f & FLH)
 		p->pad -= 2;
 	print_b(p, n);
+}
+
+void					ft_printf_fd(t_print *p)
+{
+	p->fd = p->w;
 }

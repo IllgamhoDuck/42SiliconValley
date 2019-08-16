@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 21:59:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 00:40:28 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 01:40:44 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void					ft_printf_c(t_print *p)
 	p->total_len += p->print_len;
 	i = 0;
 	while (i < p->print_len)
-		ft_putchar(p->output[i++]);
+		ft_putchar_fd(p->output[i++], p->fd);
 }
 
 static void				null_str(t_print *p)
@@ -59,7 +59,7 @@ static void				null_str(t_print *p)
 	p->total_len += p->print_len;
 	i = 0;
 	while (i < p->print_len)
-		ft_putchar(p->output[i++]);
+		ft_putchar_fd(p->output[i++], p->fd);
 }
 
 void					ft_printf_s(t_print *p)
@@ -109,7 +109,7 @@ inline static void		printf_p(t_print *p, uintmax_t addr)
 	p->total_len += p->print_len;
 	i = 0;
 	while (i < p->print_len)
-		ft_putchar(p->output[i++]);
+		ft_putchar_fd(p->output[i++], p->fd);
 }
 
 void					ft_printf_p(t_print *p)

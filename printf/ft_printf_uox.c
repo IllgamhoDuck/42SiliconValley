@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 23:39:17 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/15 11:24:01 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 01:43:00 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ inline static void		print_uox(t_print *p, uintmax_t n)
 	p->total_len += p->print_len;
 	i = 0;
 	while (i < p->print_len)
-		ft_putchar(p->output[i++]);
+		ft_putchar_fd(p->output[i++], p->fd);
 }
 
 static inline void		get_base(t_print *p, uintmax_t n)

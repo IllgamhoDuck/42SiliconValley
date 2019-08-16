@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/15 22:42:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/15 22:44:06 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 01:43:48 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ inline void			print_c_unlimit(t_print *p, char c, int n)
 	i = 0;
 	while (i++ < n)
 	{
-		ft_putchar(c);
+		ft_putchar_fd(c, p->fd);
 		p->print_len++;
 	}
 }
@@ -31,7 +31,7 @@ inline void			print_str_unlimit(t_print *p, char *str, int len)
 	i = 0;
 	while (str[i] && i < len)
 	{
-		ft_putchar(str[i]);
+		ft_putchar_fd(str[i], p->fd);
 		p->print_len++;
 		i++;
 	}

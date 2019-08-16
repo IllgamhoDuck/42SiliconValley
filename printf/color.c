@@ -6,13 +6,13 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/16 00:46:49 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 01:14:20 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 02:32:01 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-inline static void		modify_color(t_print *p)
+inline static int		modify_color(t_print *p)
 {
 	if (ft_strcmp(p->color, "eos") == 0)
 		ft_putstr("\033[0m");
@@ -29,7 +29,12 @@ inline static void		modify_color(t_print *p)
 	else if (ft_strcmp(p->color, "cyan") == 0)
 		ft_putstr("\033[0;36m");
 	else
-		print_error(ft_strjoin(p->color, " is non existing color!"));
+	{
+		ft_putchar_fd('{', p->fd);
+		p->total_len++;
+		return (0);
+	}
+	return (1);
 }
 
 const char				*color(const char *s, t_print *p)
@@ -37,15 +42,19 @@ const char				*color(const char *s, t_print *p)
 	uint8_t				i;
 
 	i = 0;
-	while (*s != '}' && *s)
+	while (s[i] != '}' && s[i])
 	{
-		p->color[i] = *s;
+		p->color[i] = s[i];
 		i++;
-		s++;
 	}
-	if (*s == '\0')
-		print_error("Color bracket should be closed correctly!");
+	if (s[i] == '\0')
+	{
+		ft_putchar_fd('{', p->fd);
+		p->total_len++;
+		return (--s);
+	}
 	p->color[i] = '\0';
-	modify_color(p);
-	return (s);
+	if (modify_color(p))
+		return (s + i);
+	return (--s);
 }

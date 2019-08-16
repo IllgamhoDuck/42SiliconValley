@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:16 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 00:54:51 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 02:22:16 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void			ft_printf_mod(t_print *p)
 	p->total_len += p->print_len;
 	i = 0;
 	while (i < p->print_len)
-		ft_putchar(p->output[i++]);
+		ft_putchar_fd(p->output[i++], p->fd);
 }
 
 static inline void	asterisk_process(t_print *p)
@@ -96,13 +96,15 @@ static void			print_case(t_print *p)
 		ft_printf_b(p);
 	else if (p->cvs == 'r')
 		ft_printf_r(p);
+	else if (p->cvs == '@')
+		ft_printf_fd(p);
 }
 
 inline static int	invalid_check(t_print *p)
 {
 	if (p->cvs != 'd' && p->cvs != 'i' && p->cvs != 'D' && p->cvs != 'u' &&
 		p->cvs != 'o' && p->cvs != 'x' && p->cvs != 'X' && p->cvs != 'f' &&
-		p->cvs != 'r' && p->cvs != 'b' && p->cvs != 'B' && p->cvs != 'F' &&
+		p->cvs != 'r' && p->cvs != 'b' && p->cvs != 'B' && p->cvs != '@' &&
 		p->cvs != 'c' && p->cvs != 's' && p->cvs != 'p' && p->cvs != '%')
 		return (1);
 	return (0);
@@ -112,7 +114,7 @@ int					ft_printf(const char *str, ...)
 {
 	t_print			p;
 
-	p.total_len = 0;
+	init_p(&p);
 	va_start(p.ap, str);
 	while (*str)
 	{
@@ -126,9 +128,9 @@ int					ft_printf(const char *str, ...)
 				break ;
 			print_case(&p);
 		}
-		else
+		else if (*str)
 		{
-			ft_putchar(*str);
+			ft_putchar_fd(*str, p.fd);
 			p.total_len++;
 		}
 		str++;
