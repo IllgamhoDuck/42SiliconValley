@@ -6,7 +6,7 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/10 01:06:12 by hypark            #+#    #+#              #
-#    Updated: 2019/08/16 12:51:41 by hypark           ###   ########.fr        #
+#    Updated: 2019/08/16 12:27:30 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME := printf
 NAMELIB := libftprintf.a
 CC := gcc
 CFLAGS := -Wall -Wextra -Wextra
-SRC = $(wildcard $(SRCDIR)/*.c)
+SRC = $(filter-out main.c, $(wildcard *.c)) $(wildcard $(SRCDIR)/*.c)
 OBJ := *.o
 
 SRCDIR := ./src
@@ -32,12 +32,11 @@ all: $(NAME)
 
 $(NAME): $(FT)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRC)
+	cp libft/libft.a ./$(NAMELIB)
 	ar rc $(NAMELIB) $(OBJ)
 	ranlib $(NAMELIB)
-
-test:
 	$(CC) $(CFLAGS) $(INCLUDES) -c main.c 
-	$(CC) $(LIB) main.o -o $(NAME)
+	$(CC) $(LIB) $(OBJ) -o $(NAME)
 
 .PHONY: libft
 $(FT):
