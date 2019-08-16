@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/15 22:56:39 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 00:41:08 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void				ft_printf_s(t_print *p);
 void				ft_printf_p(t_print *p);
 void				ft_printf_f(t_print *p);
 void				ft_printf_b(t_print *p);
-void				ft_printf_r(void);
+void				ft_printf_r(t_print *p);
 
 int					count_base(uintmax_t n, uint8_t base);
 void				store_n_base(t_print *p, uintmax_t n, int base, int u);

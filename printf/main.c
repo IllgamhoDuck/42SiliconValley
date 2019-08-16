@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:19:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/15 22:57:06 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 00:42:02 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,30 @@ int					main(void)
 {
 	int				ret;
 	char			*test_p;
+	uint8_t			r_test[30];
 
 	ret = 0;
+	r_test[0] = 31;
+	r_test[1] = 'd';
+	r_test[2] = 'u';
+	r_test[3] = 'c';
+	r_test[4] = 'k';
+	r_test[5] = 'h';
+	r_test[6] = 24;
+	r_test[7] = 3;
+	r_test[8] = 6;
+	r_test[9] = 9;
+	r_test[10] = 12;
+	r_test[11] = ' ';
+	r_test[12] = 'i';
+	r_test[13] = 's';
+	r_test[14] = ' ';
+	r_test[15] = 'b';
+	r_test[16] = 'e';
+	r_test[17] = 's';
+	r_test[18] = 't';
+	r_test[19] = '.';
+	r_test[20] = '\0';
 //	// when flag is 000 no width
 //	printf("hello this is for testing %0.06d\n", 123);
 //	ft_printf("hello this is for testing %0.06d\n", 123);
@@ -462,13 +484,23 @@ int					main(void)
 //
 //
 	// BONUS PART
-	ft_printf("testing binary %b\n", 123);
-	ft_printf("testing binary %5.3b\n", 123);
-	ft_printf("testing binary %5.b\n", 123);
-	ft_printf("testing binary %05.b\n", 123);
-	ft_printf("testing binary %B\n", 123);
-	ft_printf("testing binary %5.3B\n", 123);
-	ft_printf("testing binary %5.B\n", 123);
-	ft_printf("testing binary %05.B\n", 123);
+	// BINARY - b B
+//	ft_printf("testing binary %b\n", 123);
+//	ft_printf("testing binary %15.7b\n", 123);
+//	ft_printf("testing binary %#15.b\n", 123);
+//	ft_printf("testing binary %#015.b\n", 123);
+//	ft_printf("testing binary %-#015.b\n", 123);
+//	ft_printf("testing binary %B\n", 123);
+//	ft_printf("testing binary %15.7B\n", 123);
+//	ft_printf("testing binary %#15.B\n", 123);
+//	ft_printf("testing binary %#015.B\n", 123);
+//	ft_printf("testing binary %-#015.B\n", 123);
+
+	// Non printable
+	ft_printf("testing non printable %.r\n");
+	ft_printf("testing non printable %.r\n");
+	ft_printf("%r\n", "testing this!");
+	ft_printf("%r\n", 0);
+	ft_printf("%r\n", r_test);
 	return (0);
 }
