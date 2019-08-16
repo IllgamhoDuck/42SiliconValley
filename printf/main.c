@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:19:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/15 22:23:06 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/15 22:57:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,13 +451,24 @@ int					main(void)
 //	ft_printf("%.0f\n", -3.85);
 //	printf("%.0f\n", 573.924);
 //	ft_printf("%.0f\n", 573.924);
-	printf("test %.10Lf\n", 0.87650894255l);
-	ft_printf("test %.10Lf\n", 0.87650894255l);
-	printf("test2 %.10f\n", 0.87650894255);
-	ft_printf("test2 %.10f\n", 0.87650894255);
-	printf("%f\n", -56.2012685);
-	ft_printf("%f\n", -56.2012685);
-	printf("%Lf\n", -56.2012685l);
-	ft_printf("%Lf\n", -56.2012685l);
-	return (1);
+//	printf("test %.10Lf\n", 0.87650894255l);
+//	ft_printf("test %.10Lf\n", 0.87650894255l);
+//	printf("test2 %.10f\n", 0.87650894255);
+//	ft_printf("test2 %.10f\n", 0.87650894255);
+//	printf("%f\n", -56.2012685);
+//	ft_printf("%f\n", -56.2012685);
+//	printf("%Lf\n", -56.2012685l);
+//	ft_printf("%Lf\n", -56.2012685l);
+//
+//
+	// BONUS PART
+	ft_printf("testing binary %b\n", 123);
+	ft_printf("testing binary %5.3b\n", 123);
+	ft_printf("testing binary %5.b\n", 123);
+	ft_printf("testing binary %05.b\n", 123);
+	ft_printf("testing binary %B\n", 123);
+	ft_printf("testing binary %5.3B\n", 123);
+	ft_printf("testing binary %5.B\n", 123);
+	ft_printf("testing binary %05.B\n", 123);
+	return (0);
 }

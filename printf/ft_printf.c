@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:16 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/15 11:45:10 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/15 23:01:55 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,15 @@ static void			print_case(t_print *p)
 		ft_printf_p(p);
 	else if (p->cvs == '%')
 		ft_printf_mod(p);
+	else if (p->cvs == 'b' || p->cvs == 'B')
+		ft_printf_b(p);
 }
 
 inline static int	invalid_check(t_print *p)
 {
 	if (p->cvs != 'd' && p->cvs != 'i' && p->cvs != 'D' && p->cvs != 'u' &&
 		p->cvs != 'o' && p->cvs != 'x' && p->cvs != 'X' && p->cvs != 'f' &&
+		p->cvs != 'r' && p->cvs != 'b' && p->cvs != 'B' && p->cvs != 'F' &&
 		p->cvs != 'c' && p->cvs != 's' && p->cvs != 'p' && p->cvs != '%')
 		return (1);
 	return (0);
