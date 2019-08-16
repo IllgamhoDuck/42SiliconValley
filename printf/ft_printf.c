@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:16 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 00:07:54 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 00:54:51 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,9 @@ int					ft_printf(const char *str, ...)
 	while (*str)
 	{
 		init_info(&p);
-		if (*str == '%')
+		if (*str == '{')
+			str = color(++str, &p);
+		else if (*str == '%')
 		{
 			str = read_information(++str, &p);
 			if (invalid_check(&p))

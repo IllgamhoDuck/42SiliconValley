@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:19:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 00:42:02 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 01:13:43 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -497,10 +497,15 @@ int					main(void)
 //	ft_printf("testing binary %-#015.B\n", 123);
 
 	// Non printable
-	ft_printf("testing non printable %.r\n");
-	ft_printf("testing non printable %.r\n");
-	ft_printf("%r\n", "testing this!");
-	ft_printf("%r\n", 0);
-	ft_printf("%r\n", r_test);
+//	ft_printf("testing non printable %.r\n");
+//	ft_printf("testing non printable %.r\n");
+//	ft_printf("%r\n", "testing this!");
+//	ft_printf("%r\n", 0);
+//	ft_printf("%r\n", r_test);
+
+	// Color
+	ft_printf("the color {red} is {blue} like {yellow} this {blue} bold {magenta} red {cyan} and red\n");
+	ft_printf("I will put the color to normal {eos} like this\n");
+	ft_printf("the color {red} is like this {bold red} bold red and red\n");
 	return (0);
 }
