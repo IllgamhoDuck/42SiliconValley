@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 16:04:44 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/14 05:39:30 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/15 21:38:08 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void					ft_printf_f(t_print *p)
 	f = f < 0 ? -f : f;
 	n = (uintmax_t)f;
 	f = f - (uintmax_t)f;
+	if (p->p == 0 && (uint8_t)(f * 10) > 5)
+		n += 1;
 	p->len += count_base(n, 10);
 	if (p->p == -1)
 		p->p = 6;

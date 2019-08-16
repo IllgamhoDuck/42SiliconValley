@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 20:40:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/14 03:41:18 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/15 22:44:38 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ inline void			print_str(t_print *p, char *str, int len)
 	while (str[i] && i < len)
 		p->output[p->print_len++] = str[i++];
 }
-
 /*
 **void				print_info(t_print *p)
 **{

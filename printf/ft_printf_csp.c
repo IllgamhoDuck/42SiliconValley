@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/13 21:59:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/14 05:41:31 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/15 21:56:12 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void				null_str(t_print *p)
 void					ft_printf_s(t_print *p)
 {
 	char				*s;
-	int					i;
 
 	s = va_arg(p->ap, char *);
 	if (s == NULL)
@@ -76,19 +75,15 @@ void					ft_printf_s(t_print *p)
 	p->pad = p->w - p->len;
 	if (p->f & FLM)
 	{
-		print_str(p, s, p->len);
-		print_c(p, ' ', p->pad);
+		print_str_unlimit(p, s, p->len);
+		print_c_unlimit(p, ' ', p->pad);
 	}
 	else
 	{
-		print_c(p, ' ', p->pad);
-		print_str(p, s, p->len);
+		print_c_unlimit(p, ' ', p->pad);
+		print_str_unlimit(p, s, p->len);
 	}
-	p->output[p->print_len] = '\0';
 	p->total_len += p->print_len;
-	i = 0;
-	while (i < p->print_len)
-		ft_putchar(p->output[i++]);
 }
 
 inline static void		printf_p(t_print *p, uintmax_t addr)

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 03:39:50 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/14 04:44:17 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/15 22:40:53 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,21 @@ inline static t_dec	*init_decimal(uint8_t n)
 	return (prec);
 }
 
-inline static void	decimal_round(t_dec *current, uint8_t n)
+/*
+** the round is treated differently as the precision number
+** I'm not sure this is right or not but i supposed
+** if precision goes bigger than 6 than we need to be little more general
+** so we can say if we need to print out more than 6 precision
+** simply say round at 4999.
+** Im not sure this is right. original was just n < 5 and if not than round
+*/
+
+inline static int	decimal_round(int p_n, t_dec *current, uintmax_t n)
 {
-	if (n < 5)
-		return ;
+	if (n < 5000 && p_n <= 6)
+		return (0);
+	if (n < 4999 && p_n > 6)
+		return (0);
 	while (current)
 	{
 		if (current->n + 1 > 9)
@@ -38,37 +49,39 @@ inline static void	decimal_round(t_dec *current, uint8_t n)
 		else
 		{
 			current->n = current->n + 1;
-			return ;
+			return (0);
 		}
 	}
+	return (1);
 }
 
-inline static void	store_decimal(t_dec **begin, long double f, int len)
+inline static int	store_decimal(int p_n, t_dec **b, long double f, int len)
 {
-	uint8_t			integer;
+	uintmax_t		integer;
 	t_dec			*current;
 	t_dec			*prev;
 	int				i;
 
 	i = 0;
-	current = *begin;
+	current = *b;
 	prev = current;
 	while (i++ < len)
 	{
 		f *= 10;
-		integer = (uint8_t)f;
+		integer = (uintmax_t)f;
 		f -= integer;
 		current->next = init_decimal(integer);
 		current = current->next;
 		current->prev = prev;
 		prev = current;
 	}
-	prev = *begin;
-	*begin = prev->next;
+	prev = *b;
+	*b = prev->next;
+	(*b)->prev = NULL;
 	free(prev);
-	f *= 10;
-	integer = (uint8_t)f;
-	decimal_round(current, integer);
+	f *= 10000;
+	integer = (uintmax_t)f;
+	return (decimal_round(p_n, current, integer));
 }
 
 /*
@@ -91,7 +104,8 @@ inline void			print_decimal(t_print *p, long double f, int len)
 	int				i;
 
 	start = init_decimal(0);
-	store_decimal(&start, f, len);
+	if (store_decimal(p->p, &start, f, len))
+		p->output[p->print_len - 2] += 1;
 	i = 0;
 	while (i++ < len)
 	{

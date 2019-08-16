@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/14 05:43:57 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/15 21:54:05 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void				print_sign(t_print *p);
 void				print_decimal(t_print *p, long double f, int len);
 void				print_c(t_print *p, char c, int n);
 void				print_str(t_print *p, char *str, int len);
+void				print_c_unlimit(t_print *p, char c, int n);
+void				print_str_unlimit(t_print *p, char *str, int len);
 void				print_info(t_print *p);
 
 #endif

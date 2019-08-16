@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:16 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/14 05:43:29 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/15 11:45:10 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void			ft_printf_mod(t_print *p)
 	if (p->f & FLM)
 	{
 		print_c(p, '%', 1);
-		print_c(p, (p->f & FLZ && p->p == -1) ? '0' : ' ', p->pad);
+		print_c(p, ' ', p->pad);
 	}
 	else
 	{
