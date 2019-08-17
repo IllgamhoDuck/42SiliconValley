@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 22:08:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/07/30 03:25:36 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/09 22:04:39 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ int				main(int ac, char **av)
 	i = 0;
 	ac = 1;
 	av[0][0] = 0;
-	finish = 3;
+	finish = 1;
 	if (!(fd[0] = open("1.txt", O_RDONLY)))
 		error();
-	if (!(fd[1] = open("2.txt", O_RDONLY)))
-		error();
-	if (!(fd[2] = open("3.txt", O_RDONLY)))
-		error();
+//	if (!(fd[1] = open("2.txt", O_RDONLY)))
+//		error();
+//	if (!(fd[2] = open("3.txt", O_RDONLY)))
+//		error();
 	while (finish)
 	{
 		re = get_next_line(fd[i], &test);
@@ -47,9 +47,9 @@ int				main(int ac, char **av)
 			error();
 		printf("The number of fd is %d\n", fd[i]);
 		printf("The number of result is %d\n", re);
-		printf("%s\n\n", test);
-		i++;
-		i = i % 3;
+//		printf("%s\n\n", test);
+//		i++;
+//		i = i % 3;
 	}
 	re = get_next_line(1, &test);
 	printf("The number of fd is %d\n", 1);
