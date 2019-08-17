@@ -1,19 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/16 21:13:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 22:19:08 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/17 01:26:22 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/17 02:19:28 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_ls.h"
 #include "libft.h"
 
-int					main(void)
+void				illegal_option(t_ls *ls)
 {
-	ft_printf("This is the {red}very beginning{eos} of {green}ft_ls{eos}!\n");
-	return (0);
+	ft_printf("ls: illegal option -- -\n");
+	ft_printf("usage: ls [-Ralrt1] [file ...]\n");
+	if (ls->file)
+		free(ls->file);
+	exit(1);
+}
+
+void				no_file_dic(char *file)
+{
+	ft_printf("ls: %s: No such file or directory\n", file);
+}
+
+void				p_error(char *str, t_ls *ls)
+{
+	ft_printf("%s\n", str);
+	if (ls->file)
+		free(ls->file);
+	exit(1);
 }
