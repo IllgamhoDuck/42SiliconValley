@@ -6,13 +6,13 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/16 21:12:21 by hypark            #+#    #+#              #
-#    Updated: 2019/08/16 21:35:34 by hypark           ###   ########.fr        #
+#    Updated: 2019/08/17 18:50:10 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := ft_ls
 CC := gcc
-CFLAGS := -Wall -Wextra -Wextra
+CFLAGS := -Wall -Wextra -Wextra -g
 SRC = *.c
 OBJ := *.o
 

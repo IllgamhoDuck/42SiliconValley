@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/17 01:26:22 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/18 02:50:46 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/17 21:05:05 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/18 04:43:14 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include "libft.h"
 
-void				illegal_option()
+void					sort_ls(t_ls *ls)
 {
-	ft_printf("ls: illegal option -- -\n");
-	ft_printf("usage: ls [-Ralrt1] [file ...]\n");
-	exit(1);
-}
+	uint8_t				finish;
 
-void				no_file_dic(char *file)
-{
-	ft_printf("ls: %s: No such file or directory\n", file);
-}
-
-void				p_error(char *str)
-{
-	ft_printf("%s\n", str);
-	exit(1);
+	finish = 1;
+	ls = 0;
+	while (finish)
+	{
+		break ;
+	}
 }
