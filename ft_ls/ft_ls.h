@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:37:59 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/18 05:01:29 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/18 20:49:33 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@
 # define OP_A (1 << 3)
 # define OP_SR (1 << 4)
 # define OP_T (1 << 5)
-
-typedef struct			s_file
-{
-	char				*name;
-}						t_file;
+# define OP_U (1 << 6)
+# define OP_S (1 << 7)
 
 typedef struct			s_flist
 {
@@ -39,21 +36,44 @@ typedef struct			s_flist
 	struct s_flist		*next;
 }						t_flist;
 
+typedef struct			s_file
+{
+	char				*name;
+	uint32_t			uid;
+	char				*user;
+	uint32_t			gid;
+	char				*group;
+	char				mode;
+	char				*permission;
+	uint32_t			link;
+	uint32_t			size;
+	long				atime;
+	long				mtime;
+	long				ctime;
+	char				month[4];
+	char				day[3];
+	char				year[5];
+	char				time[6];
+}						t_file;
+
 typedef struct			s_ls
 {
-	uint8_t				op;
+	uint32_t			op;
 	char				*prefix;
 	char				*current;
 	t_file				**file;
 	t_flist				*f_list;
-	uint32_t			f_num;
 	DIR					*dir;
+	uint32_t			f_num;
 	uint32_t			depth;
 }						t_ls;
 
 void					process_ls(t_ls *ls, uint8_t print);
+void					fill_info_ls(t_ls *ls);
 void					read_dir(t_ls *ls);
 void					sort_ls(t_ls *ls);
+
+void					print_ls(t_ls *ls);
 
 char					**read_parameter(int ac, char **av, t_ls *ls);
 
