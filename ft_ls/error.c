@@ -6,17 +6,18 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:26:22 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/18 02:50:46 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 05:06:11 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "libft.h"
 
-void				illegal_option()
+void				illegal_option(char op)
 {
-	ft_printf("ls: illegal option -- -\n");
-	ft_printf("usage: ls [-Ralrt1] [file ...]\n");
+	ft_printf("ls: illegal option -- %c\n", op);
+	ft_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] ");
+	ft_printf("[file ...]\n");
 	exit(1);
 }
 

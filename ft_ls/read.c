@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:10:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/18 19:41:56 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 05:04:45 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void				copy_list_to_file(t_ls *ls)
 {
 	t_flist				*current;
 	uint32_t			i;
+	uint32_t			len;
 
 	if (!(ls->file = (t_file **)malloc(sizeof(t_file *) * (ls->f_num + 1))))
 		p_error("Memory allocation failed at t_file *");
@@ -46,7 +47,8 @@ static void				copy_list_to_file(t_ls *ls)
 	{
 		if (!(ls->file[i] = (t_file *)malloc(sizeof(t_file))))
 			p_error("Memory allocation failed at t_file");
-		ls->file[i]->name = current->name;
+		len = ft_strlen(current->name);
+		ls->file[i]->name = ft_strsub(current->name, 0, len);
 		current = current->next;
 		i++;
 	}
@@ -58,6 +60,7 @@ void					read_dir(t_ls *ls)
 	struct dirent		*file;
 	t_flist				*current;
 
+	current = NULL;
 	while ((file = readdir(ls->dir)))
 	{
 		if (is_dot(file->d_name) && !(ls->op & OP_A))
@@ -87,7 +90,7 @@ static void				store_option(char *str, t_ls *ls)
 	while (*str)
 	{
 		*str == '-' ? op_n++ : 0;
-		op_n == 2 ? illegal_option() : 0;
+		op_n == 2 ? illegal_option('-') : 0;
 		if (*str == '1')
 			ls->op |= OP_1;
 		else if (*str == 'l')
@@ -100,6 +103,10 @@ static void				store_option(char *str, t_ls *ls)
 			ls->op |= OP_SR;
 		else if (*str == 't')
 			ls->op |= OP_T;
+		else if (*str == '-')
+			;
+		else
+			illegal_option(*str);
 		str++;
 	}
 }
@@ -124,6 +131,9 @@ char					**read_parameter(int ac, char **av, t_ls *ls)
 		if (ft_strcmp(av[i], "--") == 0)
 			while (++i < ac)
 				store_name[ls->f_num++] = av[i];
+		else if (ft_strcmp(av[i], "-") == 0)
+			while (i < ac)
+				store_name[ls->f_num++] = av[i++];
 		else if (av[i][0] == '-')
 			store_option(av[i], ls);
 		else

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 15:33:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/18 04:58:43 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/18 22:34:15 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ void				free_list(t_flist *list)
 {
 	if (list->next)
 		free_list(list->next);
+	free(list->name);
 	free(list);
 }

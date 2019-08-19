@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 20:09:07 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/18 20:58:42 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 03:17:11 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,26 @@ static void			fill_user_group(t_file *file, struct stat *stat)
 {
 	struct passwd	*passwd;
 	struct group	*group;
+	uint32_t		len;
 
 	passwd = getpwuid(stat->st_uid);
 	group = getgrgid(stat->st_gid);
 	file->uid = stat->st_uid;
 	file->gid = stat->st_gid;
-	file->user = passwd->pw_name;
-	file->group = group->gr_name;
+	len = ft_strlen(passwd->pw_name);
+	file->user = ft_strsub(passwd->pw_name, 0, len);
+	len = ft_strlen(group->gr_name);
+	file->group = ft_strsub(group->gr_name, 0, len);
 }
 
-static void			fill_date(t_file *file)
+static void			fill_date(t_file *file, struct stat *stat)
 {
 	char			*time;
 
-	time = ctime(&file->ctime);
+	file->atime = stat->st_atime;
+	file->mtime = stat->st_mtime;
+	file->ctime = stat->st_ctime;
+	time = ctime(&file->mtime);
 	ft_strncpy(file->month, time + 4, 3);
 	ft_strncpy(file->day, time + 8, 2);
 	ft_strncpy(file->year, time + 20, 4);
@@ -93,8 +99,8 @@ void				fill_info_ls(t_ls *ls)
 	char			*path;
 	uint32_t		i;
 
-	i = 0;
-	while (i < ls->f_num)
+	i = -1;
+	while (++i < ls->f_num)
 	{
 		temp = ft_strjoin(ls->prefix, "/");
 		path = ft_strjoin(temp, ls->file[i]->name);
@@ -104,13 +110,12 @@ void				fill_info_ls(t_ls *ls)
 		ls->file[i]->permission = fill_permission(file_stat.st_mode);
 		ls->file[i]->link = file_stat.st_nlink;
 		ls->file[i]->size = file_stat.st_size;
-		ls->file[i]->atime = file_stat.st_atime;
-		ls->file[i]->mtime = file_stat.st_mtime;
-		ls->file[i]->ctime = file_stat.st_ctime;
+		ls->file[i]->block = file_stat.st_blocks;
+		ls->file[i]->major = major(file_stat.st_rdev);
+		ls->file[i]->minor = minor(file_stat.st_rdev);
 		fill_user_group(ls->file[i], &file_stat);
-		fill_date(ls->file[i]);
+		fill_date(ls->file[i], &file_stat);
 		free(temp);
 		free(path);
-		i++;
 	}
 }

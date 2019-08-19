@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 21:05:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/18 16:26:21 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 03:16:52 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 static uint8_t			compare_file(t_file *f1, t_file *f2, uint32_t op)
 {
 	if (op & OP_T && !(op & OP_U))
-		return (0); // make it after the filling ls part
+		return (f1->mtime - f2->mtime < 0);
 	if (op & OP_T && op & OP_U)
-		return (0); // make it after the filling ls part
+		return (0); // BONUS
 	if (!(op & OP_T) && !(op & OP_U))
 		return (ft_strcmp(f1->name, f2->name) > 0);
 	return (0);

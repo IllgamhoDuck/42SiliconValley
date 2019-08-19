@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:37:59 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/18 20:49:33 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 05:05:07 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ typedef struct			s_file
 	char				*permission;
 	uint32_t			link;
 	uint32_t			size;
+	uint32_t			major;
+	uint32_t			minor;
+	uint32_t			block;
 	long				atime;
 	long				mtime;
 	long				ctime;
@@ -58,6 +61,7 @@ typedef struct			s_file
 
 typedef struct			s_ls
 {
+	char				*name;
 	uint32_t			op;
 	char				*prefix;
 	char				*current;
@@ -68,15 +72,29 @@ typedef struct			s_ls
 	uint32_t			depth;
 }						t_ls;
 
+typedef struct			s_p
+{
+	uint8_t				is_c_d;
+	uint32_t			m_l;
+	uint32_t			m_u;
+	uint32_t			m_g;
+	uint32_t			m_major;
+	uint32_t			m_minor;
+}						t_p;
+
 void					process_ls(t_ls *ls, uint8_t print);
 void					fill_info_ls(t_ls *ls);
 void					read_dir(t_ls *ls);
 void					sort_ls(t_ls *ls);
 
 void					print_ls(t_ls *ls);
+uint8_t					n_len(uint32_t n);
+void					calculate_max(t_file **f, t_p *p, uint32_t len);
+uint64_t				calculate_total(t_file **f, uint32_t len);
 
 char					**read_parameter(int ac, char **av, t_ls *ls);
 
+t_p						*init_print(t_ls *ls);
 t_ls					*init_ls(void);
 t_ls					*copy_ls(t_ls *ls, uint32_t i);
 t_flist					*init_list(char *name);
@@ -84,7 +102,7 @@ t_flist					*init_list(char *name);
 void					free_ls(t_ls *ls);
 void					free_list(t_flist *list);
 
-void					illegal_option();
+void					illegal_option(char op);
 void					no_file_dic(char *file);
 void					p_error(char *str);
 
