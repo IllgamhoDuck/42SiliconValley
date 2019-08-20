@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:40:12 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 03:03:44 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 15:17:59 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,17 @@ static void			fill_main_info_ls(t_ls *ls, char *path)
 {
 	struct stat		file_stat;
 
-	if (lstat(path, &file_stat) < 0)
-		p_error("lstat failed while reading the file status");
-	ls->file[0]->mode = fill_file_mode(file_stat.st_mode);
-	ls->file[0]->permission = fill_permission(file_stat.st_mode);
-	ls->file[0]->link = file_stat.st_nlink;
-	ls->file[0]->size = file_stat.st_size;
-	fill_user_group(ls->file[0], &file_stat);
-	fill_date(ls->file[0], &file_stat);
+	if (lstat(path, &file_stat) >= 0)
+	{
+		ls->file[0]->mode = fill_file_mode(file_stat.st_mode);
+		ls->file[0]->permission = fill_permission(file_stat.st_mode);
+		ls->file[0]->link = file_stat.st_nlink;
+		ls->file[0]->size = file_stat.st_size;
+		fill_user_group(ls->file[0], &file_stat);
+		fill_date(ls->file[0], &file_stat);
+	}
+	else
+		ls->file[0]->mode = 'x';
 }
 
 static void			process_main_ls(t_ls *ls)
@@ -101,6 +104,7 @@ int					main(int ac, char **av)
 	ls = init_ls();
 	store_name_at_ls(ls, read_parameter(ac, av, ls));
 	process_main_ls(ls);
+	ls->f_num > 0 ? print_file_symbol(ls) : 0;
 	i = 0;
 	if (ls->f_num == 1)
 		process_ls(copy_ls(ls, 0), 0);

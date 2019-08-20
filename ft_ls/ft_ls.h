@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:37:59 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 02:06:42 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 15:36:59 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define OP_T (1 << 5)
 # define OP_U (1 << 6)
 # define OP_S (1 << 7)
+# define OP_MAIN_LS (1 << 31)
 
 typedef struct			s_flist
 {
@@ -89,6 +90,8 @@ void					process_ls(t_ls *ls, uint8_t print);
 void					fill_info_ls(t_ls *ls);
 void					read_dir(t_ls *ls);
 void					sort_ls(t_ls *ls);
+
+void					print_file_symbol(t_ls *ls);
 
 char					fill_file_mode(int mode);
 char					*fill_permission(int mode);

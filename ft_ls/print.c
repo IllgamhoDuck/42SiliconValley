@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 19:14:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 03:23:17 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 15:37:45 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,12 @@ static void			print_date(t_ls *ls, uint32_t i)
 		ft_printf("%s", ls->file[i]->time);
 }
 
+/* Printing is used in 2 way
+** 1. printing out ls at the main where ls->prefix is NULL
+** 2. priting out normally while processing the file.
+** So splited y using ls->prefix == NULL & ls->prefix != NULL
+*/
+
 static void			print_filename(t_ls *ls, uint32_t i)
 {
 	char			*link_buff;
@@ -81,13 +87,14 @@ static void			print_filename(t_ls *ls, uint32_t i)
 			p_error("Memory allocation failed in link buf");
 		ft_bzero(link_buff, 2048);
 		ft_printf(" %s -> ", ls->file[i]->name);
-		temp = ft_strjoin(ls->prefix, "/");
-		path = ft_strjoin(temp, ls->file[i]->name);
+		ls->prefix != NULL ? temp = ft_strjoin(ls->prefix, "/") : 0;
+		ls->prefix != NULL ? path = ft_strjoin(temp, ls->file[i]->name) : 0;
+		ls->prefix == NULL ? path = ls->file[i]->name : 0;
 		readlink(path, link_buff, 2048);
 		ft_printf("%s\n", link_buff);
 		free(link_buff);
-		free(temp);
-		free(path);
+		ls->prefix != NULL ? free(temp) : 0;
+		ls->prefix != NULL ? free(path) : 0;
 	}
 	else
 		ft_printf(" %s\n", ls->file[i]->name);
@@ -101,7 +108,7 @@ void				print_ls(t_ls *ls)
 	i = -1;
 	p = init_print(ls);
 	calculate_max(ls->file, p, ls->f_num);
-	if (ls->op & OP_L && ls->f_num != 0)
+	if (ls->op & OP_L && ls->f_num != 0 && !(ls->op & OP_MAIN_LS))
 		ft_printf("total %lld\n", calculate_total(ls->file, ls->f_num));
 	while (++i < ls->f_num)
 	{
