@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 15:33:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 00:41:26 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 03:34:49 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,37 @@
 ** The first node ls->prefix is not a malloc so should not free it.
 */
 
-void				free_ls(t_ls *ls)
+static void			free_file(t_ls *ls)
 {
 	uint32_t		i;
 
+	i = -1;
+	while (++i < ls->f_num)
+	{
+		if (ls->file[i]->mode != 'x')
+		{
+			if (ls->file[i]->name && (ls->depth > 0))
+				free(ls->file[i]->name);
+			if (ls->file[i]->user)
+				free(ls->file[i]->user);
+			if (ls->file[i]->group)
+				free(ls->file[i]->group);
+			if (ls->file[i]->permission)
+				free(ls->file[i]->permission);
+		}
+		free(ls->file[i]);
+	}
+}
+
+void				free_ls(t_ls *ls)
+{
 	if (ls)
 	{
 		if (ls->prefix && ls->depth > 1)
 			free(ls->prefix);
 		if (ls->file)
 		{
-			i = -1;
-			while (++i < ls->f_num)
-			{
-				if (ls->file[i]->name && ls->depth > 0)
-					free(ls->file[i]->name);
-				if (ls->file[i]->user && ls->depth > 0)
-					free(ls->file[i]->user);
-				if (ls->file[i]->group && ls->depth > 0)
-					free(ls->file[i]->group);
-				if (ls->file[i]->permission && ls->depth > 0)
-					free(ls->file[i]->permission);
-				free(ls->file[i]);
-			}
+			free_file(ls);
 			free(ls->file);
 		}
 		free(ls);

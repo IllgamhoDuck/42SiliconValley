@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 14:59:31 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 00:28:10 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 03:44:25 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static void			search_ls(t_ls *ls)
 	i = -1;
 	while (++i < ls->f_num)
 	{
+		if (ls->file[i]->mode == 'x')
+			continue ;
 		if (ft_strcmp(ls->file[i]->name, ".") == 0)
 			continue ;
 		else if (ft_strcmp(ls->file[i]->name, "..") == 0)
@@ -39,6 +41,7 @@ void				process_ls(t_ls *ls, uint8_t print)
 	if (!(ls->dir = opendir(ls->current)))
 	{
 		ft_printf("ls: %s: Not a directory\n", ls->name);
+		free_ls(ls);
 		return ;
 	}
 	read_dir(ls);

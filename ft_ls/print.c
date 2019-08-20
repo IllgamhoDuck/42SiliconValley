@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 19:14:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 01:12:03 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 03:23:17 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,19 +105,17 @@ void				print_ls(t_ls *ls)
 		ft_printf("total %lld\n", calculate_total(ls->file, ls->f_num));
 	while (++i < ls->f_num)
 	{
-		if (ls->op & OP_L)
+		if (ls->op & OP_L && ls->file[i]->mode != 'x')
 		{
 			ft_printf("%c%s", ls->file[i]->mode, ls->file[i]->permission);
 			ft_printf("%*d ", p->m_l + 2, ls->file[i]->link);
 			ft_printf("%-*s", p->m_u + 2, ls->file[i]->user);
-			if (p->is_c_d)
-				print_c_d(ls, p, i);
-			else
-				print_not_c_d(ls, p, i);
+			p->is_c_d ? print_c_d(ls, p, i) : print_not_c_d(ls, p, i);
 			print_date(ls, i);
 			print_filename(ls, i);
 		}
-		else
+		else if (ls->file[i]->mode != 'x')
 			ft_printf("%s\n", ls->file[i]->name);
 	}
+	free(p);
 }

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:10:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 05:04:45 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 03:18:57 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ static uint8_t			is_dot(char *str)
 	return (0);
 }
 
+/*
+** mode = 'x' is to check invalid file and go over that
+*/
+
 static void				copy_list_to_file(t_ls *ls)
 {
 	t_flist				*current;
@@ -49,6 +53,7 @@ static void				copy_list_to_file(t_ls *ls)
 			p_error("Memory allocation failed at t_file");
 		len = ft_strlen(current->name);
 		ls->file[i]->name = ft_strsub(current->name, 0, len);
+		ls->file[i]->mode = 'x';
 		current = current->next;
 		i++;
 	}

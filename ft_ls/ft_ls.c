@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:40:12 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 23:25:56 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 03:03:44 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 
 static uint8_t		check_valid_file(char *name)
 {
-	DIR				*dir;
+	struct stat		file_stat;
 
-	if (!(dir = opendir(name)))
+	if (lstat(name, &file_stat) < 0)
 	{
 		no_file_dic(name);
 		return (0);
 	}
-	else
-		closedir(dir);
 	return (1);
 }
 
@@ -91,7 +89,8 @@ static void			process_main_ls(t_ls *ls)
 			ls->file[j] = temp;
 		}
 	}
-	sort_ls(ls);
+	if (ls->file[0] && ls->file[1])
+		sort_ls(ls);
 }
 
 int					main(int ac, char **av)
@@ -101,8 +100,7 @@ int					main(int ac, char **av)
 
 	ls = init_ls();
 	store_name_at_ls(ls, read_parameter(ac, av, ls));
-	if (ls->file[0] && ls->file[1])
-		process_main_ls(ls);
+	process_main_ls(ls);
 	i = 0;
 	if (ls->f_num == 1)
 		process_ls(copy_ls(ls, 0), 0);
@@ -116,5 +114,6 @@ int					main(int ac, char **av)
 		}
 	}
 	free_ls(ls);
+	system("leaks ft_ls");
 	return (0);
 }

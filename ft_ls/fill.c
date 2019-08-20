@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 20:09:07 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 01:40:06 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 03:17:33 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,18 @@ void				fill_info_ls(t_ls *ls)
 	{
 		temp = ft_strjoin(ls->prefix, "/");
 		path = ft_strjoin(temp, ls->file[i]->name);
-		if (lstat(path, &file_stat) < 0)
-			p_error("lstat failed while reading the file status");
-		ls->file[i]->mode = fill_file_mode(file_stat.st_mode);
-		ls->file[i]->permission = fill_permission(file_stat.st_mode);
-		ls->file[i]->link = file_stat.st_nlink;
-		ls->file[i]->size = file_stat.st_size;
-		ls->file[i]->block = file_stat.st_blocks;
-		ls->file[i]->major = major(file_stat.st_rdev);
-		ls->file[i]->minor = minor(file_stat.st_rdev);
-		fill_user_group(ls->file[i], &file_stat);
-		fill_date(ls->file[i], &file_stat);
+		if (lstat(path, &file_stat) >= 0)
+		{
+			ls->file[i]->mode = fill_file_mode(file_stat.st_mode);
+			ls->file[i]->permission = fill_permission(file_stat.st_mode);
+			ls->file[i]->link = file_stat.st_nlink;
+			ls->file[i]->size = file_stat.st_size;
+			ls->file[i]->block = file_stat.st_blocks;
+			ls->file[i]->major = major(file_stat.st_rdev);
+			ls->file[i]->minor = minor(file_stat.st_rdev);
+			fill_user_group(ls->file[i], &file_stat);
+			fill_date(ls->file[i], &file_stat);
+		}
 		free(temp);
 		free(path);
 	}
