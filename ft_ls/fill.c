@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 20:09:07 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 23:21:36 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 01:40:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,24 @@ void				fill_user_group(t_file *file, struct stat *stat)
 	struct group	*group;
 	uint32_t		len;
 
-	passwd = getpwuid(stat->st_uid);
-	group = getgrgid(stat->st_gid);
 	file->uid = stat->st_uid;
 	file->gid = stat->st_gid;
-	len = ft_strlen(passwd->pw_name);
-	file->user = ft_strsub(passwd->pw_name, 0, len);
-	len = ft_strlen(group->gr_name);
-	file->group = ft_strsub(group->gr_name, 0, len);
+	passwd = getpwuid(file->uid);
+	group = getgrgid(file->gid);
+	if (passwd != NULL)
+	{
+		len = ft_strlen(passwd->pw_name);
+		file->user = ft_strsub(passwd->pw_name, 0, len);
+	}
+	else
+		file->user = ft_strnew(1);
+	if (group != NULL)
+	{
+		len = ft_strlen(group->gr_name);
+		file->group = ft_strsub(group->gr_name, 0, len);
+	}
+	else
+		file->group = ft_strnew(1);
 }
 
 void				fill_date(t_file *file, struct stat *stat)

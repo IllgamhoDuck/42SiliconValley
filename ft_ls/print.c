@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 19:14:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 23:47:04 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 01:12:03 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 /*
 ** ft_printf(" %#010X", ls->file[i]->minor);
 ** this function was made tto treat the "autofs_nowait" weird minor number
+** do the 0x when it is the max minor number. But not for 1
 ** =======================================================================
 ** crw-rw-rw-  1 root    wheel       32,  47 Aug 18 21:39 autofs_notrigger
 ** crw-rw-rw-  1 root    wheel       31, 0x000011b7 Aug 18 21:39 autofs_nowait

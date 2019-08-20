@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 14:59:31 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 23:33:31 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 00:28:10 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,5 @@ void				process_ls(t_ls *ls, uint8_t print)
 	// if -l and symbolic link then it should be just pass out one line
 	if (ls->op & OP_R)
 		search_ls(ls);
-	//free
+	free_ls(ls);
 }

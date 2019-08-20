@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 15:33:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 22:15:39 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 00:41:26 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,19 @@ void				free_ls(t_ls *ls)
 			free(ls->prefix);
 		if (ls->file)
 		{
-			i = 0;
-			while (i < ls->f_num)
-				free(ls->file[i++]);
+			i = -1;
+			while (++i < ls->f_num)
+			{
+				if (ls->file[i]->name && ls->depth > 0)
+					free(ls->file[i]->name);
+				if (ls->file[i]->user && ls->depth > 0)
+					free(ls->file[i]->user);
+				if (ls->file[i]->group && ls->depth > 0)
+					free(ls->file[i]->group);
+				if (ls->file[i]->permission && ls->depth > 0)
+					free(ls->file[i]->permission);
+				free(ls->file[i]);
+			}
 			free(ls->file);
 		}
 		free(ls);
