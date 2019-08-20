@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 20:09:07 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 03:17:11 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 23:21:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <sys/types.h>
 #include <time.h>
 
-static char			fill_file_mode(int mode)
+char				fill_file_mode(int mode)
 {
 	if (S_ISREG(mode))
 		return ('-');
@@ -39,7 +39,7 @@ static char			fill_file_mode(int mode)
 	return (0);
 }
 
-static char			*fill_permission(int mode)
+char				*fill_permission(int mode)
 {
 	char			*permission;
 
@@ -58,7 +58,7 @@ static char			*fill_permission(int mode)
 	return (permission);
 }
 
-static void			fill_user_group(t_file *file, struct stat *stat)
+void				fill_user_group(t_file *file, struct stat *stat)
 {
 	struct passwd	*passwd;
 	struct group	*group;
@@ -74,13 +74,16 @@ static void			fill_user_group(t_file *file, struct stat *stat)
 	file->group = ft_strsub(group->gr_name, 0, len);
 }
 
-static void			fill_date(t_file *file, struct stat *stat)
+void				fill_date(t_file *file, struct stat *stat)
 {
 	char			*time;
 
 	file->atime = stat->st_atime;
+	file->atimensec = stat->st_atimespec.tv_nsec;
 	file->mtime = stat->st_mtime;
+	file->mtimensec = stat->st_mtimespec.tv_nsec;
 	file->ctime = stat->st_ctime;
+	file->ctimensec = stat->st_ctimespec.tv_nsec;
 	time = ctime(&file->mtime);
 	ft_strncpy(file->month, time + 4, 3);
 	ft_strncpy(file->day, time + 8, 2);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 19:14:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 03:01:29 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 23:47:04 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void			print_c_d(t_ls *ls, t_p *p, uint32_t i)
 	if (ls->file[i]->mode == 'c' || ls->file[i]->mode == 'b')
 	{
 		ft_printf("%*d,", p->m_major + 3 - len, ls->file[i]->major);
-		if (p->m_minor == n_len(ls->file[i]->minor))
+		if (p->m_minor == n_len(ls->file[i]->minor) && ls->file[i]->minor > 1)
 			ft_printf(" %#010x", ls->file[i]->minor);
 		else
 			ft_printf("%*d", p->m_minor, ls->file[i]->minor);
@@ -78,6 +78,7 @@ static void			print_filename(t_ls *ls, uint32_t i)
 	{
 		if (!(link_buff = (char *)malloc(sizeof(char) * 2048)))
 			p_error("Memory allocation failed in link buf");
+		ft_bzero(link_buff, 2048);
 		ft_printf(" %s -> ", ls->file[i]->name);
 		temp = ft_strjoin(ls->prefix, "/");
 		path = ft_strjoin(temp, ls->file[i]->name);

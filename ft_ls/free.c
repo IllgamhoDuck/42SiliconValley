@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 15:33:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/18 22:34:15 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 22:15:39 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void				free_ls(t_ls *ls)
 
 	if (ls)
 	{
-		if (ls->prefix && ls->depth != 1)
+		if (ls->prefix && ls->depth > 1)
 			free(ls->prefix);
 		if (ls->file)
 		{

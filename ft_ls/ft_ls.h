@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:37:59 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 05:05:07 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 23:22:57 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ typedef struct			s_file
 	uint32_t			major;
 	uint32_t			minor;
 	uint32_t			block;
-	long				atime;
-	long				mtime;
-	long				ctime;
+	time_t				atime;
+	time_t				atimensec;
+	time_t				mtime;
+	time_t				mtimensec;
+	time_t				ctime;
+	time_t				ctimensec;
 	char				month[4];
 	char				day[3];
 	char				year[5];
@@ -86,6 +89,11 @@ void					process_ls(t_ls *ls, uint8_t print);
 void					fill_info_ls(t_ls *ls);
 void					read_dir(t_ls *ls);
 void					sort_ls(t_ls *ls);
+
+char					fill_file_mode(int mode);
+char					*fill_permission(int mode);
+void					fill_user_group(t_file *file, struct stat *stat);
+void					fill_date(t_file *file, struct stat *stat);
 
 void					print_ls(t_ls *ls);
 uint8_t					n_len(uint32_t n);

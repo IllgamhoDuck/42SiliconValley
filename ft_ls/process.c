@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 14:59:31 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 05:10:24 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/19 23:33:31 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ static void			search_ls(t_ls *ls)
 
 void				process_ls(t_ls *ls, uint8_t print)
 {
+	if (print)
+		ft_printf("%s:\n", ls->current);
 	if (!(ls->dir = opendir(ls->current)))
 	{
 		ft_printf("ls: %s: Not a directory\n", ls->name);
 		return ;
 	}
-	if (print)
-		ft_printf("%s:\n", ls->current);
 	read_dir(ls);
 	fill_info_ls(ls);
 	if (ls->file[0] && ls->file[1])
