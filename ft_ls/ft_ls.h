@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:37:59 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 15:36:59 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 16:23:34 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define OP_T (1 << 5)
 # define OP_U (1 << 6)
 # define OP_S (1 << 7)
+# define OP_PRINT (1 << 30)
 # define OP_MAIN_LS (1 << 31)
 
 typedef struct			s_flist

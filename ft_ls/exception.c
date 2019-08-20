@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 02:38:36 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 16:20:07 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 16:24:24 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void				print_file_symbol(t_ls *ls)
 	print_ls(file_ls);
 	ls->op &= ~(OP_MAIN_LS);
 	if (ls->f_num > 0 && file_ls->f_num > 0)
+	{
+		ls->op |= OP_PRINT;
 		ft_printf("\n");
+	}
 	free_ls(file_ls);
 }

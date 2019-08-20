@@ -6,19 +6,20 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:40:12 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 15:17:59 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 16:28:41 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ls.h"
 
-static uint8_t		check_valid_file(char *name)
+static uint8_t		check_valid_file(t_ls *ls, char *name)
 {
 	struct stat		file_stat;
 
 	if (lstat(name, &file_stat) < 0)
 	{
+		ls->op |= OP_PRINT;
 		no_file_dic(name);
 		return (0);
 	}
@@ -36,7 +37,7 @@ static void			store_name_at_ls(t_ls *ls, char **name)
 	j = 0;
 	while (++i < ls->f_num)
 	{
-		if (check_valid_file(name[i]))
+		if (check_valid_file(ls, name[i]))
 		{
 			if (!(ls->file[j] = (t_file *)malloc(sizeof(t_file))))
 				p_error("Memory allocation failed at t_file");
@@ -107,7 +108,7 @@ int					main(int ac, char **av)
 	ls->f_num > 0 ? print_file_symbol(ls) : 0;
 	i = 0;
 	if (ls->f_num == 1)
-		process_ls(copy_ls(ls, 0), 0);
+		process_ls(copy_ls(ls, 0), (ls->op & OP_PRINT) ? 1 : 0);
 	else if (ls->f_num > 1)
 	{
 		while (i < ls->f_num)
@@ -118,6 +119,5 @@ int					main(int ac, char **av)
 		}
 	}
 	free_ls(ls);
-	system("leaks ft_ls");
 	return (0);
 }
