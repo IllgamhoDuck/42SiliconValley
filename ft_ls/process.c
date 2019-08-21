@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 14:59:31 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 14:27:46 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 17:47:10 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void				process_ls(t_ls *ls, uint8_t print)
 		ft_printf("%s:\n", ls->current);
 	if (!(ls->dir = opendir(ls->current)))
 	{
-		ft_printf("ls: %s: Not a directory\n", ls->name);
+		ft_printf("%2@ls: %s: Permission denied\n", ls->name);
 		free_ls(ls);
 		return ;
 	}

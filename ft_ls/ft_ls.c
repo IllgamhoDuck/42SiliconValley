@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:40:12 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 16:36:17 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 18:36:22 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void			fill_main_info_ls(t_ls *ls, char *path)
 		ls->file[0]->major = major(file_stat.st_rdev);
 		ls->file[0]->minor = minor(file_stat.st_rdev);
 		fill_user_group(ls->file[0], &file_stat);
-		fill_date(ls->file[0], &file_stat);
+		fill_date(ls->file[0], &file_stat, ls->op);
 	}
 	else
 		ls->file[0]->mode = 'x';

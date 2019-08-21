@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:10:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 17:36:05 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 18:10:55 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ void					read_dir(t_ls *ls)
 		free_list(ls->f_list);
 }
 
+/*
+** I HATE NORMINETTE
+*/
+
 static void				store_option(char *str, t_ls *ls)
 {
 	uint8_t				op_n;
@@ -96,21 +100,17 @@ static void				store_option(char *str, t_ls *ls)
 	{
 		*str == '-' ? op_n++ : 0;
 		op_n == 2 ? illegal_option('-') : 0;
-		if (*str == '1')
-			ls->op |= OP_1;
-		else if (*str == 'l')
-			ls->op |= OP_L;
-		else if (*str == 'R')
-			ls->op |= OP_R;
-		else if (*str == 'a')
-			ls->op |= OP_A;
-		else if (*str == 'r')
-			ls->op |= OP_SR;
-		else if (*str == 't')
-			ls->op |= OP_T;
-		else if (*str == '-')
+		*str == '1' ? ls->op |= OP_1 : 0;
+		*str == 'l' ? ls->op |= OP_L : 0;
+		*str == 'R' ? ls->op |= OP_R : 0;
+		*str == 'a' ? ls->op |= OP_A : 0;
+		*str == 'r' ? ls->op |= OP_SR : 0;;
+		*str == 't' ? ls->op |= OP_T : 0;
+		*str == 'u' ? ls->op |= OP_U : 0;
+		*str == 'S' ? ls->op |= OP_S : 0;
+		if (*str == '-')
 			;
-		else
+		else if (ft_strchr(OPTIONS, *str) == NULL)
 			illegal_option(*str);
 		str++;
 	}

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 19:14:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 17:35:41 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 18:25:13 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,26 @@ static void			print_date(t_ls *ls, uint32_t i)
 	double			diff;
 
 	time(&t);
-	diff = t - ls->file[i]->mtime;
-	diff = diff / (60 * 60 * 24 * 30);
-	ft_printf(" %s %s ", ls->file[i]->month, ls->file[i]->day);
-	if (diff >= 6)
-		ft_printf(" %s", ls->file[i]->year);
+	if (ls->op & OP_U && (ls->op & OP_U || ls->op & OP_T))
+	{
+		diff = t - ls->file[i]->atime;
+		diff = diff / (60 * 60 * 24 * 30);
+		ft_printf(" %s %s ", ls->file[i]->amonth, ls->file[i]->aday);
+		if (diff >= 6)
+			ft_printf(" %s", ls->file[i]->ayear);
+		else
+			ft_printf("%s", ls->file[i]->aatime);
+	}
 	else
-		ft_printf("%s", ls->file[i]->time);
+	{
+		diff = t - ls->file[i]->mtime;
+		diff = diff / (60 * 60 * 24 * 30);
+		ft_printf(" %s %s ", ls->file[i]->mmonth, ls->file[i]->mday);
+		if (diff >= 6)
+			ft_printf(" %s", ls->file[i]->myear);
+		else
+			ft_printf("%s", ls->file[i]->mmtime);
+	}
 }
 
 /*

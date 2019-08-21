@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 21:05:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 16:16:40 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 18:17:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,12 @@ static uint8_t			compare_file(t_file *f1, t_file *f2, uint32_t op)
 			return (f1->mtimensec < f2->mtimensec);
 		return (f1->mtime < f2->mtime);
 	}
-	else if (op & OP_T && op & OP_U)
-		return (0); // BONUS
+	else if ((op & OP_T && op & OP_U) || (op & OP_L && op & OP_U))
+	{
+		if (f1->atime == f2->atime)
+			return (f1->atimensec < f2->atimensec);
+		return (f1->atime < f2->atime);
+	}
 	else if (!(op & OP_T) && !(op & OP_U))
 		return (ft_strcmp(f1->name, f2->name) > 0);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 20:09:07 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 03:17:33 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 18:32:44 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void				fill_user_group(t_file *file, struct stat *stat)
 		file->group = ft_strnew(1);
 }
 
-void				fill_date(t_file *file, struct stat *stat)
+void				fill_date(t_file *file, struct stat *stat, uint32_t op)
 {
 	char			*time;
 
@@ -94,15 +94,16 @@ void				fill_date(t_file *file, struct stat *stat)
 	file->mtimensec = stat->st_mtimespec.tv_nsec;
 	file->ctime = stat->st_ctime;
 	file->ctimensec = stat->st_ctimespec.tv_nsec;
-	time = ctime(&file->mtime);
-	ft_strncpy(file->month, time + 4, 3);
-	ft_strncpy(file->day, time + 8, 2);
-	ft_strncpy(file->year, time + 20, 4);
-	ft_strncpy(file->time, time + 11, 5);
-	file->month[3] = '\0';
-	file->day[2] = '\0';
-	file->year[4] = '\0';
-	file->time[5] = '\0';
+	if ((op & OP_L || op & OP_T) && op & OP_U)
+	{
+		time = ctime(&file->atime);
+		fill_atime(file, time);
+	}
+	else
+	{
+		time = ctime(&file->mtime);
+		fill_mtime(file, time);
+	}
 }
 
 void				fill_info_ls(t_ls *ls)
@@ -127,7 +128,7 @@ void				fill_info_ls(t_ls *ls)
 			ls->file[i]->major = major(file_stat.st_rdev);
 			ls->file[i]->minor = minor(file_stat.st_rdev);
 			fill_user_group(ls->file[i], &file_stat);
-			fill_date(ls->file[i], &file_stat);
+			fill_date(ls->file[i], &file_stat, ls->op);
 		}
 		free(temp);
 		free(path);
