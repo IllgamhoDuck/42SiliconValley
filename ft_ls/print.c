@@ -6,13 +6,33 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 19:14:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 20:10:03 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/21 03:21:57 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "libft.h"
 #include "time.h"
+
+void				print_color(t_file *f)
+{
+	if (f->mode == 'd')
+		ft_printf("\033[1;36m%s{eos}", f->name);
+	else if (f->mode == 'l')
+		ft_printf("{magenta}%s{eos}", f->name);
+	else if (f->mode == '-')
+	{
+		if (f->permission[2] == 'x' || f->permission[5] == 'x' || \
+				f->permission[8] == 'x')
+			ft_printf("{red}%s{eos}", f->name);
+		else
+			ft_printf("%s", f->name);
+	}
+	else if (f->mode == 'c' || f->mode == 'b')
+		ft_printf("\033[1;33m%s{eos}", f->name);
+	else
+		ft_printf("%s", f->name);
+}
 
 /*
 ** ft_printf(" %#010X", ls->file[i]->minor);
@@ -24,35 +44,31 @@
 ** crw-------  1 root    wheel       23,   0 Aug 18 21:39 bpf0
 */
 
-static void			print_c_d(t_ls *ls, t_p *p, uint32_t i)
+static void			print_c_d(t_ls *ls, t_p *p, uint32_t i, uint8_t c_p)
 {
 	uint8_t			len;
 
 	len = ft_strlen(ls->file[i]->group);
 	ft_printf("%s", ls->file[i]->group);
-	if (ls->file[i]->mode == 'c' || ls->file[i]->mode == 'b')
+	if (c_p)
 	{
-		ft_printf("%*d,", p->m_major + 3 - len, ls->file[i]->major);
-		if (p->m_minor == n_len(ls->file[i]->minor) &&\
-				n_len(ls->file[i]->minor) > 3)
-			ft_printf(" %#010x", ls->file[i]->minor);
+		if (ls->file[i]->mode == 'c' || ls->file[i]->mode == 'b')
+		{
+			ft_printf("%*d,", p->m_major + 3 - len, ls->file[i]->major);
+			if (p->m_minor == n_len(ls->file[i]->minor) &&\
+					n_len(ls->file[i]->minor) > 3)
+				ft_printf(" %#010x", ls->file[i]->minor);
+			else
+				ft_printf("%*d", p->m_minor, ls->file[i]->minor);
+		}
 		else
-			ft_printf("%*d", p->m_minor, ls->file[i]->minor);
+		{
+			ft_printf("%*c ", p->m_major + 3 - len, ' ');
+			ft_printf("%*d", p->m_minor, ls->file[i]->size);
+		}
 	}
 	else
-	{
-		ft_printf("%*c ", p->m_major + 3 - len, ' ');
-		ft_printf("%*d", p->m_minor, ls->file[i]->size);
-	}
-}
-
-static void			print_not_c_d(t_ls *ls, t_p *p, uint32_t i)
-{
-	uint8_t			len;
-
-	len = ft_strlen(ls->file[i]->group);
-	ft_printf("%s", ls->file[i]->group);
-	ft_printf("%*d", p->m_g + 2 - len, ls->file[i]->size);
+		ft_printf("%*d", p->m_g + 2 - len, ls->file[i]->size);
 }
 
 static void			print_date(t_ls *ls, uint32_t i)
@@ -96,23 +112,27 @@ static void			print_filename(t_ls *ls, uint32_t i)
 	char			*temp;
 	char			*path;
 
+	ft_printf(" ");
 	if (ls->file[i]->mode == 'l')
 	{
 		if (!(link_buff = (char *)malloc(sizeof(char) * 2048)))
 			p_error("Memory allocation failed in link buf");
 		ft_bzero(link_buff, 2048);
-		ft_printf(" %s -> ", ls->file[i]->name);
+		ls->op & OP_G ? print_color(ls->file[i]) \
+			: ft_printf("%s", ls->file[i]->name);
 		ls->prefix != NULL ? temp = ft_strjoin(ls->prefix, "/") : 0;
 		ls->prefix != NULL ? path = ft_strjoin(temp, ls->file[i]->name) : 0;
 		ls->prefix == NULL ? path = ls->file[i]->name : 0;
 		readlink(path, link_buff, 2048);
-		ft_printf("%s\n", link_buff);
+		ft_printf(" -> %s", link_buff);
 		free(link_buff);
 		ls->prefix != NULL ? free(temp) : 0;
 		ls->prefix != NULL ? free(path) : 0;
 	}
 	else
-		ft_printf(" %s\n", ls->file[i]->name);
+		ls->op & OP_G ? print_color(ls->file[i]) \
+			: ft_printf("%s", ls->file[i]->name);
+	ft_printf("\n");
 }
 
 void				print_ls(t_ls *ls)
@@ -125,19 +145,19 @@ void				print_ls(t_ls *ls)
 	calculate_max(ls->file, p, ls->f_num);
 	if (ls->op & OP_L && ls->f_num != 0 && !(ls->op & OP_MAIN_LS))
 		ft_printf("total %lld\n", calculate_total(ls->file, ls->f_num));
-	while (++i < ls->f_num)
+	if (ls->op & OP_L)
 	{
-		if (ls->op & OP_L && ls->file[i]->mode != 'x')
+		while (++i < ls->f_num && ls->file[i]->mode != 'x')
 		{
 			ft_printf("%c%s", ls->file[i]->mode, ls->file[i]->permission);
 			ft_printf("%*d ", p->m_l + 2, ls->file[i]->link);
 			ft_printf("%-*s", p->m_u + 2, ls->file[i]->user);
-			p->is_c_d ? print_c_d(ls, p, i) : print_not_c_d(ls, p, i);
+			print_c_d(ls, p, i, p->is_c_d);
 			print_date(ls, i);
 			print_filename(ls, i);
 		}
-		else if (ls->file[i]->mode != 'x')
-			ft_printf("%s\n", ls->file[i]->name);
 	}
+	else
+		print_single_multi(ls);
 	free(p);
 }

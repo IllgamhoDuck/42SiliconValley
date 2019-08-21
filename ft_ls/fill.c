@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 20:09:07 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 18:32:44 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/21 04:17:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@
 #include <sys/types.h>
 #include <time.h>
 
-char				fill_file_mode(int mode)
+char				fill_file_mode(uint32_t op, int mode)
 {
 	if (S_ISREG(mode))
 		return ('-');
 	else if (S_ISDIR(mode))
 		return ('d');
-	else if (S_ISLNK(mode))
+	else if (S_ISLNK(mode) && !(op & OP_BL))
 		return ('l');
+	else if (S_ISLNK(mode) && op & OP_BL)
+		return ('d');
 	else if (S_ISCHR(mode))
 		return ('c');
 	else if (S_ISBLK(mode))
@@ -94,7 +96,7 @@ void				fill_date(t_file *file, struct stat *stat, uint32_t op)
 	file->mtimensec = stat->st_mtimespec.tv_nsec;
 	file->ctime = stat->st_ctime;
 	file->ctimensec = stat->st_ctimespec.tv_nsec;
-	if ((op & OP_L || op & OP_T) && op & OP_U)
+	if (op & OP_U)
 	{
 		time = ctime(&file->atime);
 		fill_atime(file, time);
@@ -120,7 +122,7 @@ void				fill_info_ls(t_ls *ls)
 		path = ft_strjoin(temp, ls->file[i]->name);
 		if (lstat(path, &file_stat) >= 0)
 		{
-			ls->file[i]->mode = fill_file_mode(file_stat.st_mode);
+			ls->file[i]->mode = fill_file_mode(ls->op, file_stat.st_mode);
 			ls->file[i]->permission = fill_permission(file_stat.st_mode);
 			ls->file[i]->link = file_stat.st_nlink;
 			ls->file[i]->size = file_stat.st_size;

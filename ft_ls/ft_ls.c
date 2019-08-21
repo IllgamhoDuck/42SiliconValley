@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:40:12 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 18:36:22 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/21 04:16:05 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void			fill_main_info_ls(t_ls *ls, char *path)
 
 	if (lstat(path, &file_stat) >= 0)
 	{
-		ls->file[0]->mode = fill_file_mode(file_stat.st_mode);
+		ls->file[0]->mode = fill_file_mode(ls->op, file_stat.st_mode);
 		ls->file[0]->permission = fill_permission(file_stat.st_mode);
 		ls->file[0]->link = file_stat.st_nlink;
 		ls->file[0]->size = file_stat.st_size;

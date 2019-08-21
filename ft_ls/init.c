@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 12:53:52 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 04:25:06 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/21 04:22:15 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ t_ls				*init_ls(void)
 	ls->current = NULL;
 	ls->file = NULL;
 	ls->op = 0;
-	ls->op |= OP_1;
 	ls->f_list = NULL;
 	ls->f_num = 0;
 	ls->dir = NULL;
 	ls->depth = 0;
+	ls->col_len = 0;
+	ls->col = 0;
+	ls->row = 0;
 	return (ls);
 }
 

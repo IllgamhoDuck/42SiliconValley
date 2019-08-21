@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:10:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 18:10:55 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/21 04:22:30 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,12 @@ static void				store_option(char *str, t_ls *ls)
 		*str == 'l' ? ls->op |= OP_L : 0;
 		*str == 'R' ? ls->op |= OP_R : 0;
 		*str == 'a' ? ls->op |= OP_A : 0;
-		*str == 'r' ? ls->op |= OP_SR : 0;;
+		*str == 'r' ? ls->op |= OP_SR : 0;
 		*str == 't' ? ls->op |= OP_T : 0;
 		*str == 'u' ? ls->op |= OP_U : 0;
 		*str == 'S' ? ls->op |= OP_S : 0;
+		*str == 'G' ? ls->op |= OP_G : 0;
+		*str == 'L' ? ls->op |= OP_BL : 0;
 		if (*str == '-')
 			;
 		else if (ft_strchr(OPTIONS, *str) == NULL)
