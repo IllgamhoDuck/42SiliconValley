@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 19:14:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 18:25:13 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 20:10:03 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void			print_date(t_ls *ls, uint32_t i)
 	double			diff;
 
 	time(&t);
-	if (ls->op & OP_U && (ls->op & OP_U || ls->op & OP_T))
+	if (ls->op & OP_U)
 	{
 		diff = t - ls->file[i]->atime;
 		diff = diff / (60 * 60 * 24 * 30);
