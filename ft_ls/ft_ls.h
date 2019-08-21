@@ -6,16 +6,16 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:37:59 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 16:23:34 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 17:30:07 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 
-#include <stdint.h>
-#include <dirent.h>
-#include <sys/stat.h>
+# include <stdint.h>
+# include <dirent.h>
+# include <sys/stat.h>
 
 /*
 ** Options

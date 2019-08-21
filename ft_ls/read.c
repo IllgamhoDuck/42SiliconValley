@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:10:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 03:18:57 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 17:36:05 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ static void				store_option(char *str, t_ls *ls)
 
 /*
 ** ac + 1 because even there is no parameter input
-** we should put a ./ path to it. 
+** we should put a ./ path to it.
 ** And for sort we need to put a NULL at the end
 ** So at least we need 2 spaces for minimum
 */

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/19 01:53:22 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/19 04:37:44 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 17:34:57 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ uint8_t				n_len(uint32_t n)
 ** m_u - max_user
 ** m_g - max_group
 ** m_major - max_major
-** m_minor - max_minor
+** m_minor - max_minor [seems it is treated as 4 for default]
 */
 
 static void			c_d_max(t_file **f, t_p *p, uint32_t i)
@@ -54,6 +54,7 @@ static void			c_d_max(t_file **f, t_p *p, uint32_t i)
 		if (n_len(f[i]->size) > p->m_minor)
 			p->m_minor = n_len(f[i]->size);
 	}
+	p->m_minor = 4;
 }
 
 void				calculate_max(t_file **f, t_p *p, uint32_t len)
@@ -63,15 +64,20 @@ void				calculate_max(t_file **f, t_p *p, uint32_t len)
 	i = 0;
 	while (i < len)
 	{
-		if (n_len(f[i]->link) > p->m_l)
-			p->m_l = n_len(f[i]->link);
-		if (ft_strlen(f[i]->user) > p->m_u)
-			p->m_u = ft_strlen(f[i]->user);
-		if (p->is_c_d)
-			c_d_max(f, p, i);
-		else
-			if (ft_strlen(f[i]->group) + n_len(f[i]->size) > p->m_g)
-				p->m_g = ft_strlen(f[i]->group) + n_len(f[i]->size);
+		if (f[i]->mode != 'x')
+		{
+			if (n_len(f[i]->link) > p->m_l)
+				p->m_l = n_len(f[i]->link);
+			if (ft_strlen(f[i]->user) > p->m_u)
+				p->m_u = ft_strlen(f[i]->user);
+			if (p->is_c_d)
+				c_d_max(f, p, i);
+			else
+			{
+				if (ft_strlen(f[i]->group) + n_len(f[i]->size) > p->m_g)
+					p->m_g = ft_strlen(f[i]->group) + n_len(f[i]->size);
+			}
+		}
 		i++;
 	}
 }
@@ -85,7 +91,8 @@ uint64_t			calculate_total(t_file **f, uint32_t len)
 	total = 0;
 	while (i < len)
 	{
-		total += f[i]->block;
+		if (f[i]->mode != 'x')
+			total += f[i]->block;
 		i++;
 	}
 	return (total);

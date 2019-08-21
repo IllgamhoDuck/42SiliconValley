@@ -6,12 +6,14 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 00:40:12 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 16:28:41 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 16:36:17 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ls.h"
+#include <uuid/uuid.h>
+#include <sys/types.h>
 
 static uint8_t		check_valid_file(t_ls *ls, char *name)
 {
@@ -68,6 +70,8 @@ static void			fill_main_info_ls(t_ls *ls, char *path)
 		ls->file[0]->permission = fill_permission(file_stat.st_mode);
 		ls->file[0]->link = file_stat.st_nlink;
 		ls->file[0]->size = file_stat.st_size;
+		ls->file[0]->major = major(file_stat.st_rdev);
+		ls->file[0]->minor = minor(file_stat.st_rdev);
 		fill_user_group(ls->file[0], &file_stat);
 		fill_date(ls->file[0], &file_stat);
 	}

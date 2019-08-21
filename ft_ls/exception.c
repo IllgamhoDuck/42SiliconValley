@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/20 02:38:36 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 16:24:24 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 17:30:49 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 /*
 ** case 1 print out ls -l symbolic as just a file, but if not a -l just do it
-** case 2 print out the file names at the first. 
+** case 2 print out the file names at the first.
 ** -> sort the ls to the files and directorys.
 ** -> make another ls and handle files at FILE LS
-** -> == ORIGINAL LS == SPLITED TO == TWO LS == FOLDER LS == FILE LS == 
+** -> == ORIGINAL LS == SPLITED TO == TWO LS == FOLDER LS == FILE LS ==
 ** -> FILE LS files name memory is at FOLDER LS files
 ** -> and we will changed the FOLDER LS f_num depending on the count_d_len
 ** -> the file names at FOLDER LS will be freed at free_ls(file_ls)
 ** ========================================================================
-** -> and case 1 will be treated at here! 
+** -> and case 1 will be treated at here!
 ** -> ls -l symbolic is treated as file
 ** -> ls no -l symbolic is treated as folder
 */
@@ -69,7 +69,7 @@ void				print_file_symbol(t_ls *ls)
 	ls->op |= OP_MAIN_LS;
 	len = count_d_len(ls);
 	file_ls = init_ls();
-	file_ls->f_num  = ls->f_num - len;
+	file_ls->f_num = ls->f_num - len;
 	if (!(file_ls->file = (t_file **)malloc(sizeof(t_file *) * file_ls->f_num)))
 		p_error("Memory allocation failed at file_ls");
 	sort_ls(ls);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 19:14:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/20 15:37:45 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/20 17:35:41 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /*
 ** ft_printf(" %#010X", ls->file[i]->minor);
 ** this function was made tto treat the "autofs_nowait" weird minor number
-** do the 0x when it is the max minor number. But not for 1
+** do the 0x when it is the max minor number. But not for below 4
 ** =======================================================================
 ** crw-rw-rw-  1 root    wheel       32,  47 Aug 18 21:39 autofs_notrigger
 ** crw-rw-rw-  1 root    wheel       31, 0x000011b7 Aug 18 21:39 autofs_nowait
@@ -33,7 +33,8 @@ static void			print_c_d(t_ls *ls, t_p *p, uint32_t i)
 	if (ls->file[i]->mode == 'c' || ls->file[i]->mode == 'b')
 	{
 		ft_printf("%*d,", p->m_major + 3 - len, ls->file[i]->major);
-		if (p->m_minor == n_len(ls->file[i]->minor) && ls->file[i]->minor > 1)
+		if (p->m_minor == n_len(ls->file[i]->minor) &&\
+				n_len(ls->file[i]->minor) > 3)
 			ft_printf(" %#010x", ls->file[i]->minor);
 		else
 			ft_printf("%*d", p->m_minor, ls->file[i]->minor);
@@ -69,7 +70,8 @@ static void			print_date(t_ls *ls, uint32_t i)
 		ft_printf("%s", ls->file[i]->time);
 }
 
-/* Printing is used in 2 way
+/*
+** Printing is used in 2 way
 ** 1. printing out ls at the main where ls->prefix is NULL
 ** 2. priting out normally while processing the file.
 ** So splited y using ls->prefix == NULL & ls->prefix != NULL
