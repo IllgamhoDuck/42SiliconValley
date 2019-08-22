@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 03:14:42 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/09 13:39:07 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/21 22:18:01 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ void				free_pos(t_pos *p1, t_pos *p2, t_pos *p3)
 	free(p3);
 }
 
+void				free_str(char **str)
+{
+	int				i;
+
+	i = -1;
+	while (str[++i] != NULL)
+		free(str[i]);
+	free(str);
+}
+
 void				free_fdf(t_fdf *fdf)
 {
 	if (fdf)
@@ -45,7 +55,7 @@ void				free_fdf(t_fdf *fdf)
 		if (fdf->camera)
 			free(fdf->camera);
 		if (fdf->mouse)
-			free(fdf->camera);
+			free(fdf->mouse);
 		free(fdf);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:19:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 21:38:37 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/21 21:57:32 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,8 +486,8 @@ int					main(void)
 	// BONUS PART
 	// BINARY - b B
 //	ft_printf("testing binary %b\n", 123);
-//	ft_printf("testing binary %15.7b\n", 123);
-//	ft_printf("testing binary %#15.b\n", 123);
+	ft_printf("testing binary %15.7b\n", 21487389);
+	ft_printf("testing binary %#15.b\n", 123);
 //	ft_printf("testing binary %#015.b\n", 123);
 //	ft_printf("testing binary %-#015.b\n", 123);
 //	ft_printf("testing binary %B\n", 123);
@@ -504,12 +504,15 @@ int					main(void)
 //	ft_printf("%r\n", r_test);
 
 	// Color
-//	ft_printf("the color {red} is {blue} like {yellow} this {blue} bold {magenta} red {cyan} and red\n");
-//	ft_printf("I will put the color to normal {eos} like this\n");
+	ft_printf("the color {red} is {blue} like {yellow} this {blue} bold {magenta} red {cyan} and red\n");
+	ft_printf("I will put the color to normal {eos} like this\n");
 	ft_printf("the color {red} is like this {bold red} bold red and red\n");
 
 	// fd
 //	ft_printf("the default fd is %@, and 1 is %1@, and also its %2@ the error message");
 //	ft_printf("fd 3is %3@ and ...\n");
+
+//	ft_printf("[%*.*d]\n", -20, 2, 500);
+//	printf("[%*.*d]\n", -20, 2, 500);
 	return (0);
 }

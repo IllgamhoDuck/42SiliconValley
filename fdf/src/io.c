@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 13:10:18 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/09 00:46:06 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/21 22:18:18 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static t_reader		*read_coord(char *coord)
 		reader = init_reader(ft_atoi(z), atoi_h(color));
 	else
 		reader = init_reader(ft_atoi(z), -1);
+	free_str(coord_info);
 	return (reader);
 }
 
@@ -48,6 +49,7 @@ static t_reader		*read_line(char **line, t_map *map, t_reader *reader)
 		map->width = width;
 	else if (map->width != width)
 		print_error("The map width size is not equal! Not a square!");
+	free_str(line);
 	return (reader);
 }
 
@@ -96,6 +98,7 @@ t_reader			*process_file(int fd, t_map *map)
 		}
 		current = read_line(ft_strsplit(line, ' '), map, current);
 		map->height++;
+		free(line);
 	}
 	current = reader->next;
 	free(reader);

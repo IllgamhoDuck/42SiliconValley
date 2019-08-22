@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 20:47:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/09 02:19:20 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/21 22:59:30 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,25 @@ void				print_error(char *str)
 	exit(1);
 }
 
-static void			print_sidebar_3(t_fdf *fdf)
+static void			print_sidebar_4(t_fdf *fdf)
 {
-	mlx_string_put(fdf->mlx, fdf->win, 25, 250, DEEPPINK, "GAMMA : ");
-	mlx_string_put(fdf->mlx, fdf->win, 100, 250, DEEPPINK,
-					ft_itoa(fdf->camera->gamma * (180.0 / M_PI)));
+	char			*str;
+
 	mlx_string_put(fdf->mlx, fdf->win, 150, 200, DEEPPINK, "PAN : ");
-	mlx_string_put(fdf->mlx, fdf->win, 225, 200, DEEPPINK,
-					ft_itoa(fdf->camera->pan * (180.0 / M_PI)));
+	str = ft_itoa(fdf->camera->pan * (180.0 / M_PI));
+	mlx_string_put(fdf->mlx, fdf->win, 225, 200, DEEPPINK, str);
+	free(str);
 	mlx_string_put(fdf->mlx, fdf->win, 150, 225, DEEPPINK, "TILT : ");
-	mlx_string_put(fdf->mlx, fdf->win, 225, 225, DEEPPINK,
-					ft_itoa(fdf->camera->tilt * (180.0 / M_PI)));
+	str = ft_itoa(fdf->camera->tilt * (180.0 / M_PI));
+	mlx_string_put(fdf->mlx, fdf->win, 225, 225, DEEPPINK, str);
+	free(str);
 	mlx_string_put(fdf->mlx, fdf->win, 25, 775, LIGHT_GOLD,
 					"USE ARROW KEY AND MOUSE TO ROTATE");
 	mlx_string_put(fdf->mlx, fdf->win, 25, 850, LIGHT_GOLD,
 					"ILLGAMHO DUCK LAND QUARK!!!");
 }
 
-static void			print_sidebar_2(t_fdf *fdf)
+static void			print_sidebar_3(t_fdf *fdf)
 {
 	mlx_string_put(fdf->mlx, fdf->win, 25, 300, GOLD, "INSTRUCTIONS");
 	mlx_string_put(fdf->mlx, fdf->win, 25, 325, GOLD, "KEY I - ISO");
@@ -63,33 +64,53 @@ static void			print_sidebar_2(t_fdf *fdf)
 					"2 - MOVING CAMERA, NO MODIFY ON AXIS");
 	mlx_string_put(fdf->mlx, fdf->win, 25, 750, LIGHT_GOLD,
 					"PAN(X - LEFT & RIGHT) / TILT(Y - UP & DOWN)");
+	print_sidebar_4(fdf);
+}
+
+static void			print_sidebar_2(t_fdf *fdf)
+{
+	char			*str;
+
+	mlx_string_put(fdf->mlx, fdf->win, 25, 200, DEEPPINK, "ALPHA : ");
+	str = ft_itoa(fdf->camera->alpha * (180.0 / M_PI));
+	mlx_string_put(fdf->mlx, fdf->win, 100, 200, DEEPPINK, str);
+	free(str);
+	mlx_string_put(fdf->mlx, fdf->win, 25, 225, DEEPPINK, "BETA : ");
+	str = ft_itoa(fdf->camera->beta * (180.0 / M_PI));
+	mlx_string_put(fdf->mlx, fdf->win, 100, 225, DEEPPINK, str);
+	free(str);
+	mlx_string_put(fdf->mlx, fdf->win, 25, 250, DEEPPINK, "GAMMA : ");
+	str = ft_itoa(fdf->camera->gamma * (180.0 / M_PI));
+	mlx_string_put(fdf->mlx, fdf->win, 100, 250, DEEPPINK, str);
+	free(str);
 	print_sidebar_3(fdf);
 }
 
 void				print_sidebar(t_fdf *fdf)
 {
+	char			*str;
+
 	mlx_string_put(fdf->mlx, fdf->win, 25, 25, DEEPPINK, "MOUSE");
 	mlx_string_put(fdf->mlx, fdf->win, 25, 50, DEEPPINK, "X : ");
-	mlx_string_put(fdf->mlx, fdf->win, 75, 50, DEEPPINK,
-					ft_itoa(fdf->mouse->x));
+	str = ft_itoa(fdf->mouse->x);
+	mlx_string_put(fdf->mlx, fdf->win, 75, 50, DEEPPINK, str);
+	free(str);
 	mlx_string_put(fdf->mlx, fdf->win, 125, 50, DEEPPINK, "Y : ");
-	mlx_string_put(fdf->mlx, fdf->win, 175, 50, DEEPPINK,
-					ft_itoa(fdf->mouse->y));
+	str = ft_itoa(fdf->mouse->y);
+	mlx_string_put(fdf->mlx, fdf->win, 175, 50, DEEPPINK, str);
+	free(str);
 	mlx_string_put(fdf->mlx, fdf->win, 25, 75, DEEPPINK, "CAMERA");
 	mlx_string_put(fdf->mlx, fdf->win, 25, 100, DEEPPINK, "X : ");
-	mlx_string_put(fdf->mlx, fdf->win, 75, 100, DEEPPINK,
-					ft_itoa(fdf->camera->x_1));
+	str = ft_itoa(fdf->camera->x_1);
+	mlx_string_put(fdf->mlx, fdf->win, 75, 100, DEEPPINK, str);
+	free(str);
 	mlx_string_put(fdf->mlx, fdf->win, 25, 125, DEEPPINK, "Y : ");
-	mlx_string_put(fdf->mlx, fdf->win, 75, 125, DEEPPINK,
-					ft_itoa(fdf->camera->y_1));
+	str = ft_itoa(fdf->camera->y_1);
+	mlx_string_put(fdf->mlx, fdf->win, 75, 125, DEEPPINK, str);
+	free(str);
 	mlx_string_put(fdf->mlx, fdf->win, 25, 150, DEEPPINK, "Z : ");
-	mlx_string_put(fdf->mlx, fdf->win, 75, 150, DEEPPINK,
-					ft_itoa(fdf->camera->z_1));
-	mlx_string_put(fdf->mlx, fdf->win, 25, 200, DEEPPINK, "ALPHA : ");
-	mlx_string_put(fdf->mlx, fdf->win, 100, 200, DEEPPINK,
-					ft_itoa(fdf->camera->alpha * (180.0 / M_PI)));
-	mlx_string_put(fdf->mlx, fdf->win, 25, 225, DEEPPINK, "BETA : ");
-	mlx_string_put(fdf->mlx, fdf->win, 100, 225, DEEPPINK,
-					ft_itoa(fdf->camera->beta * (180.0 / M_PI)));
+	str = ft_itoa(fdf->camera->z_1);
+	mlx_string_put(fdf->mlx, fdf->win, 75, 150, DEEPPINK, str);
+	free(str);
 	print_sidebar_2(fdf);
 }
