@@ -5,12 +5,12 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/08/16 21:12:21 by hypark            #+#    #+#              #
-#    Updated: 2019/08/21 23:13:43 by hypark           ###   ########.fr        #
+#    Created: 2019/08/22 13:32:30 by hypark            #+#    #+#              #
+#    Updated: 2019/08/22 13:35:24 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := ft_ls
+NAME := ft_ssl
 CC := gcc
 CFLAGS := -Wall -Wextra -Wextra -O3
 OBJ := *.o
@@ -20,7 +20,7 @@ INCDIR := ./includes
 FTDIR := ./libft
 FTINC := includes
 
-SRC = $(SRCDIR)/*.c
+SRC = *.c $(SRCDIR)/*.c
 INCLUDES := -I$(FTDIR)/$(FTINC) -I$(INCDIR)
 LIB := -L $(FTDIR) -lft
 

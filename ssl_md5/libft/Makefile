@@ -5,39 +5,39 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/08/16 21:12:21 by hypark            #+#    #+#              #
-#    Updated: 2019/08/21 23:13:43 by hypark           ###   ########.fr        #
+#    Created: 2019/07/23 23:36:24 by hypark            #+#    #+#              #
+#    Updated: 2019/08/16 21:55:01 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := ft_ls
+NAME := libft.a 
 CC := gcc
-CFLAGS := -Wall -Wextra -Wextra -O3
-OBJ := *.o
+CFLAGS := -Wall -Wextra -Werror
 
-SRCDIR := ./src
 INCDIR := ./includes
-FTDIR := ./libft
-FTINC := includes
+LIBFT := ./src
+PRINTF := ./printf
 
-SRC = $(SRCDIR)/*.c
-INCLUDES := -I$(FTDIR)/$(FTINC) -I$(INCDIR)
-LIB := -L $(FTDIR) -lft
+SRC := $(LIBFT)/*.c 
+INCLUDES := -I$(INCDIR) 
+OBJ := *.o $(PRINTF)/*.o
 
-.PHONY: all clean fclean re
 all: $(NAME)
+.PHONY: all clean fclean re
 
 $(NAME):
-	$(MAKE) -sC $(FTDIR)
+	$(MAKE) -sC $(PRINTF)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRC)
-	$(CC) $(LIB) $(OBJ) -o $@
+	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
 
 clean:
-	$(MAKE) -sC $(FTDIR) clean
+	$(MAKE) -sC $(PRINTF) clean
 	rm -f $(OBJ)
 
 fclean: clean
-	$(MAKE) -sC $(FTDIR) fclean
+	$(MAKE) -sC $(PRINTF) fclean
 	rm -f $(NAME)
 
 re: fclean all
+

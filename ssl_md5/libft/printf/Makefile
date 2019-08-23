@@ -5,39 +5,31 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/08/16 21:12:21 by hypark            #+#    #+#              #
-#    Updated: 2019/08/21 23:13:43 by hypark           ###   ########.fr        #
+#    Created: 2019/08/16 21:42:42 by hypark            #+#    #+#              #
+#    Updated: 2019/08/16 21:54:01 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := ft_ls
+NAME := printf
 CC := gcc
-CFLAGS := -Wall -Wextra -Wextra -O3
+CFLAGS := -Wall -Wextra -Wextra
+SRC = $(wildcard $(SRCDIR)/*.c)
 OBJ := *.o
 
 SRCDIR := ./src
-INCDIR := ./includes
-FTDIR := ./libft
-FTINC := includes
+INCDIR := ../includes
 
-SRC = $(SRCDIR)/*.c
-INCLUDES := -I$(FTDIR)/$(FTINC) -I$(INCDIR)
-LIB := -L $(FTDIR) -lft
+INCLUDES := -I$(INCDIR)
 
-.PHONY: all clean fclean re
 all: $(NAME)
+.PHONY: all clean fclean re
 
 $(NAME):
-	$(MAKE) -sC $(FTDIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRC)
-	$(CC) $(LIB) $(OBJ) -o $@
 
 clean:
-	$(MAKE) -sC $(FTDIR) clean
 	rm -f $(OBJ)
 
 fclean: clean
-	$(MAKE) -sC $(FTDIR) fclean
-	rm -f $(NAME)
 
 re: fclean all

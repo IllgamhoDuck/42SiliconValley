@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/17 01:10:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/21 04:22:30 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/22 01:16:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ static void				store_option(char *str, t_ls *ls)
 	{
 		*str == '-' ? op_n++ : 0;
 		op_n == 2 ? illegal_option('-') : 0;
-		*str == '1' ? ls->op |= OP_1 : 0;
+		if (*str == '1')
+			(ls->op |= OP_1) && (ls->op &= ~OP_L);
 		*str == 'l' ? ls->op |= OP_L : 0;
 		*str == 'R' ? ls->op |= OP_R : 0;
 		*str == 'a' ? ls->op |= OP_A : 0;

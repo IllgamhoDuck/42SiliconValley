@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 01:11:54 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/09 01:22:25 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/22 21:25:55 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ int					decide_color(t_fdf *fdf, int z)
 
 	z_range = fdf->map->z_max - fdf->map->z_min;
 	z_current = z - fdf->map->z_min;
-	percentage = z_current / z_range;
+	if (z_range != 0)
+		percentage = z_current / z_range;
+	else
+		return (LIGHT_GOLD);
 	return (calculate_color(LIGHT_GOLD, DEEPPINK, percentage));
 }
 

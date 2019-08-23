@@ -6,33 +6,13 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/18 19:14:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/21 03:21:57 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/22 01:01:19 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "libft.h"
 #include "time.h"
-
-void				print_color(t_file *f)
-{
-	if (f->mode == 'd')
-		ft_printf("\033[1;36m%s{eos}", f->name);
-	else if (f->mode == 'l')
-		ft_printf("{magenta}%s{eos}", f->name);
-	else if (f->mode == '-')
-	{
-		if (f->permission[2] == 'x' || f->permission[5] == 'x' || \
-				f->permission[8] == 'x')
-			ft_printf("{red}%s{eos}", f->name);
-		else
-			ft_printf("%s", f->name);
-	}
-	else if (f->mode == 'c' || f->mode == 'b')
-		ft_printf("\033[1;33m%s{eos}", f->name);
-	else
-		ft_printf("%s", f->name);
-}
 
 /*
 ** ft_printf(" %#010X", ls->file[i]->minor);
@@ -144,6 +124,7 @@ void				print_ls(t_ls *ls)
 	p = init_print(ls);
 	calculate_max(ls->file, p, ls->f_num);
 	if (ls->op & OP_L && ls->f_num != 0 && !(ls->op & OP_MAIN_LS))
+		calculate_total(ls->file, ls->f_num) == 0 ? 0 : \
 		ft_printf("total %lld\n", calculate_total(ls->file, ls->f_num));
 	if (ls->op & OP_L)
 	{
