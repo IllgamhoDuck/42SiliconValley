@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:24:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 21:58:58 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/24 00:44:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # define FLM (1 << 2)
 # define FLZ (1 << 3)
 # define FLH (1 << 4)
-# define H (1 << 5)
-# define HH (1 << 6)
-# define L (1 << 7)
-# define LL (1 << 8)
+# define PF_H (1 << 5)
+# define PF_HH (1 << 6)
+# define PF_L (1 << 7)
+# define PF_LL (1 << 8)
 # define L2 (1 << 9)
 # define UPPER (1 << 10)
 # define NEG (1 << 11)

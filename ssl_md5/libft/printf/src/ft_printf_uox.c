@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 23:39:17 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 01:43:00 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/24 00:45:43 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ inline static uintmax_t	get_uint(t_print *p)
 {
 	uintmax_t			n;
 
-	if (p->f & L)
+	if (p->f & PF_L)
 		n = va_arg(p->ap, unsigned long);
-	else if (p->f & LL)
+	else if (p->f & PF_LL)
 		n = va_arg(p->ap, unsigned long long);
 	else
 		n = va_arg(p->ap, unsigned int);
-	if (p->f & H)
+	if (p->f & PF_H)
 		n = (unsigned short)n;
-	else if (p->f & HH)
+	else if (p->f & PF_HH)
 		n = (unsigned char)n;
 	return (n);
 }

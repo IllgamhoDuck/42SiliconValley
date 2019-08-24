@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 23:38:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 01:41:57 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/24 00:45:29 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ inline static intmax_t	get_int(t_print *p)
 {
 	intmax_t			n;
 
-	if (p->f & L)
+	if (p->f & PF_L)
 		n = va_arg(p->ap, long);
-	else if (p->f & LL)
+	else if (p->f & PF_LL)
 		n = va_arg(p->ap, long long);
 	else
 		n = va_arg(p->ap, int);
-	if (p->f & H)
+	if (p->f & PF_H)
 		n = (short)n;
-	else if (p->f & HH)
+	else if (p->f & PF_HH)
 		n = (char)n;
 	return (n);
 }

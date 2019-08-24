@@ -1,41 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   md5.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/23 12:57:26 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/23 23:35:41 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/23 23:50:01 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/24 00:36:13 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "md5.h"
+#include "libft.h"
 
-void				free_reader(t_reader *r)
+void					md5(t_ssl *ssl)
 {
-	free(r->buff);
-	free(r);
-}
-
-void				free_c_list(t_c_list *c_list)
-{
-	if (c_list)
-	{
-		if (c_list->next)
-			free_c_list(c_list->next);
-		free(c_list);
-	}
-}
-
-void				free_ssl(t_ssl *ssl)
-{
-	if (ssl)
-	{
-		if (ssl->files)
-			free(ssl->files);
-		if (ssl->s_stdin)
-			free(ssl->s_stdin);
-		free(ssl);
-	}
+	ft_printf("md5 : %s\n", ssl->str);
 }

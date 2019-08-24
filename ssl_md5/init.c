@@ -6,9 +6,11 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:07:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/23 12:01:59 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/24 00:47:07 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_ssl.h"
 
 t_reader			*init_reader(uint16_t fd)
 {
@@ -45,11 +47,11 @@ t_ssl				*init_ssl(void)
 	if (!(ssl = (t_ssl *)malloc(sizeof(t_ssl))))
 		return (0);
 	ssl->files = NULL;
+	ssl->str = NULL;
+	ssl->mdc = -1;
 	ssl->total = 0;
 	ssl->op = 0;
-	ssl->sc = 0;
-	ssl->mdc = 0;
-	ssl->cc = 0;
 	ssl->p_stdin = 0;
+	ssl->s_stdin = NULL;
 	return (ssl);
 }

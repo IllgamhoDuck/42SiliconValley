@@ -6,27 +6,30 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 14:59:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/23 13:04:19 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/24 00:37:22 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "libft.h"
 
+char *g_op[5] = {"-p", "-q", "-r", "-s", NULL};
+char *g_md_command[3] = {"md5", "sha256", NULL};
+
 static void			command_check(t_ssl *ssl, char *s)
 {
-	int8_t			i;
+	int16_t			i;
 
 	i = -1;
-	while (g_mdc[++i] != NULL)
+	while (g_md_command[++i] != NULL)
 	{
-		if (ft_strcmp(g_mdc[i], s) == 0)
+		if (ft_strcmp(g_md_command[i], s) == 0)
 		{
-			ssl->mdc |= 1 << i;
+			ssl->mdc = i;
 			return ;
 		}
 	}
-	invalid_command(av[i]);
+	invalid_command(s);
 }
 
 /*
@@ -51,7 +54,7 @@ static void			option_check(t_ssl *ssl, char *s)
 			return ;
 		}
 	}
-	unknown_option(av[i]);
+	unknown_option(s);
 }
 
 /*
@@ -72,16 +75,17 @@ void				read_input(int ac, char **av, t_ssl *ssl)
 	{
 		if (i == 1)
 			command_check(ssl, av[i]);
-		if (av[i][0] == '-')
+		else if (av[i][0] == '-')
 			option_check(ssl, av[i]);
 		else
 		{
-			if (!(ssl->file = (char **)malloc(sizeof(char *) * ac - i + 1)))
+			if (!(ssl->files = (char **)malloc(sizeof(char *) * ac - i + 1)))
 				malloc_error("ssl->file");
 			while (i < ac)
-				ssl->file[ssl->total++] = av[i++];
-			ssl->file[ssl->total] = NULL;
+				ssl->files[ssl->total++] = av[i++];
+			ssl->files[ssl->total] = NULL;
 		}
 	}
-	ssl->s_stdin = read_file(0);
+	if (ssl->total == 0)
+	   	ssl->p_stdin = 1;
 }

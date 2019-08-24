@@ -1,41 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   sha256.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/23 12:57:26 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/23 23:35:41 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/24 00:04:23 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/24 00:06:12 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ssl.h"
+#ifndef SHA256_H
+# define SHA256_H
 
-void				free_reader(t_reader *r)
-{
-	free(r->buff);
-	free(r);
-}
+void				sha256(t_ssl *ssl);
 
-void				free_c_list(t_c_list *c_list)
-{
-	if (c_list)
-	{
-		if (c_list->next)
-			free_c_list(c_list->next);
-		free(c_list);
-	}
-}
-
-void				free_ssl(t_ssl *ssl)
-{
-	if (ssl)
-	{
-		if (ssl->files)
-			free(ssl->files);
-		if (ssl->s_stdin)
-			free(ssl->s_stdin);
-		free(ssl);
-	}
-}
+#endif

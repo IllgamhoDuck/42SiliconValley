@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 23:06:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/23 12:31:33 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/16 21:57:55 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int					ft_atoi(const char *str);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
-int					ft_isspace(int c);
 int					ft_isascii(int c);
 int					ft_isprint(int c);
 int					ft_toupper(int c);
@@ -127,5 +126,5 @@ int					ft_strcct(char const *s, char c, int i);
 int					ft_nbrcount(int n);
 char				**ft_strsplit_help(char ***l, char const **s, char c);
 void				ft_strtrim_help(char const **s, int *i, int *j);
-l
+
 #endif

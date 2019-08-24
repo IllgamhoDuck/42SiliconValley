@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 19:51:24 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 01:58:49 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/24 00:46:02 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ static inline const char	*read_precision(const char *s, t_print *p)
 static inline const char	*read_length(const char *s, t_print *p)
 {
 	if (*s == 'h' && *(s + 1) == 'h' && s++ && s++)
-		p->f |= HH;
+		p->f |= PF_HH;
 	else if (*s == 'l' && *(s + 1) == 'l' && s++ && s++)
-		p->f |= LL;
+		p->f |= PF_LL;
 	else if (*s == 'h' && s++)
-		p->f |= H;
+		p->f |= PF_H;
 	else if (*s == 'l' && s++)
-		p->f |= L;
+		p->f |= PF_L;
 	else if (*s == 'L' && s++)
 		p->f |= L2;
 	return (s);

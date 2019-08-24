@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:04:17 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/23 12:57:08 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/24 00:50:04 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,7 @@ static char			get_next_char(t_reader *r)
 	if (r->len == 0)
 		return (0);
 	r->i = 0;
-	else
-		return(r->buff[r->i++]);
-}
-
-/*
-** what valid char should i put int?
-*/
-
-static uint8_t		valid_char(char c)
-{
-	if (ft_isalnum(c) || ft_isspace(c))
-		return (1);
-	return (0);
+	return(r->buff[r->i++]);
 }
 
 static void			fill_list(t_reader *r, t_c_list **c_list, uint32_t *len)
@@ -43,10 +31,10 @@ static void			fill_list(t_reader *r, t_c_list **c_list, uint32_t *len)
 	char			c;
 
 	current = NULL;
-	while ((c = get_next_char(r)) != '\0')
+	while ((c = get_next_char(r)))
 	{
-		if (!(valid_char(c)))
-			p_error("Invalid character has found. Stopping the processing!");
+		if (c == -1)
+			p_error("Error occur while reading the file");
 		if (current == NULL)
 		{
 			current = init_c_list(c);
@@ -59,6 +47,8 @@ static void			fill_list(t_reader *r, t_c_list **c_list, uint32_t *len)
 		}
 		(*len)++;
 	}
+	if (current == NULL)
+		*c_list = NULL;
 }
 
 static char			*compress_data(t_c_list *c_list, uint32_t len)
@@ -66,10 +56,10 @@ static char			*compress_data(t_c_list *c_list, uint32_t len)
 	char			*result;
 	uint32_t		i;
 
-	if (!(result = (char *)malloc(sizeof(char) * (len + 1))))
+	if (!(result = (char *)malloc(sizeof(char) * len)))
 		malloc_error("compress_data - char *result");
 	i = -1;
-	while (++i > len)
+	while (++i < len)
 	{
 		result[i] = c_list->c;
 		c_list = c_list->next;
