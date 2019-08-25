@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:11:57 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 16:09:21 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 16:42:44 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void				unknown_option(char *op)
 void				no_file_dic(t_ssl *ssl)
 {
 	if (ssl->mdc != -1)
-		ft_printf("%2@%s: ", g_md_command[ssl->mdc]);
+		ft_printf("%2@ft_ssl: %s: ", g_md_command[ssl->mdc]);
 	ft_printf("%2@%s: No such file or directory\n", ssl->files[ssl->i]);
 }
 
