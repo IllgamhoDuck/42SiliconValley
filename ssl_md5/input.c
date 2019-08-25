@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 14:59:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 01:24:00 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 12:53:15 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 char *g_op[5] = {"-p", "-q", "-r", "-s", NULL};
 char *g_md_command[3] = {"md5", "sha256", NULL};
+int32_t g_mdc_hash_size[2] = {4, 8};
 
-static void			command_check(t_ssl *ssl, char *s)
+static uint8_t		command_check(t_ssl *ssl, char *s)
 {
 	int16_t			i;
 
@@ -26,10 +27,11 @@ static void			command_check(t_ssl *ssl, char *s)
 		if (ft_strcmp(g_md_command[i], s) == 0)
 		{
 			ssl->mdc = i;
-			return ;
+			return (1);
 		}
 	}
 	invalid_command(s);
+	return (0);
 }
 
 /*
@@ -48,13 +50,17 @@ static void			option_check(t_ssl *ssl, char *s)
 	{
 		if (ft_strcmp(g_op[i], s) == 0)
 		{
-			if (i == 0)
-				ssl->op &= ~OP_R;
 			ssl->op |= 1 << i;
 			return ;
 		}
 	}
 	unknown_option(s);
+}
+
+static void			hash_size(t_ssl *ssl)
+{
+	if (ssl->mdc != -1)
+		ssl->hash_size = g_mdc_hash_size[ssl->mdc];
 }
 
 /*
@@ -74,7 +80,12 @@ void				read_input(int ac, char **av, t_ssl *ssl)
 	while (++i < ac)
 	{
 		if (i == 1)
-			command_check(ssl, av[i]);
+			command_check(ssl, av[i]) ? hash_size(ssl) : 0;
+		else if (ft_strcmp(av[i], "-p") == 0 && !(ssl->op & OP_S))
+		{
+			option_check(ssl, av[i]);
+			stdin_process(ssl);
+		}
 		else if (av[i][0] == '-' && !(ssl->op & OP_S))
 			option_check(ssl, av[i]);
 		else

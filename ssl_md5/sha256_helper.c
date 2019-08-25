@@ -1,55 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   md5_helper.c                                       :+:      :+:    :+:   */
+/*   sha256_helper.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/24 11:32:45 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 16:09:54 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/25 16:17:46 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/25 16:18:18 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-#include "md5.h"
+#include "sha256.h"
 #include "libft.h"
 
-static uint32_t g_md5_init[4] = {
+static uint32_t g_sha256_init[4] = {
 	0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476
 };
 
-t_md5				*init_md5(t_ssl *ssl)
+t_sha256			*init_sha256(t_ssl *ssl)
 {
-	t_md5			*md5;
+	t_sha256		*sha256;
 	int8_t			i;
 
-	if (!(md5 = (t_md5 *)ft_memalloc(sizeof(t_md5))))
-		malloc_error("t_md5");
-	md5->str = (uint8_t *)ft_strdup(ssl->hash_input);
-	md5->len = ft_strlen((char *)md5->str);
+	if (!(sha256 = (t_sha256 *)ft_memalloc(sizeof(t_sha256))))
+		malloc_error("t_sha256");
+	sha256->str = (uint8_t *)ft_strdup(ssl->hash_input);
+	sha256->len = ft_strlen((char *)sha256->str);
 	i = -1;
 	while (++i < 4)
-		md5->h[i] = g_md5_init[i];
-	return (md5);
+		sha256->h[i] = g_sha256_init[i];
+	return (sha256);
 }
 
-void				store_result_md5(t_ssl *ssl, t_md5 *md5)
+void				store_result_sha256(t_ssl *ssl, t_sha256 *sha256)
 {
 	int32_t			i;
 
 	i = -1;
 	while (++i < ssl->hash_size)
-		ssl->hash_output[i] = md5->h[i];
+		ssl->hash_output[i] = sha256->h[i];
 }
 
-void				free_md5(t_md5 *md5)
+void				free_sha256(t_sha256 *sha256)
 {
-	if (md5)
+	if (sha256)
 	{
-		if (md5->str)
-			free(md5->str);
-		if (md5->padded_str)
-			free(md5->str);
-		free(md5);
+		if (sha256->str)
+			free(sha256->str);
+		if (sha256->padded_str)
+			free(sha256->str);
+		free(sha256);
 	}
 }

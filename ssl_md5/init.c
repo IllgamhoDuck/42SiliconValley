@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:07:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 00:58:44 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 15:55:35 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_ssl				*init_ssl(void)
 	if (!(ssl = (t_ssl *)malloc(sizeof(t_ssl))))
 		return (0);
 	ssl->files = NULL;
+	ssl->i = 0;
 	ssl->hash_input = NULL;
 	ssl->hash_size = 0;
 	ssl->mdc = -1;
