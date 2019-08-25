@@ -1,39 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   endian.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/23 12:57:26 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 00:26:48 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/24 18:10:28 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/24 20:37:15 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void				free_reader(t_reader *r)
+uint64_t				swap_endian64(uint64_t w)
 {
-	free(r->buff);
-	free(r);
+	w = (w & 0x00000000FFFFFFFF) << 32 | (w & 0xFFFFFFFF00000000) >> 32;
+	w = (w & 0x0000FFFF0000FFFF) << 16 | (w & 0xFFFF0000FFFF0000) >> 16;
+	w = (w & 0x00FF00FF00FF00FF) << 8 | (w & 0xFF00FF00FF00FF00) >> 8;
+	return (w);
 }
 
-void				free_c_list(t_c_list *c_list)
+uint32_t				swap_endian32(uint32_t w)
 {
-	if (c_list)
-	{
-		if (c_list->next)
-			free_c_list(c_list->next);
-		free(c_list);
-	}
-}
-
-void				free_ssl(t_ssl *ssl)
-{
-	if (ssl)
-	{
-		if (ssl->files)
-			free(ssl->files);
-		free(ssl);
-	}
+	w = (w & 0x0000FFFF) << 16 | (w & 0xFFFF0000) >> 16;
+	w = (w & 0x00FF00FF) << 8 | (w & 0xFF00FF00) >> 8;
+	return (w);
 }

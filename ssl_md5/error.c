@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:11:57 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/24 00:12:38 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/24 13:39:52 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void				invalid_command(char *command)
 
 void				unknown_option(char *op)
 {
-	ft_printf("%2@unknown option '%s'\n", op);
+	ft_printf("%2@unknown option '%s'\n", &op[1]);
 	ft_printf("%2@options are\n");
 	ft_printf("%2@-p  echo STDIN to STDOUT and append the checksum to STDOUT\n");
 	ft_printf("%2@-q  quiet mode\n");

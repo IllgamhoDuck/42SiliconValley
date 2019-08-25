@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 14:59:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/24 00:37:22 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 01:24:00 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void			option_check(t_ssl *ssl, char *s)
 		if (ft_strcmp(g_op[i], s) == 0)
 		{
 			if (i == 0)
-				ssl->op &= ~OF_R;
+				ssl->op &= ~OP_R;
 			ssl->op |= 1 << i;
 			return ;
 		}
@@ -61,7 +61,7 @@ static void			option_check(t_ssl *ssl, char *s)
 ** input_checker checks the input is valid and store the information
 ** If there is no files at main parameter the stdin will be used
 ** t_reader is for standard input fd = 0
-** if no main parameter than start stdin 
+** if no main parameter than start stdin
 ** if -p option is here than parse the standard input
 ** original md5 stops when -p and no stdin
 */
@@ -75,7 +75,7 @@ void				read_input(int ac, char **av, t_ssl *ssl)
 	{
 		if (i == 1)
 			command_check(ssl, av[i]);
-		else if (av[i][0] == '-')
+		else if (av[i][0] == '-' && !(ssl->op & OP_S))
 			option_check(ssl, av[i]);
 		else
 		{
@@ -87,5 +87,5 @@ void				read_input(int ac, char **av, t_ssl *ssl)
 		}
 	}
 	if (ssl->total == 0)
-	   	ssl->p_stdin = 1;
+		ssl->p_stdin = 1;
 }

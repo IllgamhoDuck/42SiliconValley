@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 14:56:31 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/24 00:47:31 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 01:29:30 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,49 @@
 #include "sha256.h"
 
 hash_algorithm g_hash_f[3] = {md5, sha256, NULL};
+int32_t g_mdc_hash_size[2] = {4, 8};
 
-static void			hash_process(t_ssl *ssl)
+static void			string_process(t_ssl *ssl, char *str)
+{
+	ssl->hash_input = ft_strdup(str);
+	if (ssl->mdc != -1)
+		g_hash_f[ssl->mdc](ssl);
+	print_hash(ssl, 1);
+	ssl->op &= ~OP_S;
+}
+
+static void			stdin_process(t_ssl *ssl)
+{
+	ssl->hash_input = read_file(0);
+	if (ssl->op & OP_P)
+		ft_printf("%s\n", ssl->hash_input);
+	if (ssl->mdc != -1)
+		g_hash_f[ssl->mdc](ssl);
+	print_hash(ssl, 0);
+}
+
+static void			file_process(t_ssl *ssl)
 {
 	int16_t			i;
-	uint16_t		fd;
+	int16_t			fd;
 
 	i = -1;
+	while (++i < ssl->total)
 	{
-		if (ssl->op & OP_P)
-			ft_printf("printing out the option -p stdin\n");
-		while (++i < ssl->total)
+		if ((fd = open(ssl->files[i], O_RDONLY)) < 0)
 		{
-			if (!(fd = open(ssl->files[i], O_RDONLY)))
-			{
+			if (ssl->op & OP_S)
+				string_process(ssl, ssl->files[i]);
+			else
 				no_file_dic(ssl->files[i]);
-				continue ;
-			}
-			ssl->str = read_file(fd);
-			if (ssl->mdc != -1)
-				g_hash_f[ssl->mdc](ssl);
+			continue ;
 		}
+		ssl->op &= ~OP_S;
+		ssl->hash_input = read_file(fd);
+		if (ssl->mdc != -1)
+			g_hash_f[ssl->mdc](ssl);
+		close(fd);
+		print_hash(ssl, 2);
 	}
 }
 
@@ -48,10 +70,12 @@ int					main(int ac, char **av)
 		p_error("usage: ft_ssl command [command opts] [command args]");
 	!(ssl = init_ssl()) ? malloc_error("t_ssl") : 0;
 	read_input(ac, av, ssl);
-	if (ssl->p_stdin == 1)
-		ft_printf("printing out stdin\n");
+	if (ssl->mdc != -1)
+		ssl->hash_size = g_mdc_hash_size[ssl->mdc];
+	if (ssl->p_stdin == 1 || ssl->op & OP_P)
+		stdin_process(ssl);
 	else
-		hash_process(ssl);
+		file_process(ssl);
 	free_ssl(ssl);
 	return (0);
 }

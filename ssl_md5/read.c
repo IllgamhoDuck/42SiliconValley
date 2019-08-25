@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:04:17 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/24 00:50:04 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/24 16:14:32 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,19 @@ static char			*compress_data(t_c_list *c_list, uint32_t len)
 	char			*result;
 	uint32_t		i;
 
-	if (!(result = (char *)malloc(sizeof(char) * len)))
+	if (!(result = (char *)malloc(sizeof(char) * (len + 1))))
 		malloc_error("compress_data - char *result");
-	i = -1;
-	while (++i < len)
+	i = 0;
+	while (i < len)
 	{
-		result[i] = c_list->c;
+		result[i++] = c_list->c;
 		c_list = c_list->next;
 	}
 	result[i] = '\0';
 	return (result);
 }
 
-char				*read_file(uint16_t fd)
+char				*read_file(int16_t fd)
 {
 	t_reader		*r;
 	t_c_list		*c_list;
