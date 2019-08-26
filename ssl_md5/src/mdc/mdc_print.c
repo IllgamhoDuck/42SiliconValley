@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:59:11 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 23:43:01 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/26 00:15:07 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ static void			mdc_print_hash64(t_ssl *ssl)
 		while (++i < ssl->hash_size)
 			ft_printf("%016llx", ssl->hash_output64[i]);
 	if (ssl->mdc == 5)
+		while (++i < ssl->hash_size)
+			ft_printf("%016llx", ssl->hash_output64[i]);
+	if (ssl->mdc == 6)
 		while (++i < ssl->hash_size)
 			ft_printf("%016llx", ssl->hash_output64[i]);
 }

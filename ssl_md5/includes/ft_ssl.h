@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:33:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 23:22:58 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/26 00:18:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ typedef struct		s_ssl
 
 typedef void		(*t_mdc_hash_algorithm)(t_ssl *ssl);
 
-extern char *g_mdc_prefix[7];
-extern char *g_md_command[7];
-extern t_mdc_hash_algorithm g_hash_f[7];
-extern int32_t g_mdc_hash_size[6];
+extern char *g_mdc_prefix[8];
+extern char *g_md_command[8];
+extern t_mdc_hash_algorithm g_hash_f[8];
+extern int32_t g_mdc_hash_size[7];
 
 void				mdc_process(t_ssl *ssl);
 void				mdc_stdin_process(t_ssl *ssl);

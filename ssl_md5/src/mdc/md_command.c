@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:43:50 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 23:44:56 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/26 00:18:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,18 @@
 #include "sha1.h"
 #include "sha224.h"
 #include "sha256.h"
+#include "sha384.h"
 #include "sha512.h"
+#include "sha512_2.h"
 
-char *g_mdc_prefix[7] = {
+char *g_mdc_prefix[8] = {
 	"MD5", "SHA1", "SHA224", "SHA256",
-	"SHA384", "SHA512", NULL};
-char *g_md_command[7] = {"md5", "sha1", "sha224", "sha256",
-	"sha384", "sha512", NULL};
-t_mdc_hash_algorithm g_mdc_hash_f[7] = {md5, sha1, sha224, sha256,
-	NULL, sha512, NULL};
-int32_t g_mdc_hash_size[6] = {4, 5, 7, 8, 8, 8};
+	"SHA384", "SHA512", "SHA512T256", NULL};
+char *g_md_command[8] = {"md5", "sha1", "sha224", "sha256",
+	"sha384", "sha512", "sha512t256", NULL};
+t_mdc_hash_algorithm g_mdc_hash_f[8] = {md5, sha1, sha224, sha256,
+	sha384, sha512, sha512t256, NULL};
+int32_t g_mdc_hash_size[7] = {4, 5, 7, 8, 6, 8, 4};
 
 void				mdc_string_process(t_ssl *ssl, char *str)
 {

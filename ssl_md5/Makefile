@@ -6,13 +6,13 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/22 13:32:30 by hypark            #+#    #+#              #
-#    Updated: 2019/08/23 21:40:52 by hypark           ###   ########.fr        #
+#    Updated: 2019/08/26 00:43:13 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := ft_ssl
 CC := gcc
-CFLAGS := -Wall -Wextra -Wextra -g
+CFLAGS := -Wall -Wextra -Wextra
 OBJ := *.o
 
 SRCDIR := ./src
@@ -20,8 +20,22 @@ INCDIR := ./includes
 FTDIR := ./libft
 FTINC := includes
 
-SRC = *.c 
-INCLUDES := -I$(FTDIR)/$(FTINC) -I$(INCDIR)
+MDC := mdc
+MDCSRC := $(SRCDIR)/$(MDC)
+MDCINC := $(INCDIR)/$(MDC)
+MD5 := md5
+SHA1 := sha1
+SHA224 := sha224
+SHA256 := sha256
+SHA384 := sha384
+SHA512 := sha512
+SHA512_2 := sha512_2
+
+SRC = $(SRCDIR)/*.c  $(MDCSRC)/*.c $(MDCSRC)/$(MD5)/*.c \
+	  $(MDCSRC)/$(SHA1)/*.c  $(MDCSRC)/$(SHA224)/*.c  \
+	  $(MDCSRC)/$(SHA256)/*.c  $(MDCSRC)/$(SHA384)/*.c \
+	  $(MDCSRC)/$(SHA512)/*.c  $(MDCSRC)/$(SHA512_2)/*.c
+INCLUDES := -I$(FTDIR)/$(FTINC) -I$(INCDIR) -I$(MDCINC)
 LIB := -L $(FTDIR) -lft
 
 .PHONY: all clean fclean re
