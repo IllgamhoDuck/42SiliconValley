@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 11:32:45 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 20:15:26 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 21:34:13 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void				store_result_md5(t_ssl *ssl, t_md5 *md5)
 
 	i = -1;
 	while (++i < ssl->hash_size)
-		ssl->hash_output[i] = md5->h[i];
+		ssl->hash_output32[i] = md5->h[i];
 }
 
 void				free_md5(t_md5 *md5)

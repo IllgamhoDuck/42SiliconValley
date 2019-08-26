@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 16:17:46 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 20:14:55 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 21:34:26 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void				store_result_sha256(t_ssl *ssl, t_sha256 *sha256)
 
 	i = -1;
 	while (++i < ssl->hash_size)
-		ssl->hash_output[i] = sha256->h[i];
+		ssl->hash_output32[i] = sha256->h[i];
 }
 
 void				free_sha256(t_sha256 *sha256)

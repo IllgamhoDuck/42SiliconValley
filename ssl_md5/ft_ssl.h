@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:33:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 19:44:37 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 23:22:58 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@
 
 # define BUFF_SIZE_SSL 64
 
+# define ROTL32(w,n) ((w << n) | (w >> (32 - n)))
+# define ROTR32(w,n) ((w >> n) | (w << (32 - n)))
+# define ROTL64(w,n) ((w << n) | (w >> (64 - n)))
+# define ROTR64(w,n) ((w >> n) | (w << (64 - n)))
+
+# define SHIFTL(w,n) (w << n)
+# define SHIFTR(w,n) (w >> n)
+
 typedef struct		s_reader
 {
 	char			*buff;
@@ -52,7 +60,8 @@ typedef struct		s_ssl
 	char			**files;
 	int16_t			i;
 	char			*ssl_input;
-	uint32_t		hash_output[16];
+	uint32_t		hash_output32[16];
+	uint64_t		hash_output64[16];
 	int32_t			hash_size;
 	int32_t			total;
 	uint64_t		op;
@@ -62,10 +71,10 @@ typedef struct		s_ssl
 
 typedef void		(*t_mdc_hash_algorithm)(t_ssl *ssl);
 
-extern char *g_md_command[3];
-extern t_mdc_hash_algorithm g_hash_f[3];
-extern int32_t g_mdc_hash_size[2];
-extern char *g_mdc_prefix[3];
+extern char *g_mdc_prefix[7];
+extern char *g_md_command[7];
+extern t_mdc_hash_algorithm g_hash_f[7];
+extern int32_t g_mdc_hash_size[6];
 
 void				mdc_process(t_ssl *ssl);
 void				mdc_stdin_process(t_ssl *ssl);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 23:50:01 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 20:16:15 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 22:13:17 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,17 @@ static void				process_md5(t_md5 *md5)
 	while (++i < 64)
 	{
 		if (i >= 0 && i <= 15)
-			temp = R1(md5->abcd[0], md5->abcd[1], md5->abcd[2], md5->abcd[3],
-						md5->w[i], g_k[i], g_r[i]);
+			temp = R1_MD5(md5->abcd[0], md5->abcd[1], md5->abcd[2],
+					md5->abcd[3], md5->w[i], g_k[i], g_r[i]);
 		else if (i >= 16 && i <= 31)
-			temp = R2(md5->abcd[0], md5->abcd[1], md5->abcd[2], md5->abcd[3],
-						md5->w[(5 * i + 1) % 16], g_k[i], g_r[i]);
+			temp = R2_MD5(md5->abcd[0], md5->abcd[1], md5->abcd[2],
+					md5->abcd[3], md5->w[(5 * i + 1) % 16], g_k[i], g_r[i]);
 		else if (i >= 32 && i <= 47)
-			temp = R3(md5->abcd[0], md5->abcd[1], md5->abcd[2], md5->abcd[3],
-						md5->w[(3 * i + 5) % 16], g_k[i], g_r[i]);
+			temp = R3_MD5(md5->abcd[0], md5->abcd[1], md5->abcd[2],
+					md5->abcd[3], md5->w[(3 * i + 5) % 16], g_k[i], g_r[i]);
 		else if (i >= 48 && i <= 63)
-			temp = R4(md5->abcd[0], md5->abcd[1], md5->abcd[2], md5->abcd[3],
-						md5->w[(7 * i) % 16], g_k[i], g_r[i]);
+			temp = R4_MD5(md5->abcd[0], md5->abcd[1], md5->abcd[2],
+					md5->abcd[3], md5->w[(7 * i) % 16], g_k[i], g_r[i]);
 		md5->abcd[0] = md5->abcd[3];
 		md5->abcd[3] = md5->abcd[2];
 		md5->abcd[2] = md5->abcd[1];
@@ -120,7 +120,7 @@ void					md5(t_ssl *ssl)
 		fill_md5(md5, i);
 		process_md5(md5);
 		j = -1;
-		while (++j < 4)
+		while (++j < ssl->hash_size)
 			md5->h[j] += md5->abcd[j];
 		i++;
 	}

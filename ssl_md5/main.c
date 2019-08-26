@@ -6,14 +6,12 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 14:56:31 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 20:17:05 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 21:28:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "libft.h"
-
-char *g_md_command[3] = {"md5", "sha256", NULL};
 
 static uint8_t		mdc_command_check(t_ssl *ssl, char *s)
 {

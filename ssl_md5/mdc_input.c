@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:44:42 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 19:54:26 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 20:55:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 
 char *g_mdc_op[5] = {"-p", "-q", "-r", "-s", NULL};
-int32_t g_mdc_hash_size[2] = {4, 8};
 
 /*
 ** Reverses the format of the	output.	 This helps with visual	diffs.

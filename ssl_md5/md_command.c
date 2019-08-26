@@ -6,16 +6,26 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:43:50 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 20:06:30 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 23:44:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "libft.h"
 #include "md5.h"
+#include "sha1.h"
+#include "sha224.h"
 #include "sha256.h"
+#include "sha512.h"
 
-t_mdc_hash_algorithm g_mdc_hash_f[3] = {md5, sha256, NULL};
+char *g_mdc_prefix[7] = {
+	"MD5", "SHA1", "SHA224", "SHA256",
+	"SHA384", "SHA512", NULL};
+char *g_md_command[7] = {"md5", "sha1", "sha224", "sha256",
+	"sha384", "sha512", NULL};
+t_mdc_hash_algorithm g_mdc_hash_f[7] = {md5, sha1, sha224, sha256,
+	NULL, sha512, NULL};
+int32_t g_mdc_hash_size[6] = {4, 5, 7, 8, 8, 8};
 
 void				mdc_string_process(t_ssl *ssl, char *str)
 {

@@ -6,27 +6,24 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 16:15:55 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 18:41:33 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 23:28:43 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHA256_H
 # define SHA256_H
 
-# define ROTR(w,n) ((w >> n) | (w << (32 - n)))
-# define SHIFTR(w,n) (w >> n)
+# define S0_256(w_15) (ROTR32(w_15, 7) ^ ROTR32(w_15, 18) ^ SHIFTR(w_15, 3))
+# define S1_256(w_2) (ROTR32(w_2, 17) ^ ROTR32(w_2, 19) ^ SHIFTR(w_2, 10))
+# define WI_SHA256(w_2,w_7,w_15,w_16) (w_16 + S0_256(w_15) + w_7 + S1_256(w_2))
 
-# define S0(w_15) (ROTR(w_15, 7) ^ ROTR(w_15, 18) ^ SHIFTR(w_15, 3))
-# define S1(w_2) (ROTR(w_2, 17) ^ ROTR(w_2, 19) ^ SHIFTR(w_2, 10))
-# define W_I(w_2,w_7,w_15,w_16) (w_16 + S0(w_15) + w_7 + S1(w_2))
+# define SS0_SHA256(a) (ROTR32(a, 2) ^ ROTR32(a, 13) ^ ROTR32(a, 22))
+# define SS1_SHA256(e) (ROTR32(e, 6) ^ ROTR32(e, 11) ^ ROTR32(e, 25))
+# define CH_SHA256(e,f,g) ((e & f) ^ (~e & g))
+# define MAJ_SHA256(a,b,c) ((a & b) ^ (a & c) ^ (b & c))
 
-# define SS0(a) (ROTR(a, 2) ^ ROTR(a, 13) ^ ROTR(a, 22))
-# define SS1(e) (ROTR(e, 6) ^ ROTR(e, 11) ^ ROTR(e, 25))
-# define CH(e,f,g) ((e & f) ^ (~e & g))
-# define MAJ(a,b,c) ((a & b) ^ (a & c) ^ (b & c))
-
-# define T1(e,f,g,h,k,w) (h + SS1(e) + CH(e,f,g) + k + w)
-# define T2(a,b,c) (SS0(a) + MAJ(a,b,c))
+# define T1_SHA256(e,f,g,h,k,w) (h + SS1_SHA256(e) + CH_SHA256(e,f,g) + k + w)
+# define T2_SHA256(a,b,c) (SS0_SHA256(a) + MAJ_SHA256(a,b,c))
 
 void				sha256(t_ssl *ssl);
 

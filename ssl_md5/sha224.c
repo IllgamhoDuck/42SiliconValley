@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256.c                                           :+:      :+:    :+:   */
+/*   sha224.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/25 16:16:55 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 22:18:44 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/25 22:40:22 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/25 22:47:43 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-#include "sha256.h"
+#include "sha224.h"
 #include "libft.h"
 
 /*
@@ -39,49 +39,49 @@ static uint32_t g_k[64] = {
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-static void				padding_sha256(t_sha256 *sha256)
+static void				padding_sha224(t_sha224 *sha224)
 {
 	uint64_t			bit_len;
 	uint32_t			pad_len;
 
-	bit_len = sha256->len * 8;
-	pad_len = sha256->len + 1;
+	bit_len = sha224->len * 8;
+	pad_len = sha224->len + 1;
 	while (pad_len % 64 != 56)
 		pad_len++;
-	sha256->padded_str = (uint8_t *)ft_strnew(pad_len + 8);
-	ft_bzero(sha256->padded_str, pad_len + 8);
-	ft_memcpy(sha256->padded_str, sha256->str, sha256->len);
-	sha256->padded_str[sha256->len] = (uint8_t)128;
-	while (++(sha256->len) < pad_len)
-		sha256->padded_str[sha256->len] = (uint8_t)0;
+	sha224->padded_str = (uint8_t *)ft_strnew(pad_len + 8);
+	ft_bzero(sha224->padded_str, pad_len + 8);
+	ft_memcpy(sha224->padded_str, sha224->str, sha224->len);
+	sha224->padded_str[sha224->len] = (uint8_t)128;
+	while (++(sha224->len) < pad_len)
+		sha224->padded_str[sha224->len] = (uint8_t)0;
 	bit_len = swap_endian64(bit_len);
-	ft_memcpy(sha256->padded_str + pad_len, &bit_len, 8);
-	sha256->len += 8;
+	ft_memcpy(sha224->padded_str + pad_len, &bit_len, 8);
+	sha224->len += 8;
 }
 
-static void				fill_sha256(t_sha256 *sha256, uint16_t block_n)
+static void				fill_sha224(t_sha224 *sha224, uint16_t block_n)
 {
 	uint32_t			*word;
 	int8_t				i;
 
-	word = (uint32_t *)(sha256->padded_str + (block_n * 64));
+	word = (uint32_t *)(sha224->padded_str + (block_n * 64));
 	i = -1;
 	while (++i < 16)
-		sha256->w[i] = swap_endian32(word[i]);
+		sha224->w[i] = swap_endian32(word[i]);
 	i = 15;
 	while (++i < 64)
-		sha256->w[i] = WI_SHA256(sha256->w[i - 2], sha256->w[i - 7],
-							sha256->w[i - 15], sha256->w[i - 16]);
+		sha224->w[i] = WI_SHA224(sha224->w[i - 2], sha224->w[i - 7],
+							sha224->w[i - 15], sha224->w[i - 16]);
 	i = -1;
 	while (++i < 8)
-		sha256->words[i] = sha256->h[i];
+		sha224->words[i] = sha224->h[i];
 }
 
 /*
 ** words - abcdefgh
 */
 
-static void				process_sha256(t_sha256 *sha256)
+static void				process_sha224(t_sha224 *sha224)
 {
 	int8_t				i;
 	uint32_t			temp_1;
@@ -90,40 +90,40 @@ static void				process_sha256(t_sha256 *sha256)
 	i = -1;
 	while (++i < 64)
 	{
-		temp_1 = T1_SHA256(sha256->words[4], sha256->words[5],
-				sha256->words[6], sha256->words[7],
-				g_k[i], sha256->w[i]);
-		temp_2 = T2_SHA256(sha256->words[0], sha256->words[1],
-				sha256->words[2]);
-		sha256->words[7] = sha256->words[6];
-		sha256->words[6] = sha256->words[5];
-		sha256->words[5] = sha256->words[4];
-		sha256->words[4] = sha256->words[3] + temp_1;
-		sha256->words[3] = sha256->words[2];
-		sha256->words[2] = sha256->words[1];
-		sha256->words[1] = sha256->words[0];
-		sha256->words[0] = temp_1 + temp_2;
+		temp_1 = T1_SHA224(sha224->words[4], sha224->words[5],
+				sha224->words[6], sha224->words[7],
+				g_k[i], sha224->w[i]);
+		temp_2 = T2_SHA224(sha224->words[0], sha224->words[1],
+				sha224->words[2]);
+		sha224->words[7] = sha224->words[6];
+		sha224->words[6] = sha224->words[5];
+		sha224->words[5] = sha224->words[4];
+		sha224->words[4] = sha224->words[3] + temp_1;
+		sha224->words[3] = sha224->words[2];
+		sha224->words[2] = sha224->words[1];
+		sha224->words[1] = sha224->words[0];
+		sha224->words[0] = temp_1 + temp_2;
 	}
 }
 
-void					sha256(t_ssl *ssl)
+void					sha224(t_ssl *ssl)
 {
-	t_sha256			*sha256;
+	t_sha224			*sha224;
 	uint16_t			i;
 	uint16_t			j;
 
-	sha256 = init_sha256(ssl);
-	padding_sha256(sha256);
+	sha224 = init_sha224(ssl);
+	padding_sha224(sha224);
 	i = 0;
-	while (i < sha256->len / 64)
+	while (i < sha224->len / 64)
 	{
-		fill_sha256(sha256, i);
-		process_sha256(sha256);
+		fill_sha224(sha224, i);
+		process_sha224(sha224);
 		j = -1;
-		while (++j < ssl->hash_size)
-			sha256->h[j] += sha256->words[j];
+		while (++j < 8)
+			sha224->h[j] += sha224->words[j];
 		i++;
 	}
-	store_result_sha256(ssl, sha256);
-	free_sha256(sha256);
+	store_result_sha224(ssl, sha224);
+	free_sha224(sha224);
 }
