@@ -1,38 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   mdc_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/22 14:59:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 12:53:15 by hypark           ###   ########.fr       */
+/*   Created: 2019/08/25 18:44:42 by hypark            #+#    #+#             */
+/*   Updated: 2019/08/25 19:54:26 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "libft.h"
 
-char *g_op[5] = {"-p", "-q", "-r", "-s", NULL};
-char *g_md_command[3] = {"md5", "sha256", NULL};
+char *g_mdc_op[5] = {"-p", "-q", "-r", "-s", NULL};
 int32_t g_mdc_hash_size[2] = {4, 8};
-
-static uint8_t		command_check(t_ssl *ssl, char *s)
-{
-	int16_t			i;
-
-	i = -1;
-	while (g_md_command[++i] != NULL)
-	{
-		if (ft_strcmp(g_md_command[i], s) == 0)
-		{
-			ssl->mdc = i;
-			return (1);
-		}
-	}
-	invalid_command(s);
-	return (0);
-}
 
 /*
 ** Reverses the format of the	output.	 This helps with visual	diffs.
@@ -41,14 +23,14 @@ static uint8_t		command_check(t_ssl *ssl, char *s)
 ** ssl->op &= ~OF_R;
 */
 
-static void			option_check(t_ssl *ssl, char *s)
+static void			mdc_option_check(t_ssl *ssl, char *s)
 {
 	int8_t			i;
 
 	i = -1;
-	while (g_op[++i] != NULL)
+	while (g_mdc_op[++i] != NULL)
 	{
-		if (ft_strcmp(g_op[i], s) == 0)
+		if (ft_strcmp(g_mdc_op[i], s) == 0)
 		{
 			ssl->op |= 1 << i;
 			return ;
@@ -57,10 +39,21 @@ static void			option_check(t_ssl *ssl, char *s)
 	unknown_option(s);
 }
 
-static void			hash_size(t_ssl *ssl)
+void				mdc_hash_size(t_ssl *ssl)
 {
-	if (ssl->mdc != -1)
-		ssl->hash_size = g_mdc_hash_size[ssl->mdc];
+	ssl->hash_size = g_mdc_hash_size[ssl->mdc];
+}
+
+static int			mdc_option_s(t_ssl *ssl, int ac, char **av, uint8_t i)
+{
+	if (i + 1 < ac)
+	{
+		mdc_string_process(ssl, av[i + 1]);
+		ssl->op |= OP_S;
+	}
+	else
+		s_usage_error(ssl);
+	return (i + 1);
 }
 
 /*
@@ -72,22 +65,22 @@ static void			hash_size(t_ssl *ssl)
 ** original md5 stops when -p and no stdin
 */
 
-void				read_input(int ac, char **av, t_ssl *ssl)
+void				mdc_read_input(int ac, char **av, t_ssl *ssl)
 {
 	uint8_t			i;
 
-	i = 0;
+	i = 1;
 	while (++i < ac)
 	{
-		if (i == 1)
-			command_check(ssl, av[i]) ? hash_size(ssl) : 0;
-		else if (ft_strcmp(av[i], "-p") == 0 && !(ssl->op & OP_S))
+		if (ft_strcmp(av[i], "-s") == 0)
+			i = mdc_option_s(ssl, ac, av, i);
+		else if (ft_strcmp(av[i], "-p") == 0)
 		{
-			option_check(ssl, av[i]);
-			stdin_process(ssl);
+			mdc_option_check(ssl, av[i]);
+			mdc_stdin_process(ssl);
 		}
-		else if (av[i][0] == '-' && !(ssl->op & OP_S))
-			option_check(ssl, av[i]);
+		else if (av[i][0] == '-')
+			mdc_option_check(ssl, av[i]);
 		else
 		{
 			if (!(ssl->files = (char **)malloc(sizeof(char *) * ac - i + 1)))

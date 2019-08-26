@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:33:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 16:24:18 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 19:44:37 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct		s_ssl
 {
 	char			**files;
 	int16_t			i;
-	char			*hash_input;
+	char			*ssl_input;
 	uint32_t		hash_output[16];
 	int32_t			hash_size;
 	int32_t			total;
@@ -60,18 +60,22 @@ typedef struct		s_ssl
 	uint8_t			p_stdin;
 }					t_ssl;
 
-typedef void		(*t_hash_algorithm)(t_ssl *ssl);
+typedef void		(*t_mdc_hash_algorithm)(t_ssl *ssl);
 
 extern char *g_md_command[3];
-extern t_hash_algorithm g_hash_f[3];
+extern t_mdc_hash_algorithm g_hash_f[3];
 extern int32_t g_mdc_hash_size[2];
 extern char *g_mdc_prefix[3];
 
-void				stdin_process(t_ssl *ssl);
+void				mdc_process(t_ssl *ssl);
+void				mdc_stdin_process(t_ssl *ssl);
+void				mdc_string_process(t_ssl *ssl, char *str);
 
-void				read_input(int ac, char **av, t_ssl *ssl);
+void				mdc_read_input(int ac, char **av, t_ssl *ssl);
+void				mdc_print_result(t_ssl *ssl, uint8_t p_op);
+void				mdc_hash_size(t_ssl *ssl);
+
 char				*read_file(int16_t fd);
-void				print_result(t_ssl *ssl, uint8_t p_op);
 
 uint32_t			swap_endian32(uint32_t w);
 uint64_t			swap_endian64(uint64_t w);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 23:50:01 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 00:56:34 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/25 20:16:15 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void					md5(t_ssl *ssl)
 {
 	t_md5				*md5;
 	uint16_t			i;
+	uint16_t			j;
 
 	md5 = init_md5(ssl);
 	padding_md5(md5);
@@ -118,12 +119,11 @@ void					md5(t_ssl *ssl)
 	{
 		fill_md5(md5, i);
 		process_md5(md5);
-		md5->h[0] += md5->abcd[0];
-		md5->h[1] += md5->abcd[1];
-		md5->h[2] += md5->abcd[2];
-		md5->h[3] += md5->abcd[3];
+		j = -1;
+		while (++j < 4)
+			md5->h[j] += md5->abcd[j];
 		i++;
 	}
 	store_result_md5(ssl, md5);
-	free(md5);
+	free_md5(md5);
 }
