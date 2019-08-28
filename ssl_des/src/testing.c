@@ -6,12 +6,13 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 20:09:20 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/24 22:16:34 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/28 00:19:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "libft.h"
+#include <fcntl.h>
 
 void					print_bits(uint8_t *str, uint32_t len, char *where)
 {
@@ -30,11 +31,12 @@ void					print_bits(uint8_t *str, uint32_t len, char *where)
 	ft_putchar('\n');
 }
 
-void					write_file(char *file, char *content)
+void					write_file(char *file, uint8_t *content)
 {
-	FILE				*fp;
+	int32_t				fd;
 
-	fp = fopen(file, "w");
-	fputs(content, fp);
-	fclose(fp);
+	if ((fd = open(file, O_WRONLY | O_CREAT | O_TRUNC)) < 0)
+		p_error("Failed to open the file to write");
+	write(fd, content, ft_strlen((char *)content));
+	close(fd);
 }

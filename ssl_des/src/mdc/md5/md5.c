@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 23:50:01 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 22:13:17 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/28 00:26:00 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void				padding_md5(t_md5 *md5)
 	while (pad_len % 64 != 56)
 		pad_len++;
 	md5->padded_str = (uint8_t *)ft_strnew(pad_len + 8);
-	ft_bzero(md5->padded_str, pad_len + 8);
 	ft_memcpy(md5->padded_str, md5->str, md5->len);
 	md5->padded_str[md5->len] = (uint8_t)128;
 	while (++(md5->len) < pad_len)

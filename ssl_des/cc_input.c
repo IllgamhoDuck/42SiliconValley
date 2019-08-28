@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 23:46:52 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/27 00:54:07 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/27 16:22:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ static int8_t		cc_option_check(t_ssl *ssl, char *s)
 		if (ft_strcmp(g_cc_op[i], s) == 0)
 		{
 			ssl->op |= 1 << (i + 4);
-			if (i == 3 || i == 4 || i == 5 || i == 7 || i == 8)
+			if (i == 1)
+				ssl->op &= ~(1 << 6);
+			else if (i == 2)
+				ssl->op &= ~(1 << 5);
+			if (i == 3 || i == 4 || i == 5 || i == 6 || i == 7 || i == 8)
 				return (1);
 			else
 				return (0);
@@ -61,6 +65,8 @@ static int8_t		cc_arg_parse(t_ssl *ssl, int ac, char **av, uint8_t i)
 			ssl->cc_info->cc_write = av[i + 1];
 		else if (ft_strcmp(av[i], "-k") == 0)
 			ssl->cc_info->cc_key = av[i + 1];
+		else if (ft_strcmp(av[i], "-p") == 0)
+			ssl->cc_info->cc_password = av[i + 1];
 		else if (ft_strcmp(av[i], "-s") == 0)
 			ssl->cc_info->cc_salt = av[i + 1];
 		else if (ft_strcmp(av[i], "-v") == 0)
@@ -93,6 +99,8 @@ void				cc_read_input(int ac, char **av, t_ssl *ssl)
 		else
 			cc_usage_error();
 	}
+	if (!(ssl->op & CC_E) && !(ssl->op & CC_D))
+		ssl->op |= CC_E;
 	if (ssl->total == 0)
 		ssl->p_stdin = 1;
 }

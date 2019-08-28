@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:07:05 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/27 00:45:34 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/27 15:32:54 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_ssl				*init_ssl(void)
 	ssl->hash_size = 0;
 	ssl->mdc = -1;
 	ssl->cc = -1;
+	ssl->cc_output = NULL;
 	ssl->cc_info = NULL;
 	ssl->p_stdin = 0;
 	return (ssl);

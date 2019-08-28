@@ -6,7 +6,7 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/22 13:32:30 by hypark            #+#    #+#              #
-#    Updated: 2019/08/26 21:11:27 by hypark           ###   ########.fr        #
+#    Updated: 2019/08/27 14:14:41 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC = $(SRCDIR)/*.c  $(MDCSRC)/*.c $(MDCSRC)/$(MD5)/*.c \
 	  $(MDCSRC)/$(SHA1)/*.c  $(MDCSRC)/$(SHA224)/*.c  \
 	  $(MDCSRC)/$(SHA256)/*.c  $(MDCSRC)/$(SHA384)/*.c \
 	  $(MDCSRC)/$(SHA512)/*.c  $(MDCSRC)/$(SHA512_2)/*.c
-INCLUDES := -I$(FTDIR)/$(FTINC) -I$(INCDIR) -I$(MDCINC)
+INCLUDES := -I$(FTDIR)/$(FTINC) -I$(INCDIR) -I$(MDCINC) -I./
 LIB := -L $(FTDIR) -lft
 
 .PHONY: all clean fclean re

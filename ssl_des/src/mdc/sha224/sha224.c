@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 22:40:22 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 22:47:43 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/28 00:26:33 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static void				padding_sha224(t_sha224 *sha224)
 	while (pad_len % 64 != 56)
 		pad_len++;
 	sha224->padded_str = (uint8_t *)ft_strnew(pad_len + 8);
-	ft_bzero(sha224->padded_str, pad_len + 8);
 	ft_memcpy(sha224->padded_str, sha224->str, sha224->len);
 	sha224->padded_str[sha224->len] = (uint8_t)128;
 	while (++(sha224->len) < pad_len)

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:33:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/27 00:53:10 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/28 01:35:49 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@
 # define OP_R (1 << 2)
 # define OP_S (1 << 3)
 # define OP_P_NOPRINT (1 << 16)
+
+/*
+** CIPHER OPTION
+*/
 
 # define CC_A (1 << 4)
 # define CC_D (1 << 5)
@@ -70,6 +74,7 @@ typedef struct		s_cc
 	char			*cc_input;
 	char			*cc_write;
 	char			*cc_key;
+	char			*cc_password;
 	char			*cc_salt;
 	char			*cc_vector;
 }					t_cc;
@@ -87,6 +92,7 @@ typedef struct		s_ssl
 	int32_t			hash_size;
 	int16_t			cc;
 	t_cc			*cc_info;
+	uint8_t			*cc_output;
 	uint8_t			p_stdin;
 }					t_ssl;
 
@@ -113,6 +119,9 @@ void				mdc_hash_size(t_ssl *ssl);
 
 void				cc_process(t_ssl *ssl);
 void				cc_stdin_process(t_ssl *ssl);
+
+int32_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str);
+uint8_t				*cc_insert_newline(uint8_t *str, int32_t len, int16_t n);
 
 void				cc_read_input(int ac, char **av, t_ssl *ssl);
 void				cc_print_result(t_ssl *ssl, uint8_t p_op);
@@ -143,6 +152,6 @@ void				cc_unknown_option(char *op);
 void				cc_usage_error(void);
 
 void				print_bits(uint8_t *str, uint32_t len, char *where);
-void				write_file(char *file, char *content);
+void				write_file(char *file, uint8_t *content);
 
 #endif
