@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 23:46:52 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/27 16:22:06 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/29 17:46:34 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int8_t		cc_arg_parse(t_ssl *ssl, int ac, char **av, uint8_t i)
 		else if (ft_strcmp(av[i], "-s") == 0)
 			ssl->cc_info->cc_salt = av[i + 1];
 		else if (ft_strcmp(av[i], "-v") == 0)
-			ssl->cc_info->cc_vector = av[i + 1];
+			ssl->cc_info->cc_iv = av[i + 1];
 	}
 	else
 		cc_missing_arg_error(av[i]);

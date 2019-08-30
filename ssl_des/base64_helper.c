@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 13:48:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/28 01:41:21 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/28 13:10:21 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ void				free_base64(t_base64 *base64)
 	{
 		if (base64->str)
 			free(base64->str);
-		if (base64->padded_str)
-			free(base64->padded_str);
 		if (base64->encode)
 			free(base64->encode);
 		if (base64->decode)
