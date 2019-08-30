@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:44:43 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/29 20:36:55 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/29 20:40:02 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "ft_ssl.h"
 #include "des.h"
 #include "md5.h"
-#include "base64.h"
 
 /*
 ** Password and salt is to generate KEY

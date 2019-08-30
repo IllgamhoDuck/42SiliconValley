@@ -6,13 +6,14 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:21:00 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/29 17:53:27 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 04:10:58 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
 #include "des.h"
+#include "base64.h"
 
 uint8_t g_pc1[56] = {
 	57, 49, 41, 33, 25, 17, 9,
@@ -48,14 +49,19 @@ uint8_t g_ip1[64] = {
 };
 
 uint8_t g_ip2[64] = {
-	58, 50, 42, 34, 26, 18, 10, 2,
-	60, 52, 44, 36, 28, 20, 12, 4,
-	62, 54, 46, 38, 30, 22, 14, 6,
-	64, 56, 48, 40, 32, 24, 16, 8,
-	57, 49, 41, 33, 25, 17, 9, 1,
-	59, 51, 43, 35, 27, 19, 11, 3,
-	61, 53, 45, 37, 29, 21, 13, 5,
-	63, 55, 47, 39, 31, 23, 15, 7
+	40, 8, 48, 16, 56, 24, 64, 32,
+	39, 7, 47, 15, 55, 23, 63, 31,
+	38, 6, 46, 14, 54, 22, 62, 30,
+	37, 5, 45, 13, 53, 21, 61, 29,
+	36, 4, 44, 12, 52, 20, 60, 28,
+	35, 3, 43, 11, 51, 19, 59, 27,
+	34, 2, 42, 10, 50, 18, 58, 26,
+	33, 1, 41, 9, 49, 17, 57, 25
+};
+
+uint8_t g_shift[16] = {
+	1, 1, 2, 2, 2, 2, 2, 2,
+	1, 2, 2, 2, 2, 2, 2, 1
 };
 
 uint8_t g_p[32] = {
@@ -135,3 +141,49 @@ uint8_t	g_s8[64] = {
 	7, 11, 4, 1, 9, 12, 14, 2, 0, 6, 10, 13, 15, 3, 5, 8,
 	2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11
 };
+
+uint8_t *g_s[8] = {g_s1, g_s2, g_s3, g_s4, g_s5, g_s6, g_s7, g_s8};
+
+
+void				des_encode_base64(t_ssl *ssl, t_des *des)
+{
+	t_ssl			*base64_ssl;
+	uint8_t			*temp;
+
+	base64_ssl = init_ssl();
+	base64_ssl->op = ssl->op;
+	base64_ssl->ssl_input = (char *)des->encode;
+	base64(base64_ssl);
+	temp = des->encode;
+	des->encode = (uint8_t *)ft_strdup((char *)base64_ssl->cc_output);
+	free(temp);
+	free_ssl(base64_ssl);
+}
+
+void				des_decode_base64(t_ssl *ssl, t_des *des)
+{
+	t_ssl			*base64_ssl;
+	uint8_t			*temp;
+
+	base64_ssl = init_ssl();
+	base64_ssl->op = ssl->op;
+	base64_ssl->ssl_input = ssl->ssl_input;
+	base64(base64_ssl);
+	temp = des->str;
+	des->str = (uint8_t *)ft_strdup((char *)base64_ssl->cc_output);
+	free(temp);
+	free_ssl(base64_ssl);
+}
+
+void				des_decode_reverse_subkey(t_des *des)
+{
+	uint64_t		temp_subkey[16];
+	int8_t			i;
+
+	i = -1;
+	while (++i < 16)
+		temp_subkey[i] = des->subkey[15 - i];
+	i = -1;
+	while (++i < 16)
+		des->subkey[i] = temp_subkey[i];
+}
