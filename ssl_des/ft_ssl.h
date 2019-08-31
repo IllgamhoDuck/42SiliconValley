@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:33:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 21:16:28 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/31 11:01:07 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define CC_P (1 << 10)
 # define CC_S (1 << 11)
 # define CC_V (1 << 12)
+# define CC_NOSALT (1 << 13)
+# define CC_SALT_HEADER (1 << 14)
 
 # define BUFF_SIZE_SSL 64
 

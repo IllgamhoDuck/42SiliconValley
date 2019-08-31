@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:44:43 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 23:17:42 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/31 11:01:13 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,10 @@ static void			des_create_key_iv(t_des *des, char *pw_salt)
 	free_ssl(md5_ssl);
 }
 
+/*
+** make a salt
+*/
+
 void				des_process(t_ssl *ssl, t_des *des)
 {
 	char			*pw_salt;
@@ -126,6 +130,8 @@ void				des_process(t_ssl *ssl, t_des *des)
 		ssl->cc_info->cc_key = cc_pad_zero(ssl->cc_info->cc_key, 16);
 		des->key = cc_atoi_base(ssl->cc_info->cc_key, 16);
 		free(ssl->cc_info->cc_key);
+		if (ssl->op & CC_E && ssl->op & CC_SALT_HEADER)
+			des_salt(ssl, des);
 		des_iv(ssl, des);
 	}
 	else

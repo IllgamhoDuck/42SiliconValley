@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:01:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 23:21:36 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/31 11:04:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ static void				process_des_ecb(t_ssl *ssl, t_des *des)
 	while (block_n < des->len / 8)
 	{
 		m = (uint64_t *)(des->padded_str + (block_n * 8));
-		m[0] = swap_endian64(m[0]);
+		//ssl->op & CC_E ? m[0] = swap_endian64(m[0]) : 0;
 		m[0] = des_process_message(m[0], subkey);
+		//ssl->op & CC_D ? m[0] = swap_endian64(m[0]) : 0;
 		block_n++;
 	}
 	if (ssl->op & CC_E)
@@ -67,6 +68,8 @@ void					des_ecb(t_ssl *ssl)
 	des_process(ssl, des);
 	padding_des_ecb(des);
 	process_des_ecb(ssl, des);
+	if (ssl->op & CC_E && ssl->op & CC_SALT_HEADER)
+		des_salt_header(des, 1);
 	if (ssl->op & CC_E && ssl->op & CC_A)
 		des_encode_base64(ssl, des);
 	store_result_des(ssl, des);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 12:44:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 21:32:53 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/31 11:04:24 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct		s_des
 	uint64_t		salt;
 	uint64_t		iv;
 }					t_des;
+
+void				des_salt_header(t_des *des, uint8_t salt_op);
 
 void				des_generate_subkey(uint64_t *subkey, uint64_t key);
 uint64_t			des_process_message(uint64_t m, uint64_t *subkey);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 20:09:20 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 23:32:34 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/31 10:32:05 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void					write_file(char *file, uint8_t *content)
 {
 	int32_t				fd;
 
-	if ((fd = open(file, O_WRONLY | O_CREAT)) < 0)
+	if ((fd = open(file, O_RDWR | O_CREAT | O_TRUNC)) < 0)
 		p_error("Failed to open the file to write");
 	write(fd, content, ft_strlen((char *)content));
 	close(fd);
