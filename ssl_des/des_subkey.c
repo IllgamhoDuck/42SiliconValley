@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:31:06 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 01:20:30 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 21:50:20 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,15 @@
 #include "ft_ssl.h"
 #include "des.h"
 
-static uint64_t		des_apply_pc1(t_des *des)
+static uint64_t		des_apply_pc1(uint64_t key)
 {
 	uint64_t		result;
-	uint64_t		*key;
 	int8_t			i;
 
-	key = (uint64_t *)des->key;
-	key[0] = swap_endian64(key[0]);
 	result = 0;
 	i = -1;
 	while (++i < 56)
-		FINDBIT64(key[0], g_pc1[i]) ? PUTBIT64(result, i) : 0;
+		FINDBIT64(key, g_pc1[i]) ? PUTBIT64(result, i) : 0;
 	return (result);
 }
 
@@ -43,14 +40,14 @@ static uint64_t		des_apply_pc2(uint64_t c, uint64_t d)
 	return (result);
 }
 
-void				des_generate_subkey(t_des *des)
+void				des_generate_subkey(uint64_t *subkey, uint64_t key)
 {
 	uint64_t		c[16];
 	uint64_t		d[16];
 	uint64_t		pc1;
 	int8_t			i;
 	
-	pc1 = des_apply_pc1(des);
+	pc1 = des_apply_pc1(key);
 	c[0] = pc1 & 0xfffffff000000000;
 	d[0] = pc1 << 28;
 	c[0] = ROTL28(c[0], g_shift[0]);
@@ -63,8 +60,5 @@ void				des_generate_subkey(t_des *des)
 	}
 	i = -1;
 	while (++i < 16)
-	{
-		des->subkey[i] = des_apply_pc2(c[i], d[i]);
-		des->subkey[i] = swap_endian64(des->subkey[i]);
-	}
+		subkey[i] = des_apply_pc2(c[i], d[i]);
 }

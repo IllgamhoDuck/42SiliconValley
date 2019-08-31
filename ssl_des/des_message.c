@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 02:01:49 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 03:47:26 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 22:03:34 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ static uint64_t		des_feistel(uint64_t r, uint64_t subkey)
 	int8_t			i;
 	
 	r = des_apply_expand(r);
-	r = swap_endian64(r);
 	result = subkey ^ r;
-	result = swap_endian64(result);
 	i = -1;
 	while (++i < 8)
 		b[i] = ((result << (i * 6)) & 0xfc00000000000000);
@@ -80,7 +78,7 @@ static uint64_t		des_feistel(uint64_t r, uint64_t subkey)
 	return (result);
 }
 
-uint64_t				des_process_message(t_des *des, uint64_t m)
+uint64_t				des_process_message(uint64_t m, uint64_t *subkey)
 {
 	uint64_t			l[16];
 	uint64_t			r[16];
@@ -91,14 +89,14 @@ uint64_t				des_process_message(t_des *des, uint64_t m)
 	l[0] = m & 0xffffffff00000000;
 	r[0] = m << 32;
 	l[1] = r[0];
-	r[1] = l[0] ^ des_feistel(r[0], des->subkey[0]);
+	r[1] = l[0] ^ des_feistel(r[0], subkey[0]);
 	l[0] = l[1];
 	r[0] = r[1];
 	i = -1;
 	while (++i < 15)
 	{
 		l[i + 1] = r[i];
-		r[i + 1] = l[i] ^ des_feistel(r[i], des->subkey[i + 1]);
+		r[i + 1] = l[i] ^ des_feistel(r[i], subkey[i + 1]);
 	}
 	r[15] |= (l[15] >> 32);
 	result = 0;

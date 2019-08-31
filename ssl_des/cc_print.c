@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 00:49:51 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/28 01:41:29 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 23:15:03 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@
 ** 0 - default.
 ** if you want to add more options to print add functionality to this number
 */
-
-//static void			cc_print_key(t_ssl *ssl)
-//{
-//	int8_t			i;
-//
-//	i = -1;
-//	if (ssl->cc == 0 && ssl->cc_output != NULL)
-//		while (++i < ssl->hash_size)
-//			ft_printf("%016llx", ssl->hash_output64[i]);
-//}
 
 void				cc_print_result(t_ssl *ssl, uint8_t p_op)
 {

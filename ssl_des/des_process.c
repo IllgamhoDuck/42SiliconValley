@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:44:43 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/29 20:40:02 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 23:17:42 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void			des_password(t_ssl *ssl, t_des *des)
 
 	if (ssl->op & CC_P)
 	{
-		des->password = (uint8_t *)ft_strdup((char *)des->password);
+		des->password = (uint8_t *)ft_strdup(ssl->cc_info->cc_password);
 		return ;
 	}
 	ft_printf("enter %s ", g_c_command[ssl->cc]);
@@ -58,19 +58,17 @@ static void			des_password(t_ssl *ssl, t_des *des)
 static void			des_salt(t_ssl *ssl, t_des *des)
 {
 	int16_t			random_file;
-	uint64_t		temp;
 	char			buff[8];
 
 	if (ssl->op & CC_S)
 	{
-		if (ft_strlen((char *)des->salt) > 16)
+		if (ft_strlen(ssl->cc_info->cc_salt) > 16)
 			des_invalid_salt(0);
-		if (cc_is_hex_str(des->salt) == 0)
+		if (cc_is_hex_str(ssl->cc_info->cc_salt) == 0)
 			des_invalid_salt(1);
-		des->salt = cc_pad_zero(des->salt, 16);
-		temp = swap_endian64(cc_atoi_base(des->salt, 16));
-		ft_memcpy(des->salt, &temp, 8);
-		des->salt[8] = '\0';
+		ssl->cc_info->cc_salt = cc_pad_zero(ssl->cc_info->cc_salt, 16);
+		des->salt = cc_atoi_base(ssl->cc_info->cc_salt, 16);
+		free(ssl->cc_info->cc_salt);
 	}
 	else
 	{
@@ -78,25 +76,22 @@ static void			des_salt(t_ssl *ssl, t_des *des)
 			p_error("Failed while opening the /dev/urandom");
 		if (read(random_file, buff, 8) != 8)
 			p_error("Failed to read enough 8 Bytes data from /dev/urandom");
-		des->salt = (uint8_t *)ft_strsub(buff, 0, 8);
+		ft_memcpy(&des->salt, buff, 8);
 		close(random_file);
 	}
 }
 
 static void			des_iv(t_ssl *ssl, t_des *des)
 {
-	uint64_t		temp;
-
 	if ((ssl->op & CC_V) && (ssl->cc != 2))
 	{
-		if (ft_strlen((char *)des->iv) > 32)
+		if (ft_strlen((char *)ssl->cc_info->cc_iv) > 32)
 			des_invalid_iv(0);
-		if (cc_is_hex_str(des->iv) == 0)
+		if (cc_is_hex_str(ssl->cc_info->cc_iv) == 0)
 			des_invalid_iv(1);
-		des->iv = cc_pad_zero(des->iv, 16);
-		temp = swap_endian64(cc_atoi_base(des->iv, 16));
-		ft_memcpy(des->iv, &temp, 8);
-		des->iv[8] = '\0';
+		ssl->cc_info->cc_iv = cc_pad_zero(ssl->cc_info->cc_iv, 16);
+		des->iv = cc_atoi_base(ssl->cc_info->cc_iv, 16);
+		free(ssl->cc_info->cc_iv);
 	}
 	else if (ssl->cc != 2)
 		des_invalid_iv(2);
@@ -112,33 +107,34 @@ static void			des_create_key_iv(t_des *des, char *pw_salt)
 	md5_ssl->hash_size = 4;
 	md5(md5_ssl);
 	n64 = (uint64_t *)md5_ssl->hash_output32;
-	des->key = (uint8_t *)ft_strnew(8);
-	des->iv = (uint8_t *)ft_strnew(8);
-	ft_memcpy(des->key, n64, 8);
-	ft_memcpy(des->iv, n64 + 1, 8);
+	n64[0] = swap_endian64(n64[0]);
+	n64[1] = swap_endian64(n64[1]);
+	des->key = n64[0];
+	des->iv = n64[1];
 	free_ssl(md5_ssl);
 }
 
 void				des_process(t_ssl *ssl, t_des *des)
 {
 	char			*pw_salt;
-	uint64_t		temp;
+	char			salt[9];
 
 	if (ssl->op & CC_K)
 	{
-		if (cc_is_hex_str(des->key) == 0)
+		if (cc_is_hex_str(ssl->cc_info->cc_key) == 0)
 			des_invalid_key();
-		des->key = cc_pad_zero(des->key, 16);
-		temp = swap_endian64(cc_atoi_base(des->key, 16));
-		ft_memcpy(des->key, &temp, 8);
-		des->key[8] = '\0';
+		ssl->cc_info->cc_key = cc_pad_zero(ssl->cc_info->cc_key, 16);
+		des->key = cc_atoi_base(ssl->cc_info->cc_key, 16);
+		free(ssl->cc_info->cc_key);
 		des_iv(ssl, des);
 	}
 	else
 	{
 		des_password(ssl, des);
 		des_salt(ssl, des);
-		pw_salt = ft_strjoin((char *)des->password, (char *)des->salt);
+		ft_memcpy(salt, &des->salt, 8);
+		salt[8] = '\0';
+		pw_salt = ft_strjoin((char *)des->password, salt);
 		des_create_key_iv(des, pw_salt);
 		free(pw_salt);
 	}

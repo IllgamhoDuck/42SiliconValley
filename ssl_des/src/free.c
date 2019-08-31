@@ -6,11 +6,12 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/23 12:57:26 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/27 15:32:32 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 23:24:37 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
+#include "libft.h"
 
 void				free_reader(t_reader *r)
 {

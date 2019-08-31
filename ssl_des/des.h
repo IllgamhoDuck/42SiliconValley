@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 12:44:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 04:00:45 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 21:32:53 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,21 @@ typedef struct		s_des
 	uint32_t		len;
 	uint8_t			*padded_str;
 	uint8_t			*prev_block;
-	uint64_t		subkey[16];
 	uint8_t			*encode;
 	uint8_t			*decode;
-	uint8_t			*key;
+	uint64_t		key;
 	uint8_t			*password;
-	uint8_t			*salt;
-	uint8_t			*iv;
+	uint64_t		salt;
+	uint64_t		iv;
 }					t_des;
 
-void				des_generate_subkey(t_des *des);
-uint64_t			des_process_message(t_des *des, uint64_t m);
+void				des_generate_subkey(uint64_t *subkey, uint64_t key);
+uint64_t			des_process_message(uint64_t m, uint64_t *subkey);
 
 void				des_process(t_ssl *ssl, t_des *des);
 void				des_encode_base64(t_ssl *ssl, t_des *des);
 void				des_decode_base64(t_ssl *ssl, t_des *des);
-void				des_decode_reverse_subkey(t_des *des);
+void				des_decode_reverse_subkey(uint64_t *subkey);
 
 t_des				*init_des(t_ssl *ssl);
 void				store_result_des(t_ssl *ssl, t_des *des);

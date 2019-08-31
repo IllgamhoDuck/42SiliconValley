@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:42:39 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/29 19:37:34 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 21:03:59 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Count the characters without space
 */
 
-uint64_t			cc_atoi_base(uint8_t *str, uint8_t base)
+uint64_t			cc_atoi_base(char *str, uint8_t base)
 {
 	uint64_t		result;
 	uint16_t		len;
@@ -26,7 +26,7 @@ uint64_t			cc_atoi_base(uint8_t *str, uint8_t base)
 
 	result = 0;
 	i = 0;
-	len = ft_strlen((char *)str);
+	len = ft_strlen(str);
 	while (i < len)
 	{
 		if (str[i] >= '0' && str[i] <= '9')
@@ -40,26 +40,26 @@ uint64_t			cc_atoi_base(uint8_t *str, uint8_t base)
 	return (result);
 }
 
-uint8_t				*cc_pad_zero(uint8_t *str, int16_t len)
+char				*cc_pad_zero(char *str, int16_t len)
 {
-	uint8_t			*zero;
-	uint8_t			*result;
+	char			*zero;
+	char			*result;
 	int16_t			zero_len;
 	int16_t			i;
 	
-	zero_len = len - ft_strlen((char *)str);
+	zero_len = len - ft_strlen(str);
 	if (zero_len <= 0)
-		return ((uint8_t *)ft_strsub((char *)str, 0, len));
-	zero = (uint8_t *)ft_strnew(zero_len);
+		return (ft_strsub(str, 0, len));
+	zero = ft_strnew(zero_len);
 	i = -1;
 	while (++i < zero_len)
 		zero[i] = '0';
-	result = (uint8_t *)ft_strjoin((char *)str, (char *)zero);
+	result = ft_strjoin(str, zero);
 	free(zero);
 	return (result);
 }
 
-int8_t				cc_is_hex_str(uint8_t *str)
+int8_t				cc_is_hex_str(char *str)
 {
 	while (*str)
 	{

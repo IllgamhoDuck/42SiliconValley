@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 22:01:10 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/28 23:38:57 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 23:26:21 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ static void			cc_file_process(t_ssl *ssl)
 		}
 		ssl->ssl_input = read_file(fd);
 		g_cipher_f[ssl->cc](ssl);
-		close(fd);
 		cc_print_result(ssl, 0);
 		free(ssl->ssl_input);
+		close(fd);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:21:00 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 04:10:58 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 23:11:00 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,46 +144,41 @@ uint8_t	g_s8[64] = {
 
 uint8_t *g_s[8] = {g_s1, g_s2, g_s3, g_s4, g_s5, g_s6, g_s7, g_s8};
 
-
 void				des_encode_base64(t_ssl *ssl, t_des *des)
 {
 	t_ssl			*base64_ssl;
-	uint8_t			*temp;
 
 	base64_ssl = init_ssl();
 	base64_ssl->op = ssl->op;
 	base64_ssl->ssl_input = (char *)des->encode;
 	base64(base64_ssl);
-	temp = des->encode;
+	free(des->encode);
 	des->encode = (uint8_t *)ft_strdup((char *)base64_ssl->cc_output);
-	free(temp);
 	free_ssl(base64_ssl);
 }
 
 void				des_decode_base64(t_ssl *ssl, t_des *des)
 {
 	t_ssl			*base64_ssl;
-	uint8_t			*temp;
 
 	base64_ssl = init_ssl();
 	base64_ssl->op = ssl->op;
 	base64_ssl->ssl_input = ssl->ssl_input;
 	base64(base64_ssl);
-	temp = des->str;
+	free(des->str);
 	des->str = (uint8_t *)ft_strdup((char *)base64_ssl->cc_output);
-	free(temp);
 	free_ssl(base64_ssl);
 }
 
-void				des_decode_reverse_subkey(t_des *des)
+void				des_decode_reverse_subkey(uint64_t *subkey)
 {
 	uint64_t		temp_subkey[16];
 	int8_t			i;
 
 	i = -1;
 	while (++i < 16)
-		temp_subkey[i] = des->subkey[15 - i];
+		temp_subkey[i] = subkey[15 - i];
 	i = -1;
 	while (++i < 16)
-		des->subkey[i] = temp_subkey[i];
+		subkey[i] = temp_subkey[i];
 }

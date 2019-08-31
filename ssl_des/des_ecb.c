@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:01:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 04:08:10 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 23:21:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,34 +28,45 @@ static void				padding_des_ecb(t_des *des)
 		des->padded_str[des->len++] = (uint8_t)0;
 }
 
-static void				process_des_ecb(t_des *des, uint16_t block_n)
+/*
+** The plaintext message "Your lips are smoother than vaseline" is, in hexadecimal,
+** "596F7572206C6970 732061726520736D 6F6F746865722074 68616E2076617365 6C696E650D0A"
+** ===============================================================================
+** To process like this example we have to swap the bits.
+** This is little endian system
+*/
+
+static void				process_des_ecb(t_ssl *ssl, t_des *des)
 {
 	uint64_t			*m;
-	uint64_t			result;
+	uint8_t				block_n;
+	uint64_t			subkey[16];
 
-	m = (uint64_t *)(des->padded_str + (block_n * 8));
-	result = des_process_message(des, m[0]);
-	ft_printf("result : %llx", result);
-	ft_printf("result : %s", result);
+	des_generate_subkey(subkey, des->key);
+	if (ssl->op & CC_D)
+		des_decode_reverse_subkey(subkey);
+	block_n = 0;
+	while (block_n < des->len / 8)
+	{
+		m = (uint64_t *)(des->padded_str + (block_n * 8));
+		m[0] = swap_endian64(m[0]);
+		m[0] = des_process_message(m[0], subkey);
+		block_n++;
+	}
+	if (ssl->op & CC_E)
+		des->encode = (uint8_t *)ft_strdup((char *)des->padded_str);
+	if (ssl->op & CC_D)
+		des->decode = (uint8_t *)ft_strdup((char *)des->padded_str);
 }
 
 void					des_ecb(t_ssl *ssl)
 {
 	t_des				*des;
-	uint8_t				i;
 
 	des = init_des(ssl);
 	des_process(ssl, des);
 	padding_des_ecb(des);
-	des_generate_subkey(des);
-	if (ssl->op & CC_D)
-		des_decode_reverse_subkey(des);
-	i = 0;
-	while (i < des->len / 8)
-	{
-		process_des_ecb(des, i);
-		i++;
-	}
+	process_des_ecb(ssl, des);
 	if (ssl->op & CC_E && ssl->op & CC_A)
 		des_encode_base64(ssl, des);
 	store_result_des(ssl, des);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:33:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/29 19:36:14 by hypark           ###   ########.fr       */
+/*   Updated: 2019/08/30 21:16:28 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ void				mdc_hash_size(t_ssl *ssl);
 void				cc_process(t_ssl *ssl);
 void				cc_stdin_process(t_ssl *ssl);
 
-uint64_t			cc_atoi_base(uint8_t *str, uint8_t base);
-int8_t				cc_is_hex_str(uint8_t *str);
-uint8_t				*cc_pad_zero(uint8_t *str, int16_t len);
+uint64_t			cc_atoi_base(char *str, uint8_t base);
+int8_t				cc_is_hex_str(char *str);
+char				*cc_pad_zero(char *str, int16_t len);
 int32_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str);
 uint8_t				*cc_insert_newline(uint8_t *str, int32_t len, int16_t n);
 
