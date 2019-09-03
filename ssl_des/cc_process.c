@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 22:01:10 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 23:26:21 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/02 21:06:33 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "libft.h"
 #include "base64.h"
 #include "des.h"
-#include "des_ecb.h"
 
 char *g_cc_prefix[8] = {"BASE64", "DES-CDC", "DES-ECB", "DES-CDC", NULL};
 char *g_c_command[8] = {"base64", "des", "des-ecb", "des-cdc", NULL};

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 13:48:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/28 13:10:21 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 01:26:05 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void				store_result_base64(t_ssl *ssl, t_base64 *base64)
 		ssl->cc_output = cc_insert_newline(base64->encode, len, 64);
 	}
 	if (ssl->op & CC_D)
-		ssl->cc_output = (uint8_t *)ft_strdup((char *)base64->decode);
+		ssl->cc_output = ft_strdup((char *)base64->decode);
 }
 
 void				free_base64(t_base64 *base64)

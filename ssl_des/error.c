@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:11:57 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/26 23:44:59 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 00:17:51 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,13 @@ void				no_file_dic(t_ssl *ssl)
 		ft_printf("%2@%s: ", g_md_command[ssl->mdc]);
 	if (ssl->cc != -1)
 		ft_printf("%2@%s: ", g_c_command[ssl->cc]);
-	ft_printf("%2@%s: No such file or directory\n", ssl->files[ssl->i]);
+	if (ssl->mdc != -1)
+		ft_printf("%2@%s: No such file or directory\n", ssl->files[ssl->i]);
+	if (ssl->cc != -1)
+	{
+		ft_printf("%2@%s: ", ssl->cc_info->cc_input);
+		ft_printf("%2@No such file or directory\n");
+	}
 }
 
 void				malloc_error(char *str)

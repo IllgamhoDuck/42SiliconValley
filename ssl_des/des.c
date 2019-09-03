@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:21:00 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/31 10:27:11 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 02:59:53 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void				des_encode_base64(t_ssl *ssl, t_des *des)
 	base64(base64_ssl);
 	free(des->encode);
 	des->encode = (uint8_t *)ft_strdup((char *)base64_ssl->cc_output);
+	des->len = ft_strlen((char *)des->encode);
 	free_ssl(base64_ssl);
 }
 
@@ -165,8 +166,9 @@ void				des_decode_base64(t_ssl *ssl, t_des *des)
 	base64_ssl->op = ssl->op;
 	base64_ssl->ssl_input = ssl->ssl_input;
 	base64(base64_ssl);
-	free(des->str);
+	ssl->op & CC_SALT_HEADER ? 0 : free(des->str);
 	des->str = (uint8_t *)ft_strdup((char *)base64_ssl->cc_output);
+	des->len = ft_strlen((char *)des->str);
 	free_ssl(base64_ssl);
 }
 

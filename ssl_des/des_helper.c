@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:31:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/31 11:15:54 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 03:03:31 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,30 @@ t_des			*init_des(t_ssl *ssl)
 {
 	t_des		*des;
 
-	if (ssl->op & CC_P && !(ssl->op & CC_NOSALT))
+	if ((ssl->op & CC_P && !(ssl->op & CC_NOSALT)) || !(ssl->op & CC_K))
 		ssl->op |= CC_SALT_HEADER;
 	if (!(des = (t_des *)ft_memalloc(sizeof(t_des))))
 		malloc_error("t_des");
-	des->str = (uint8_t *)ft_strdup(ssl->ssl_input);
-	des->len = ft_strlen((char *)des->str);
+	if (!(ssl->op & CC_SALT_HEADER))
+	{
+		des->str = (uint8_t *)ft_strdup(ssl->ssl_input);
+		des->len = ft_strlen((char *)des->str);
+	}
+	else
+		des->str = (uint8_t *)ssl->ssl_input;
 	if (ssl->op & CC_D && ssl->op & CC_A)
 		des_decode_base64(ssl, des);
 	if (ssl->op & CC_D && ssl->op & CC_SALT_HEADER)
 		des_salt_header(des, 1);
-	des->password = (uint8_t *)ssl->cc_info->cc_password;
 	return (des);
 }
 
 void				store_result_des(t_ssl *ssl, t_des *des)
 {
-	if (ssl->op & CC_E)
-		ssl->cc_output = (uint8_t *)ft_strdup((char *)des->encode);
-	if (ssl->op & CC_D)
-		ssl->cc_output = (uint8_t *)ft_strdup((char *)des->decode);
+	ssl->cc_output = ft_strnew(des->len);
+	ssl->op & CC_E ? ft_memcpy(ssl->cc_output, des->encode, des->len) : 0;
+	ssl->op & CC_D ? ft_memcpy(ssl->cc_output, des->decode, des->len) : 0;
+	ssl->cc_len = des->len;
 }
 
 void				free_des(t_des *des)

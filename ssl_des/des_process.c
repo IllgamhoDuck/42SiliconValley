@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:44:43 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/31 11:01:13 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 03:17:01 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,25 @@ static void			des_password(t_ssl *ssl, t_des *des)
 		return ;
 	}
 	ft_printf("enter %s ", g_c_command[ssl->cc]);
-	password = ft_strdup(getpass("encryption password: "));
+	ssl->op & CC_E ? password = ft_strdup(getpass("encryption password: ")) : 0;
+	ssl->op & CC_D ? password = ft_strdup(getpass("decryption password: ")) : 0;
+	if (ssl->op & CC_D)
+	{
+		des->password = (uint8_t *)password;
+		return ;
+	}
 	ft_printf("Verifying - enter %s ", g_c_command[ssl->cc]);
-	if (ft_strcmp(password,	getpass("encryption password: ")))
-			des_invalid_password();
+	if (ft_strcmp(password, getpass("encryption password: ")))
+		des_invalid_password();
 	des->password = (uint8_t *)password;
 }
+
+/*
+** Salt will have to be same as big endian order
+** when user input 0xAAAAAAAAFFFFFFFF
+** The memory order should be "AAAAAAAAFFFFFFFF"
+** So we should swap the endian after cc_atoi_base
+*/
 
 static void			des_salt(t_ssl *ssl, t_des *des)
 {
@@ -67,7 +80,7 @@ static void			des_salt(t_ssl *ssl, t_des *des)
 		if (cc_is_hex_str(ssl->cc_info->cc_salt) == 0)
 			des_invalid_salt(1);
 		ssl->cc_info->cc_salt = cc_pad_zero(ssl->cc_info->cc_salt, 16);
-		des->salt = cc_atoi_base(ssl->cc_info->cc_salt, 16);
+		des->salt = swap_endian64(cc_atoi_base(ssl->cc_info->cc_salt, 16));
 		free(ssl->cc_info->cc_salt);
 	}
 	else
@@ -137,7 +150,7 @@ void				des_process(t_ssl *ssl, t_des *des)
 	else
 	{
 		des_password(ssl, des);
-		des_salt(ssl, des);
+		ssl->op & CC_D && ssl->op & CC_SALT_HEADER ? 0 : des_salt(ssl, des);
 		ft_memcpy(salt, &des->salt, 8);
 		salt[8] = '\0';
 		pw_salt = ft_strjoin((char *)des->password, salt);

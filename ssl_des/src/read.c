@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:04:17 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 16:10:32 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 00:47:16 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char			get_next_char(t_reader *r)
 	if (r->i < r->len)
 		return (r->buff[r->i++]);
 	if ((r->len = read(r->fd, r->buff, BUFF_SIZE_SSL)) < 0)
-		return (-1);
+		p_error("Error occur while reading the file");
 	if (r->len == 0)
 		return (0);
 	r->i = 0;
@@ -33,8 +33,6 @@ static void			fill_list(t_reader *r, t_c_list **c_list, uint32_t *len)
 	current = NULL;
 	while ((c = get_next_char(r)))
 	{
-		if (c == -1)
-			p_error("Error occur while reading the file");
 		if (current == NULL)
 		{
 			current = init_c_list(c);

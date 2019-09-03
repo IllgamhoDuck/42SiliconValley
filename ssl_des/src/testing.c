@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 20:09:20 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/31 10:32:05 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 01:24:54 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void					print_bits(uint8_t *str, uint32_t len, char *where)
 	ft_putchar('\n');
 }
 
-void					write_file(char *file, uint8_t *content)
+void					write_file(char *f, char *content, uint32_t len)
 {
 	int32_t				fd;
 
-	if ((fd = open(file, O_RDWR | O_CREAT | O_TRUNC)) < 0)
+	if ((fd = open(f, O_RDWR | O_CREAT | O_TRUNC)) < 0)
 		p_error("Failed to open the file to write");
-	write(fd, content, ft_strlen((char *)content));
+	write(fd, content, len);
 	close(fd);
 }

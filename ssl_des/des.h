@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 12:44:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/31 11:04:24 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/02 21:48:15 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct		s_des
 	uint64_t		iv;
 }					t_des;
 
+void				des_ecb(t_ssl *ssl);
+
 void				des_salt_header(t_des *des, uint8_t salt_op);
 
 void				des_generate_subkey(uint64_t *subkey, uint64_t key);
@@ -73,5 +75,6 @@ void				des_invalid_password(void);
 void				des_invalid_salt(uint8_t salt_op);
 void				des_invalid_key(void);
 void				des_invalid_iv(uint8_t salt_iv);
+void				des_invalid_input(uint8_t input_op);
 
 #endif

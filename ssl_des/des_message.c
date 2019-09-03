@@ -6,14 +6,13 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 02:01:49 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 22:03:34 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/02 21:15:14 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
 #include "des.h"
-#include "des_ecb.h"
 
 static uint64_t		des_apply_ip(uint64_t m)
 {

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:42:39 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 21:03:59 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 01:28:18 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,18 +85,18 @@ int32_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str)
 	return (len);
 }
 
-uint8_t				*cc_insert_newline(uint8_t *str, int32_t len, int16_t n)
+char				*cc_insert_newline(uint8_t *str, int32_t len, int16_t n)
 {
 	int32_t			newline;
-	uint8_t			*result;
-	uint8_t			*temp;
+	char			*result;
+	char			*temp;
 	int16_t			i;
 	int16_t			j;
 
 	newline = len / n;
 	if (newline == 0)
-		return ((uint8_t *)ft_strjoin((char *)str, "\n"));
-	result = (uint8_t *)ft_strnew(len + newline);
+		return (ft_strjoin((char *)str, "\n"));
+	result = ft_strnew(len + newline);
 	i = -1;
 	j = 0;
 	while (++i < len)
@@ -109,7 +109,7 @@ uint8_t				*cc_insert_newline(uint8_t *str, int32_t len, int16_t n)
 		return (result);
 	else
 		temp = result;
-	result = (uint8_t *)ft_strjoin((char *)result, "\n");
+	result = ft_strjoin(result, "\n");
 	free(temp);
 	return (result);
 }
