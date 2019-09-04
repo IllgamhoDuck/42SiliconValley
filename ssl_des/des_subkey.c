@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/29 21:31:06 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/30 21:50:20 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 04:59:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void				des_generate_subkey(uint64_t *subkey, uint64_t key)
 	uint64_t		d[16];
 	uint64_t		pc1;
 	int8_t			i;
-	
+
 	pc1 = des_apply_pc1(key);
 	c[0] = pc1 & 0xfffffff000000000;
 	d[0] = pc1 << 28;

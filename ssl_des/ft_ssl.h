@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:33:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 20:44:28 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:08:30 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,9 @@ extern char *g_md_command[8];
 extern t_mdc_hash_algorithm g_hash_f[8];
 extern int32_t g_mdc_hash_size[7];
 
-extern char *g_cc_prefix[8];
-extern char *g_c_command[8];
-extern t_cc_cipher_algorithm g_cipher_f[8];
-extern int32_t g_cc_cipher_size[7];
+extern char *g_cc_prefix[11];
+extern char *g_c_command[11];
+extern t_cc_cipher_algorithm g_cipher_f[11];
 
 void				mdc_process(t_ssl *ssl);
 void				mdc_stdin_process(t_ssl *ssl);

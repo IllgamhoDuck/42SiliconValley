@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:31:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 23:32:43 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:03:13 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 ** move the des_decode_base64(ssl, des) after the des_process(ssl, des)
 */
 
-t_des			*init_des(t_ssl *ssl)
+t_des				*init_des(t_ssl *ssl)
 {
-	t_des		*des;
+	t_des			*des;
 
 	if (ssl->op & CC_P || !(ssl->op & CC_K))
 		ssl->op |= CC_SALT_HEADER;

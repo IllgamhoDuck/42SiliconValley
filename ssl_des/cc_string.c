@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:42:39 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 19:17:45 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:03:39 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char				*cc_pad_zero(char *str, int16_t len)
 	char			*result;
 	int16_t			zero_len;
 	int16_t			i;
-	
+
 	zero_len = len - ft_strlen(str);
 	if (zero_len <= 0)
 		return (ft_strsub(str, 0, len));

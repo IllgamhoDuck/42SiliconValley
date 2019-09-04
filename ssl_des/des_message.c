@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/30 02:01:49 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/02 21:15:14 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:01:41 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static uint64_t		des_feistel(uint64_t r, uint64_t subkey)
 	uint64_t		b[8];
 	uint64_t		s[8];
 	int8_t			i;
-	
+
 	r = des_apply_expand(r);
 	result = subkey ^ r;
 	i = -1;
@@ -77,13 +77,13 @@ static uint64_t		des_feistel(uint64_t r, uint64_t subkey)
 	return (result);
 }
 
-uint64_t				des_process_message(uint64_t m, uint64_t *subkey)
+uint64_t			des_process_message(uint64_t m, uint64_t *subkey)
 {
-	uint64_t			l[16];
-	uint64_t			r[16];
-	uint64_t			result;
-	int8_t				i;
-	
+	uint64_t		l[16];
+	uint64_t		r[16];
+	uint64_t		result;
+	int8_t			i;
+
 	m = des_apply_ip(m);
 	l[0] = m & 0xffffffff00000000;
 	r[0] = m << 32;

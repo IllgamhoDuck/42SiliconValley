@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 14:56:31 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 23:14:09 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:12:33 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static uint8_t		mdc_command_check(t_ssl *ssl, char *cmd)
 
 /*
 ** des is a abbreviatiion of des-cbc
+** des3 is a abbreviatiion of des3-cbc
 */
 
 static uint8_t		cc_command_check(t_ssl *ssl, char *cmd)
@@ -44,6 +45,7 @@ static uint8_t		cc_command_check(t_ssl *ssl, char *cmd)
 		{
 			ssl->cc = i;
 			i == 1 ? ssl->cc = 3 : 0;
+			i == 6 ? ssl->cc = 8 : 0;
 			return (1);
 		}
 	}

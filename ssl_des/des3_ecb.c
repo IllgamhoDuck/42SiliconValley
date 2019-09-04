@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des_ecb.c                                          :+:      :+:    :+:   */
+/*   des3_ecb.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/28 23:01:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 05:01:51 by hypark           ###   ########.fr       */
+/*   Created: 2019/09/04 02:03:35 by hypark            #+#    #+#             */
+/*   Updated: 2019/09/04 05:04:37 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,21 @@
 ** So we swap the endian again before storing it.
 */
 
-static void				process_des_ecb(t_ssl *ssl, t_des *des)
+static void				process_des3_ecb(t_ssl *ssl, t_des *des)
 {
 	uint64_t			*m;
 	uint8_t				block_n;
-	uint64_t			subkey[16];
+	uint64_t			subkey[3][16];
 
-	des_generate_subkey(subkey, des->key);
-	if (ssl->op & CC_D)
-		des_decode_reverse_subkey(subkey);
+	des3_key_setting(ssl, des, subkey);
 	block_n = 0;
 	while (block_n < des->len / 8)
 	{
 		m = (uint64_t *)(des->padded_str + (block_n * 8));
 		m[0] = swap_endian64(m[0]);
-		m[0] = des_process_message(m[0], subkey);
+		m[0] = des_process_message(m[0], subkey[0]);
+		m[0] = des_process_message(m[0], subkey[1]);
+		m[0] = des_process_message(m[0], subkey[2]);
 		m[0] = swap_endian64(m[0]);
 		block_n++;
 	}
@@ -52,23 +52,24 @@ static void				process_des_ecb(t_ssl *ssl, t_des *des)
 		des_remove_padding(des);
 }
 
-void					des_ecb(t_ssl *ssl)
+void					des3_ecb(t_ssl *ssl)
 {
 	t_des				*des;
 
 	des = init_des(ssl);
-	des_process(ssl, des);
+	des3_process(ssl, des);
 	if (ssl->op & CC_BP)
 	{
 		des_print_salt_key_iv(ssl, des);
 		free_des(des);
 		return ;
 	}
+	des3_reverse_key(ssl, des);
 	if (ssl->op & CC_NOPAD)
 		des_no_pad(des);
 	else
 		des_padding(ssl, des);
-	process_des_ecb(ssl, des);
+	process_des3_ecb(ssl, des);
 	if (ssl->op & CC_E && ssl->op & CC_SALT_HEADER)
 		des_salt_header(des, 0);
 	if (ssl->op & CC_E && ssl->op & CC_A)

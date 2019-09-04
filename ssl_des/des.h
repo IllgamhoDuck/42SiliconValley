@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 12:44:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 23:00:15 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:14:52 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ typedef struct		s_des
 	uint8_t			*padded_str;
 	uint64_t		prev_m;
 	uint64_t		key;
+	uint64_t		key1;
+	uint64_t		key2;
+	uint64_t		key3;
 	uint8_t			*password;
 	uint64_t		salt;
 	uint64_t		iv;
@@ -55,8 +58,19 @@ typedef struct		s_des
 
 void				des_ecb(t_ssl *ssl);
 void				des_cbc(t_ssl *ssl);
+void				des_cfb(t_ssl *ssl);
+void				des_ofb(t_ssl *ssl);
+void				des3_ecb(t_ssl *ssl);
+void				des3_cbc(t_ssl *ssl);
+void				des3_ofb(t_ssl *ssl);
+
+void				des3_d1_key(t_des *des, t_ssl *ssl, char *s, uint32_t len);
+void				des3_key(t_ssl *ssl, t_des *des);
+void				des3_reverse_key(t_ssl *ssl, t_des *des);
+void				des3_key_setting(t_ssl *ssl, t_des *des, uint64_t k[3][16]);
 
 void				des_padding(t_ssl *ssl, t_des *des);
+void				des_zero_pad(t_des *des);
 void				des_no_pad(t_des *des);
 void				des_remove_padding(t_des *des);
 
@@ -66,6 +80,8 @@ void				des_generate_subkey(uint64_t *subkey, uint64_t key);
 uint64_t			des_process_message(uint64_t m, uint64_t *subkey);
 
 void				des_process(t_ssl *ssl, t_des *des);
+void				des3_process(t_ssl *ssl, t_des *des);
+
 void				des_encode_base64(t_ssl *ssl, t_des *des);
 void				des_decode_base64(t_ssl *ssl, t_des *des);
 void				des_decode_reverse_subkey(uint64_t *subkey);
@@ -74,7 +90,7 @@ t_des				*init_des(t_ssl *ssl);
 void				store_result_des(t_ssl *ssl, t_des *des);
 void				free_des(t_des *des);
 
-void				des_print_salt_key(t_ssl *ssl, t_des *des);
+void				des_print_salt_key_iv(t_ssl *ssl, t_des *des);
 
 void				des_invalid_password(void);
 void				des_invalid_salt(uint8_t salt_op);

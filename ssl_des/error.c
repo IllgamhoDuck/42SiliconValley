@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:11:57 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 00:17:51 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:31:51 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void				invalid_command(char *command)
 	ft_printf("%2@\n");
 	ft_printf("%2@Cipher commands:\n");
 	i = -1;
-	while (++i < 1)
+	while (++i < 10)
 		ft_printf("%2@%s\n", g_c_command[i]);
 	exit(1);
 }

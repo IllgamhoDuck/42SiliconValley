@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 22:57:09 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 22:59:02 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 04:59:49 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 /*
 ** padding number is chosen by how many pads we need to put on
-** asdfasdf -> pad number 0  asdfasdf 
+** asdfasdf -> pad number 0  asdfasdf
 ** asdf -> pad number 4 ---- asdf 04 04 04 04
 ** a -> pad_number 7 ------- a 07 07 07 07 07 07 07
 */
@@ -52,6 +52,17 @@ void					des_padding(t_ssl *ssl, t_des *des)
 		des->padded_str[des->len++] = pad_number;
 }
 
+void					des_zero_pad(t_des *des)
+{
+	uint32_t			pad_len;
+
+	pad_len = des->len;
+	while (pad_len % 8 != 0)
+		pad_len++;
+	des->padded_str = (uint8_t *)ft_strnew(pad_len);
+	ft_memcpy(des->padded_str, des->str, des->len);
+}
+
 void					des_no_pad(t_des *des)
 {
 	uint32_t			pad_len;
@@ -65,6 +76,7 @@ void					des_no_pad(t_des *des)
 	ft_memcpy(des->padded_str, des->str, pad_len);
 	des->len = pad_len;
 }
+
 void					des_remove_padding(t_des *des)
 {
 	uint32_t			i;

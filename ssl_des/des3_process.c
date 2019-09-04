@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des_process.c                                      :+:      :+:    :+:   */
+/*   des3_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/28 23:44:43 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 02:07:13 by hypark           ###   ########.fr       */
+/*   Created: 2019/09/04 03:31:44 by hypark            #+#    #+#             */
+/*   Updated: 2019/09/04 04:37:38 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 ** plain text - duck
 */
 
-static void			des_password(t_ssl *ssl, t_des *des)
+static void			des3_password(t_ssl *ssl, t_des *des)
 {
 	char			*password;
 
@@ -68,7 +68,7 @@ static void			des_password(t_ssl *ssl, t_des *des)
 ** So we should swap the endian after cc_atoi_base
 */
 
-static void			des_salt(t_ssl *ssl, t_des *des)
+static void			des3_salt(t_ssl *ssl, t_des *des)
 {
 	int16_t			random_file;
 	char			buff[8];
@@ -94,9 +94,9 @@ static void			des_salt(t_ssl *ssl, t_des *des)
 	}
 }
 
-static void			des_iv(t_ssl *ssl, t_des *des)
+static void			des3_iv(t_ssl *ssl, t_des *des)
 {
-	if ((ssl->op & CC_V) && (ssl->cc != 2))
+	if ((ssl->op & CC_V) && (ssl->cc != 6))
 	{
 		if (ft_strlen((char *)ssl->cc_info->cc_iv) > 32)
 			des_invalid_iv(0);
@@ -106,11 +106,11 @@ static void			des_iv(t_ssl *ssl, t_des *des)
 		des->iv = cc_atoi_base(ssl->cc_info->cc_iv, 16);
 		free(ssl->cc_info->cc_iv);
 	}
-	else if ((ssl->op & CC_K) && (ssl->cc != 2))
+	else if ((ssl->op & CC_K) && (ssl->cc != 6))
 		des_invalid_iv(2);
 }
 
-static void			des_create_key_iv(t_des *des, char *pw_salt, uint32_t len)
+static void			des3_create_key_iv(t_des *des, char *pw_salt, uint32_t len)
 {
 	t_ssl			*md5_ssl;
 	uint64_t		*n64;
@@ -124,12 +124,13 @@ static void			des_create_key_iv(t_des *des, char *pw_salt, uint32_t len)
 	n64 = (uint64_t *)md5_ssl->hash_output32;
 	n64[0] = swap_endian64(n64[0]);
 	n64[1] = swap_endian64(n64[1]);
-	des->key = n64[0];
-	des->iv = n64[1];
+	des->key1 = n64[0];
+	des->key2 = n64[1];
+	des3_d1_key(des, md5_ssl, pw_salt, len);
 	free_ssl(md5_ssl);
 }
 
-void				des_process(t_ssl *ssl, t_des *des)
+void				des3_process(t_ssl *ssl, t_des *des)
 {
 	char			*pw_salt;
 	uint32_t		pass_len;
@@ -138,20 +139,18 @@ void				des_process(t_ssl *ssl, t_des *des)
 	{
 		if (cc_is_hex_str(ssl->cc_info->cc_key) == 0)
 			des_invalid_key();
-		ssl->cc_info->cc_key = cc_pad_zero(ssl->cc_info->cc_key, 16);
-		des->key = cc_atoi_base(ssl->cc_info->cc_key, 16);
-		free(ssl->cc_info->cc_key);
-		ssl->op & CC_NOSALT ? 0 : des_salt(ssl, des);
-		des_iv(ssl, des);
+		des3_key(ssl, des);
+		ssl->op & CC_NOSALT ? 0 : des3_salt(ssl, des);
+		des3_iv(ssl, des);
 		return ;
 	}
-	des_password(ssl, des);
-	ssl->op & CC_D && ssl->op & CC_SALT_HEADER ? 0 : des_salt(ssl, des);
+	des3_password(ssl, des);
+	ssl->op & CC_D && ssl->op & CC_SALT_HEADER ? 0 : des3_salt(ssl, des);
 	pass_len = ft_strlen((char *)des->password);
 	pw_salt = ft_strnew(pass_len + (ssl->op & CC_NOSALT ? 0 : 8));
 	ft_memcpy(pw_salt, des->password, pass_len);
 	ssl->op & CC_NOSALT ? 0 : ft_memcpy(pw_salt + pass_len, &des->salt, 8);
-	des_create_key_iv(des, pw_salt, pass_len + (ssl->op & CC_NOSALT ? 0 : 8));
-	des_iv(ssl, des);
+	des3_create_key_iv(des, pw_salt, pass_len + (ssl->op & CC_NOSALT ? 0 : 8));
+	des3_iv(ssl, des);
 	free(pw_salt);
 }
