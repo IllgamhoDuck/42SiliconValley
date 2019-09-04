@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 11:32:45 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/29 20:08:27 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 15:45:31 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ t_md5				*init_md5(t_ssl *ssl)
 
 	if (!(md5 = (t_md5 *)ft_memalloc(sizeof(t_md5))))
 		malloc_error("t_md5");
-	md5->str = (uint8_t *)ft_strdup(ssl->ssl_input);
-	md5->len = ft_strlen((char *)md5->str);
+	if (ssl->p_mutual)
+		md5->len = ssl->mut_len;
+	else
+		md5->len = ssl->read_len;
+	md5->str = (uint8_t *)ft_strnew(md5->len);
+	ft_memcpy(md5->str, ssl->ssl_input, md5->len);
 	i = -1;
 	while (++i < ssl->hash_size)
 		md5->h[i] = g_md5_init[i];

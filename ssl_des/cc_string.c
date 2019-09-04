@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:42:39 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 01:28:18 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 19:17:45 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,20 @@ int8_t				cc_is_hex_str(char *str)
 	return (1);
 }
 
-int32_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str)
+int32_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str, uint32_t len)
 {
-	int32_t			len;
+	uint32_t		i;
+	uint32_t		valid_len;
 
-	len = 0;
-	while (*str)
+	i = 0;
+	valid_len = 0;
+	while (i < len)
 	{
-		if (ssl->cc == 0 && is_valid_char_base64(*str))
-			len++;
-		str++;
+		if (ssl->cc == 0 && is_valid_char_base64(str[i]))
+			valid_len++;
+		i++;
 	}
-	return (len);
+	return (valid_len);
 }
 
 char				*cc_insert_newline(uint8_t *str, int32_t len, int16_t n)

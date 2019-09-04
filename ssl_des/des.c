@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:21:00 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 02:59:53 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 19:22:54 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,13 @@ void				des_encode_base64(t_ssl *ssl, t_des *des)
 	base64_ssl = init_ssl();
 	base64_ssl->op = ssl->op;
 	base64_ssl->ssl_input = (char *)des->encode;
+	base64_ssl->p_mutual = 1;
+	base64_ssl->mut_len = des->len;
 	base64(base64_ssl);
 	free(des->encode);
-	des->encode = (uint8_t *)ft_strdup((char *)base64_ssl->cc_output);
-	des->len = ft_strlen((char *)des->encode);
+	des->len = base64_ssl->mut_len;
+	des->encode = (uint8_t *)ft_strnew(des->len);
+	ft_memcpy(des->encode, base64_ssl->cc_output, des->len);
 	free_ssl(base64_ssl);
 }
 
@@ -164,12 +167,22 @@ void				des_decode_base64(t_ssl *ssl, t_des *des)
 
 	base64_ssl = init_ssl();
 	base64_ssl->op = ssl->op;
-	base64_ssl->ssl_input = ssl->ssl_input;
+	base64_ssl->cc = 0;
+	base64_ssl->ssl_input = (char *)des->str;
+	base64_ssl->p_mutual = 1;
+	base64_ssl->mut_len = des->len;
 	base64(base64_ssl);
-	ssl->op & CC_SALT_HEADER ? 0 : free(des->str);
-	des->str = (uint8_t *)ft_strdup((char *)base64_ssl->cc_output);
-	des->len = ft_strlen((char *)des->str);
+	free(des->str);
+	des->len = base64_ssl->mut_len;
+	des->str = (uint8_t *)ft_strnew(des->len);
+	ft_memcpy(des->str, base64_ssl->cc_output, des->len);
 	free_ssl(base64_ssl);
+}
+
+void				des_print_salt_key(t_des *des)
+{
+	ft_printf("salt=%016llx\n", swap_endian64(des->salt));
+	ft_printf("key=%016llx\n", des->key);
 }
 
 void				des_decode_reverse_subkey(uint64_t *subkey)

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 13:48:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 01:26:05 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 19:23:30 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,21 @@ int8_t				is_valid_char_base64(uint8_t c)
 
 static void			preprocess_base64_decode_input(t_ssl *ssl, t_base64 *base64)
 {
-	int16_t			len;
 	uint8_t			*decode;
 	int16_t			decode_len;
-	int16_t			i;
+	uint16_t		i;
 	int16_t			j;
 
-	decode_len = cc_count_valid_char(ssl, base64->str);
-	if (!(decode = (uint8_t *)malloc(sizeof(uint8_t) * (decode_len + 1))))
-		malloc_error("preprocess_base64_decode_input");
-	len = ft_strlen((char *)base64->str);
-	i = -1;
+	decode_len = cc_count_valid_char(ssl, base64->str, base64->len);
+	decode = (uint8_t *)ft_strnew(decode_len);
+	i = 0;
 	j = -1;
-	while (++i < len)
+	while (i < base64->len)
+	{
 		if (is_valid_char_base64(base64->str[i]))
 			decode[++j] = base64->str[i];
-	decode[++j] = '\0';
+		i++;
+	}
 	free(base64->str);
 	base64->str = decode;
 	base64->len = ft_strlen((char *)base64->str);
@@ -63,9 +62,12 @@ t_base64			*init_base64(t_ssl *ssl)
 
 	if (!(base64 = (t_base64 *)ft_memalloc(sizeof(t_base64))))
 		malloc_error("t_base64");
-	base64->str = (uint8_t *)ft_strdup(ssl->ssl_input);
-	if (ssl->op & CC_E)
-		base64->len = ft_strlen((char *)base64->str);
+	if (ssl->p_mutual)
+		base64->len = ssl->mut_len;
+	else
+		base64->len = ssl->read_len;
+	base64->str = (uint8_t *)ft_strnew(base64->len);
+	ft_memcpy(base64->str, ssl->ssl_input, base64->len);
 	if (ssl->op & CC_D)
 		preprocess_base64_decode_input(ssl, base64);
 	if (ssl->op & CC_D)
@@ -93,9 +95,21 @@ void				store_result_base64(t_ssl *ssl, t_base64 *base64)
 	{
 		len = ft_strlen((char *)base64->encode);
 		ssl->cc_output = cc_insert_newline(base64->encode, len, 64);
+		if (len / 64 == 0)
+			ssl->mut_len = len + 1;
+		else if (len % 64 == 0)
+			ssl->mut_len = len + len / 64;
+		else
+			ssl->mut_len = len + len / 64 + 1;
 	}
 	if (ssl->op & CC_D)
-		ssl->cc_output = ft_strdup((char *)base64->decode);
+	{
+		len = (base64->len / 4) * 3 - base64->pad_len;
+		ssl->cc_output = ft_strnew(len);
+		ft_memcpy(ssl->cc_output, base64->decode, len);
+		ssl->mut_len = len;
+	}
+	ssl->cc_len = ssl->mut_len;
 }
 
 void				free_base64(t_base64 *base64)

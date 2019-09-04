@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 22:01:10 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/02 21:06:33 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 15:15:32 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int32_t g_cc_cipher_size[7] = {4, 5, 7, 8, 6, 8, 4};
 
 void				cc_stdin_process(t_ssl *ssl)
 {
-	ssl->ssl_input = read_file(0);
+	ssl->ssl_input = read_file(0, ssl);
 	if (ssl->ssl_input[0])
 	{
 		g_cipher_f[ssl->cc](ssl);
@@ -44,7 +44,7 @@ static void			cc_file_process(t_ssl *ssl)
 			no_file_dic(ssl);
 			continue ;
 		}
-		ssl->ssl_input = read_file(fd);
+		ssl->ssl_input = read_file(fd, ssl);
 		g_cipher_f[ssl->cc](ssl);
 		cc_print_result(ssl, 0);
 		free(ssl->ssl_input);

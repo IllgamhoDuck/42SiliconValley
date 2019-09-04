@@ -6,16 +6,17 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 23:46:52 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 00:11:09 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 13:53:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "libft.h"
 
-char *g_cc_op[10] = {
+static char *g_cc_op[12] = {
 	"-a", "-d", "-e", "-i", "-o",
-	"-k", "-p", "-s", "-v", NULL
+	"-k", "-p", "-s", "-v", "-P",
+	"-nosalt", NULL
 };
 
 /*

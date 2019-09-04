@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 21:10:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 03:17:29 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 16:16:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,34 +21,30 @@
 
 static void				des_salt_encode(t_des *des)
 {
-	char				*temp;
 	char				*salt;
 
-	temp = ft_strnew(8);
-	ft_memcpy(temp, &des->salt, 8);
-	salt = ft_strjoin("Salted__", temp);
-	free(temp);
-	temp = ft_strjoin(salt, (char *)des->encode);
-	free(salt);
+	salt = ft_strnew(16 + des->len);
+	ft_memcpy(salt, "Salted__", 8);
+	ft_memcpy(salt + 8, &des->salt, 8);
+	ft_memcpy(salt + 16, des->encode, des->len);
 	free(des->encode);
-	des->encode = (uint8_t *)temp;
+	des->encode = (uint8_t *)salt;
 	des->len += 16;
 }
 
-//SEGFAULT!
 static void				des_salt_decode(t_des *des)
 {
-	uint32_t			len;
+	char				*temp;
 
-	ft_printf("%c %c\n", des->str[15], des->str[16]);
-	if (des->str[16] == '\0')
+	if (des->len <= 16)
 		des_invalid_input(0);
-	len = ft_strlen((char *)(des->str + 16));
-	des->len = len + 16;
 	if (ft_strnequ("Salted__", (char *)des->str, 8))
 	{
 		ft_memcpy(&des->salt, des->str + 8, 8);
-		des->str = (uint8_t *)ft_strsub((char *)des->str, 16, des->len - 16);
+		temp = ft_strnew(des->len - 16);
+		ft_memcpy(temp, des->str + 16, des->len - 16);
+		free(des->str);
+		des->str = (uint8_t *)temp;
 		des->len = des->len - 16;
 	}
 	else

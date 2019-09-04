@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:00:47 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/29 18:00:04 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 18:35:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ static void				decode_input_base64(t_base64 *base64)
 	if (base64->str[base64->len - 2] == '=')
 		base64->pad_len++;
 	base64->decode = (uint8_t *)ft_strnew(decode_len - base64->pad_len);
-	ft_bzero(base64->decode, decode_len);
 }
 
 static void				process_decode_base64(t_base64 *base64)

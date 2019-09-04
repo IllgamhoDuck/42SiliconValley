@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:33:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 01:27:02 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 19:16:44 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,30 @@
 ** -s - print the sum of the given string
 */
 
-# define OP_P 1
-# define OP_Q (1 << 1)
-# define OP_R (1 << 2)
-# define OP_S (1 << 3)
-# define OP_P_NOPRINT (1 << 16)
+# define START 0x0000000000000001
+
+# define OP_P START
+# define OP_Q (START << 1)
+# define OP_R (START << 2)
+# define OP_S (START << 3)
+# define OP_P_NOPRINT (START << 16)
 
 /*
 ** CIPHER OPTION
 */
 
-# define CC_A (1 << 4)
-# define CC_D (1 << 5)
-# define CC_E (1 << 6)
-# define CC_I (1 << 7)
-# define CC_O (1 << 8)
-# define CC_K (1 << 9)
-# define CC_P (1 << 10)
-# define CC_S (1 << 11)
-# define CC_V (1 << 12)
-# define CC_NOSALT (1 << 13)
-# define CC_SALT_HEADER (1 << 14)
+# define CC_A (START << 4)
+# define CC_D (START << 5)
+# define CC_E (START << 6)
+# define CC_I (START << 7)
+# define CC_O (START << 8)
+# define CC_K (START << 9)
+# define CC_P (START << 10)
+# define CC_S (START << 11)
+# define CC_V (START << 12)
+# define CC_BP (START << 13)
+# define CC_NOSALT (START << 14)
+# define CC_SALT_HEADER (START << 15)
 
 # define BUFF_SIZE_SSL 64
 
@@ -97,6 +100,9 @@ typedef struct		s_ssl
 	char			*cc_output;
 	uint32_t		cc_len;
 	uint8_t			p_stdin;
+	uint8_t			p_mutual;
+	uint32_t		mut_len;
+	uint32_t		read_len;
 }					t_ssl;
 
 typedef void		(*t_mdc_hash_algorithm)(t_ssl *ssl);
@@ -126,13 +132,13 @@ void				cc_stdin_process(t_ssl *ssl);
 uint64_t			cc_atoi_base(char *str, uint8_t base);
 int8_t				cc_is_hex_str(char *str);
 char				*cc_pad_zero(char *str, int16_t len);
-int32_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str);
+int32_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str, uint32_t len);
 char				*cc_insert_newline(uint8_t *str, int32_t len, int16_t n);
 
 void				cc_read_input(int ac, char **av, t_ssl *ssl);
 void				cc_print_result(t_ssl *ssl, uint8_t p_op);
 
-char				*read_file(int16_t fd);
+char				*read_file(int16_t fd, t_ssl *ssl);
 
 uint32_t			swap_endian32(uint32_t w);
 uint64_t			swap_endian64(uint64_t w);

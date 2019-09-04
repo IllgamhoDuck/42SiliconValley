@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 21:13:57 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/26 21:14:03 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 15:16:03 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void				mdc_string_process(t_ssl *ssl, char *str)
 
 void				mdc_stdin_process(t_ssl *ssl)
 {
-	ssl->ssl_input = read_file(0);
+	ssl->ssl_input = read_file(0, ssl);
 	if (ssl->op & OP_P && ssl->ssl_input[0] && !(ssl->op & OP_P_NOPRINT))
 	{
 		ft_printf("%s", ssl->ssl_input);
@@ -71,7 +71,7 @@ static void			mdc_file_process(t_ssl *ssl)
 			no_file_dic(ssl);
 			continue ;
 		}
-		ssl->ssl_input = read_file(fd);
+		ssl->ssl_input = read_file(fd, ssl);
 		g_mdc_hash_f[ssl->mdc](ssl);
 		close(fd);
 		mdc_print_result(ssl, 2);

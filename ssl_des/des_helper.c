@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:31:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 03:03:31 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 16:16:16 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ t_des			*init_des(t_ssl *ssl)
 		ssl->op |= CC_SALT_HEADER;
 	if (!(des = (t_des *)ft_memalloc(sizeof(t_des))))
 		malloc_error("t_des");
-	if (!(ssl->op & CC_SALT_HEADER))
-	{
-		des->str = (uint8_t *)ft_strdup(ssl->ssl_input);
-		des->len = ft_strlen((char *)des->str);
-	}
+	if (ssl->p_mutual)
+		des->len = ssl->mut_len;
 	else
-		des->str = (uint8_t *)ssl->ssl_input;
+		des->len = ssl->read_len;
+	des->str = (uint8_t *)ft_strnew(des->len);
+	ft_memcpy(des->str, ssl->ssl_input, des->len);
 	if (ssl->op & CC_D && ssl->op & CC_A)
 		des_decode_base64(ssl, des);
 	if (ssl->op & CC_D && ssl->op & CC_SALT_HEADER)

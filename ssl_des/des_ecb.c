@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:01:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 02:27:39 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 17:51:00 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,12 @@ void					des_ecb(t_ssl *ssl)
 	des_process(ssl, des);
 	padding_des_ecb(ssl, des);
 	process_des_ecb(ssl, des);
+	if (ssl->op & CC_BP) 
+	{
+		des_print_salt_key(des);
+		free_des(des);
+		return ;
+	}
 	if (ssl->op & CC_E && ssl->op & CC_SALT_HEADER)
 		des_salt_header(des, 0);
 	if (ssl->op & CC_E && ssl->op & CC_A)
