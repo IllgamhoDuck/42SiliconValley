@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:21:00 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 01:26:44 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:46:28 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,17 @@ void				des_print_salt_key_iv(t_ssl *ssl, t_des *des)
 	if ((ssl->op & CC_NOSALT) == 0)
 		ft_printf("salt=%016llx\n", swap_endian64(des->salt));
 	ft_printf("key=%016llx\n", des->key);
+	if (ssl->cc != 2)
+		ft_printf("iv=%016llx\n", des->iv);
+}
+
+void				des3_print_salt_key_iv(t_ssl *ssl, t_des *des)
+{
+	if ((ssl->op & CC_NOSALT) == 0)
+		ft_printf("salt=%016llx\n", swap_endian64(des->salt));
+	ft_printf("key=%016llx", des->key1);
+	ft_printf("%016llx", des->key2);
+	ft_printf("%016llx\n", des->key3);
 	if (ssl->cc != 2)
 		ft_printf("iv=%016llx\n", des->iv);
 }

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 12:44:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 05:14:52 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:46:58 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void				store_result_des(t_ssl *ssl, t_des *des);
 void				free_des(t_des *des);
 
 void				des_print_salt_key_iv(t_ssl *ssl, t_des *des);
+void				des3_print_salt_key_iv(t_ssl *ssl, t_des *des);
 
 void				des_invalid_password(void);
 void				des_invalid_salt(uint8_t salt_op);

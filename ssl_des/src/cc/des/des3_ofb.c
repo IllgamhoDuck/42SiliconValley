@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 05:10:41 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 05:15:22 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 05:59:39 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void					des3_ofb(t_ssl *ssl)
 	des3_process(ssl, des);
 	if (ssl->op & CC_BP)
 	{
-		des_print_salt_key_iv(ssl, des);
+		des3_print_salt_key_iv(ssl, des);
 		free_des(des);
 		return ;
 	}
