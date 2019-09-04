@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:31:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 16:16:16 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 21:18:57 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ t_des			*init_des(t_ssl *ssl)
 void				store_result_des(t_ssl *ssl, t_des *des)
 {
 	ssl->cc_output = ft_strnew(des->len);
-	ssl->op & CC_E ? ft_memcpy(ssl->cc_output, des->encode, des->len) : 0;
-	ssl->op & CC_D ? ft_memcpy(ssl->cc_output, des->decode, des->len) : 0;
+	ft_memcpy(ssl->cc_output, des->padded_str, des->len);
 	ssl->cc_len = des->len;
 }
 
@@ -58,10 +57,6 @@ void				free_des(t_des *des)
 			free(des->padded_str);
 		if (des->prev_block)
 			free(des->prev_block);
-		if (des->encode)
-			free(des->encode);
-		if (des->decode)
-			free(des->decode);
 		if (des->password)
 			free(des->password);
 		free(des);

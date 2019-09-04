@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:01:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 17:51:00 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 21:15:48 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 
 /*
 ** If the input is exactly 8 then pad eight 08
+** asdfasdf 08 08 08 08 08 08 08 08
 */
 
 static void				padding_des_ecb(t_ssl *ssl, t_des *des)
@@ -51,6 +52,19 @@ static void				padding_des_ecb(t_ssl *ssl, t_des *des)
 		des->padded_str[des->len++] = pad_number;
 }
 
+static void				no_pad_des_ecb(t_des *des)
+{
+	uint32_t			pad_len;
+
+	pad_len = des->len;
+	if (pad_len % 8)
+		des_invalid_input(1);
+	while (pad_len % 8 != 0)
+		pad_len--;
+	des->padded_str = (uint8_t *)ft_strnew(pad_len);
+	ft_memcpy(des->padded_str, des->str, pad_len);
+	des->len = pad_len;
+}
 static void				remove_padding_des_ecb(t_des *des)
 {
 	uint32_t			i;
@@ -100,11 +114,8 @@ static void				process_des_ecb(t_ssl *ssl, t_des *des)
 		m[0] = swap_endian64(m[0]);
 		block_n++;
 	}
-	ssl->op & CC_D ? remove_padding_des_ecb(des) : 0;
-	ssl->op & CC_E ? des->encode = (uint8_t *)ft_strnew(des->len) : 0;
-	ssl->op & CC_D ? des->decode = (uint8_t *)ft_strnew(des->len) : 0;
-	ssl->op & CC_E ? ft_memcpy(des->encode, des->padded_str, des->len) : 0;
-	ssl->op & CC_D ? ft_memcpy(des->decode, des->padded_str, des->len) : 0;
+	if (ssl->op & CC_D && ((ssl->op & CC_NOPAD) == 0))
+		remove_padding_des_ecb(des);
 }
 
 void					des_ecb(t_ssl *ssl)
@@ -113,11 +124,14 @@ void					des_ecb(t_ssl *ssl)
 
 	des = init_des(ssl);
 	des_process(ssl, des);
-	padding_des_ecb(ssl, des);
+	if (ssl->op & CC_NOPAD)
+		no_pad_des_ecb(des);
+	else
+		padding_des_ecb(ssl, des);
 	process_des_ecb(ssl, des);
 	if (ssl->op & CC_BP) 
 	{
-		des_print_salt_key(des);
+		des_print_salt_key(ssl, des);
 		free_des(des);
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 21:21:00 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 19:22:54 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 21:48:18 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,14 +150,14 @@ void				des_encode_base64(t_ssl *ssl, t_des *des)
 
 	base64_ssl = init_ssl();
 	base64_ssl->op = ssl->op;
-	base64_ssl->ssl_input = (char *)des->encode;
+	base64_ssl->ssl_input = (char *)des->padded_str;
 	base64_ssl->p_mutual = 1;
 	base64_ssl->mut_len = des->len;
 	base64(base64_ssl);
-	free(des->encode);
+	free(des->padded_str);
 	des->len = base64_ssl->mut_len;
-	des->encode = (uint8_t *)ft_strnew(des->len);
-	ft_memcpy(des->encode, base64_ssl->cc_output, des->len);
+	des->padded_str = (uint8_t *)ft_strnew(des->len);
+	ft_memcpy(des->padded_str, base64_ssl->cc_output, des->len);
 	free_ssl(base64_ssl);
 }
 
@@ -179,9 +179,10 @@ void				des_decode_base64(t_ssl *ssl, t_des *des)
 	free_ssl(base64_ssl);
 }
 
-void				des_print_salt_key(t_des *des)
+void				des_print_salt_key(t_ssl *ssl, t_des *des)
 {
-	ft_printf("salt=%016llx\n", swap_endian64(des->salt));
+	if ((ssl->op & CC_NOSALT) == 0)
+		ft_printf("salt=%016llx\n", swap_endian64(des->salt));
 	ft_printf("key=%016llx\n", des->key);
 }
 

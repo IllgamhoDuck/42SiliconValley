@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 21:10:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 16:16:06 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 21:16:04 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void				des_salt_encode(t_des *des)
 	salt = ft_strnew(16 + des->len);
 	ft_memcpy(salt, "Salted__", 8);
 	ft_memcpy(salt + 8, &des->salt, 8);
-	ft_memcpy(salt + 16, des->encode, des->len);
-	free(des->encode);
-	des->encode = (uint8_t *)salt;
+	ft_memcpy(salt + 16, des->padded_str, des->len);
+	free(des->padded_str);
+	des->padded_str = (uint8_t *)salt;
 	des->len += 16;
 }
 

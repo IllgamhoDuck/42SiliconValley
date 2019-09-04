@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 20:09:20 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 01:24:54 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 21:49:49 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,19 @@ void					print_bits(uint8_t *str, uint32_t len, char *where)
 	ft_putchar('\n');
 }
 
+/*
+** mode is configured to...
+** -rw-r--r-- 644
+*/
+
 void					write_file(char *f, char *content, uint32_t len)
 {
 	int32_t				fd;
+	int32_t				mode;
 
-	if ((fd = open(f, O_RDWR | O_CREAT | O_TRUNC)) < 0)
+	mode = 0;
+	mode |= (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+	if ((fd = open(f, O_RDWR | O_CREAT | O_TRUNC), mode) < 0)
 		p_error("Failed to open the file to write");
 	write(fd, content, len);
 	close(fd);

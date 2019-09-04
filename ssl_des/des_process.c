@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:44:43 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 15:46:03 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 20:39:04 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,19 +145,16 @@ void				des_process(t_ssl *ssl, t_des *des)
 		ssl->cc_info->cc_key = cc_pad_zero(ssl->cc_info->cc_key, 16);
 		des->key = cc_atoi_base(ssl->cc_info->cc_key, 16);
 		free(ssl->cc_info->cc_key);
-		if ((ssl->op & CC_E && ssl->op & CC_SALT_HEADER) || ssl->op & CC_BP)
-			des_salt(ssl, des);
+		ssl->op & CC_NOSALT ? 0 : des_salt(ssl, des);
 		des_iv(ssl, des);
+		return ;
 	}
-	else
-	{
-		des_password(ssl, des);
-		ssl->op & CC_D && ssl->op & CC_SALT_HEADER ? 0 : des_salt(ssl, des);
-		pass_len = ft_strlen((char *)des->password);
-		pw_salt = ft_strnew(pass_len + 8);
-		ft_memcpy(pw_salt, des->password, pass_len);
-		ft_memcpy(pw_salt + pass_len, &des->salt, 8);
-		des_create_key_iv(des, pw_salt, pass_len + 8);
-		free(pw_salt);
-	}
+	des_password(ssl, des);
+	ssl->op & CC_D && ssl->op & CC_SALT_HEADER ? 0 : des_salt(ssl, des);
+	pass_len = ft_strlen((char *)des->password);
+	pw_salt = ft_strnew(pass_len + (ssl->op & CC_NOSALT ? 0 : 8));
+	ft_memcpy(pw_salt, des->password, pass_len);
+	ssl->op & CC_NOSALT ? 0 : ft_memcpy(pw_salt + pass_len, &des->salt, 8);
+	des_create_key_iv(des, pw_salt, pass_len + (ssl->op & CC_NOSALT ? 0 : 8));
+	free(pw_salt);
 }

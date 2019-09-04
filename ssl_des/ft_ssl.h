@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 13:33:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 19:16:44 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 20:44:28 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 ** -s - print the sum of the given string
 */
 
-# define START 0x0000000000000001
+# define START 0x0000000000000001llu
 
 # define OP_P START
 # define OP_Q (START << 1)
 # define OP_R (START << 2)
 # define OP_S (START << 3)
-# define OP_P_NOPRINT (START << 16)
+# define OP_P_NOPRINT (START << 60)
 
 /*
 ** CIPHER OPTION
@@ -48,7 +48,8 @@
 # define CC_V (START << 12)
 # define CC_BP (START << 13)
 # define CC_NOSALT (START << 14)
-# define CC_SALT_HEADER (START << 15)
+# define CC_NOPAD (START << 15)
+# define CC_SALT_HEADER (START << 16)
 
 # define BUFF_SIZE_SSL 64
 

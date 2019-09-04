@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 12:44:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 14:33:06 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 21:18:46 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ typedef struct		s_des
 	uint32_t		len;
 	uint8_t			*padded_str;
 	uint8_t			*prev_block;
-	uint8_t			*encode;
-	uint8_t			*decode;
 	uint64_t		key;
 	uint8_t			*password;
 	uint64_t		salt;
@@ -71,7 +69,7 @@ t_des				*init_des(t_ssl *ssl);
 void				store_result_des(t_ssl *ssl, t_des *des);
 void				free_des(t_des *des);
 
-void				des_print_salt_key(t_des *des);
+void				des_print_salt_key(t_ssl *ssl, t_des *des);
 
 void				des_invalid_password(void);
 void				des_invalid_salt(uint8_t salt_op);
