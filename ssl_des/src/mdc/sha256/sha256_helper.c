@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 16:17:46 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 21:34:26 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 23:41:41 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ t_sha256			*init_sha256(t_ssl *ssl)
 
 	if (!(sha256 = (t_sha256 *)ft_memalloc(sizeof(t_sha256))))
 		malloc_error("t_sha256");
-	sha256->str = (uint8_t *)ft_strdup(ssl->ssl_input);
-	sha256->len = ft_strlen((char *)sha256->str);
+	if (ssl->p_mutual)
+		sha256->len = ssl->mut_len;
+	else
+		sha256->len = ssl->read_len;
+	sha256->str = (uint8_t *)ft_strnew(sha256->len);
+	ft_memcpy(sha256->str, ssl->ssl_input, sha256->len);
 	i = -1;
 	while (++i < ssl->hash_size)
 		sha256->h[i] = g_sha256_init[i];

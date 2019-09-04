@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 00:14:48 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/26 00:17:45 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 23:45:21 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ t_sha512_2			*init_sha512_2(t_ssl *ssl)
 
 	if (!(sha512_2 = (t_sha512_2 *)ft_memalloc(sizeof(t_sha512_2))))
 		malloc_error("t_sha512_2");
-	sha512_2->str = (uint8_t *)ft_strdup(ssl->ssl_input);
-	sha512_2->len = ft_strlen((char *)sha512_2->str);
+	if (ssl->p_mutual)
+		sha512_2->len = ssl->mut_len;
+	else
+		sha512_2->len = ssl->read_len;
+	sha512_2->str = (uint8_t *)ft_strnew(sha512_2->len);
+	ft_memcpy(sha512_2->str, ssl->ssl_input, sha512_2->len);
 	i = -1;
 	while (++i < 8)
 		sha512_2->h[i] = g_sha512_2_init[i];
