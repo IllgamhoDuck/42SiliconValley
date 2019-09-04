@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 21:13:57 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 15:16:03 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/04 06:21:47 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void				mdc_process(t_ssl *ssl)
 {
 	if (ssl->p_stdin == 1)
 	{
-	if (ssl->op & OP_R && ssl->op & OP_P)
+		if (ssl->op & OP_R && ssl->op & OP_P)
 			mdc_stdin_process(ssl);
 		if (!(ssl->op & OP_P) && !(ssl->op & OP_S))
 			mdc_stdin_process(ssl);
