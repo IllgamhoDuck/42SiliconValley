@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 12:44:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 21:18:46 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 23:00:15 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct		s_des
 	uint8_t			*str;
 	uint32_t		len;
 	uint8_t			*padded_str;
-	uint8_t			*prev_block;
+	uint64_t		prev_m;
 	uint64_t		key;
 	uint8_t			*password;
 	uint64_t		salt;
@@ -54,6 +54,11 @@ typedef struct		s_des
 }					t_des;
 
 void				des_ecb(t_ssl *ssl);
+void				des_cbc(t_ssl *ssl);
+
+void				des_padding(t_ssl *ssl, t_des *des);
+void				des_no_pad(t_des *des);
+void				des_remove_padding(t_des *des);
 
 void				des_salt_header(t_des *des, uint8_t salt_op);
 

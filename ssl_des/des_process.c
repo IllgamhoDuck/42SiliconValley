@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:44:43 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 20:39:04 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 22:22:59 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void			des_iv(t_ssl *ssl, t_des *des)
 		des_invalid_iv(2);
 }
 
-static void			des_create_key_iv(t_des *des, char *pw_salt, uint32_t l)
+static void			des_create_key_iv(t_des *des, char *pw_salt, uint32_t len)
 {
 	t_ssl			*md5_ssl;
 	uint64_t		*n64;
@@ -118,7 +118,7 @@ static void			des_create_key_iv(t_des *des, char *pw_salt, uint32_t l)
 	md5_ssl = init_ssl();
 	md5_ssl->ssl_input = pw_salt;
 	md5_ssl->hash_size = 4;
-	md5_ssl->mut_len = l;
+	md5_ssl->mut_len = len;
 	md5_ssl->p_mutual = 1;
 	md5(md5_ssl);
 	n64 = (uint64_t *)md5_ssl->hash_output32;

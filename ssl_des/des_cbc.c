@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   des_ecb.c                                          :+:      :+:    :+:   */
+/*   des_cbc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:01:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 23:02:10 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 23:01:09 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 ** So we swap the endian again before storing it.
 */
 
-static void				process_des_ecb(t_ssl *ssl, t_des *des)
+static void				process_des_cbc(t_ssl *ssl, t_des *des)
 {
 	uint64_t			*m;
 	uint8_t				block_n;
@@ -40,7 +40,12 @@ static void				process_des_ecb(t_ssl *ssl, t_des *des)
 	{
 		m = (uint64_t *)(des->padded_str + (block_n * 8));
 		m[0] = swap_endian64(m[0]);
+		ssl->op & CC_E ? m[0] ^= des->iv : 0;
+		ssl->op & CC_D ? des->prev_m = m[0] : 0;
 		m[0] = des_process_message(m[0], subkey);
+		ssl->op & CC_E ? des->iv = m[0] : 0;
+		ssl->op & CC_D ? m[0] ^= des->iv : 0;
+		ssl->op & CC_D ? des->iv = des->prev_m : 0;
 		m[0] = swap_endian64(m[0]);
 		block_n++;
 	}
@@ -48,7 +53,7 @@ static void				process_des_ecb(t_ssl *ssl, t_des *des)
 		des_remove_padding(des);
 }
 
-void					des_ecb(t_ssl *ssl)
+void					des_cbc(t_ssl *ssl)
 {
 	t_des				*des;
 
@@ -58,7 +63,7 @@ void					des_ecb(t_ssl *ssl)
 		des_no_pad(des);
 	else
 		des_padding(ssl, des);
-	process_des_ecb(ssl, des);
+	process_des_cbc(ssl, des);
 	if (ssl->op & CC_BP) 
 	{
 		des_print_salt_key(ssl, des);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:31:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 21:18:57 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/03 23:32:43 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,19 @@
 #include "des.h"
 
 /*
-** If there is password there is a salt
-** -nosalt option isn't builtin yet but maybe later
+** Openssl get the password before the base64
+** But I decode the base64 before I get the password.
+** If I want to do exactly same as openssl then simply
+** move the des_decode_base64(ssl, des) after the des_process(ssl, des)
 */
 
 t_des			*init_des(t_ssl *ssl)
 {
 	t_des		*des;
 
-	if ((ssl->op & CC_P && !(ssl->op & CC_NOSALT)) || !(ssl->op & CC_K))
+	if (ssl->op & CC_P || !(ssl->op & CC_K))
 		ssl->op |= CC_SALT_HEADER;
+	ssl->op & CC_NOSALT ? ssl->op &= ~(CC_SALT_HEADER) : 0;
 	if (!(des = (t_des *)ft_memalloc(sizeof(t_des))))
 		malloc_error("t_des");
 	if (ssl->p_mutual)
@@ -55,8 +58,6 @@ void				free_des(t_des *des)
 			free(des->str);
 		if (des->padded_str)
 			free(des->padded_str);
-		if (des->prev_block)
-			free(des->prev_block);
 		if (des->password)
 			free(des->password);
 		free(des);
