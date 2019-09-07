@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 20:09:20 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/24 22:16:34 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/06 11:42:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,4 @@ void					print_bits(uint8_t *str, uint32_t len, char *where)
 		i % 64 == 0 ? ft_printf("\n") : 0;
 	}
 	ft_putchar('\n');
-}
-
-void					write_file(char *file, char *content)
-{
-	FILE				*fp;
-
-	fp = fopen(file, "w");
-	fputs(content, fp);
-	fclose(fp);
 }

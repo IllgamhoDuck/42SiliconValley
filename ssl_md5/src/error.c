@@ -6,14 +6,14 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 15:11:57 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/26 00:20:01 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/06 12:53:33 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "libft.h"
 
-void				invalid_command(char *command)
+void				invalid_command(t_ssl *ssl, char *command)
 {
 	int8_t			i;
 
@@ -26,10 +26,11 @@ void				invalid_command(char *command)
 		ft_printf("%2@%s\n", g_md_command[i]);
 	ft_printf("%2@\n");
 	ft_printf("%2@Cipher commands:\n");
-	exit(1);
+	ssl->op |= OP_ERROR;
+	ssl->op & OP_STDIN_CM ? 0 : exit(1);
 }
 
-void				unknown_option(char *op)
+void				unknown_option(t_ssl *ssl, char *op)
 {
 	ft_printf("%2@unknown option '%s'\n", &op[1]);
 	ft_printf("%2@options are\n");
@@ -38,7 +39,8 @@ void				unknown_option(char *op)
 	ft_printf("%2@-q  quiet mode\n");
 	ft_printf("%2@-r  reverse the format of the output\n");
 	ft_printf("%2@-s  print the sum of the given string\n");
-	exit(1);
+	ssl->op |= OP_ERROR;
+	ssl->op & OP_STDIN_CM ? 0 : exit(1);
 }
 
 void				no_file_dic(t_ssl *ssl)

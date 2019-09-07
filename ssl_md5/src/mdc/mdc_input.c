@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 18:44:42 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/25 20:55:40 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/06 21:13:32 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void			mdc_option_check(t_ssl *ssl, char *s)
 			return ;
 		}
 	}
-	unknown_option(s);
+	unknown_option(ssl, s);
 }
 
 void				mdc_hash_size(t_ssl *ssl)
@@ -53,6 +53,12 @@ static int			mdc_option_s(t_ssl *ssl, int ac, char **av, uint8_t i)
 	else
 		s_usage_error(ssl);
 	return (i + 1);
+}
+
+static void			mdc_option_p(t_ssl *ssl, char **av, uint8_t i)
+{
+	mdc_option_check(ssl, av[i]);
+	mdc_stdin_process(ssl);
 }
 
 /*
@@ -74,10 +80,7 @@ void				mdc_read_input(int ac, char **av, t_ssl *ssl)
 		if (ft_strcmp(av[i], "-s") == 0)
 			i = mdc_option_s(ssl, ac, av, i);
 		else if (ft_strcmp(av[i], "-p") == 0)
-		{
-			mdc_option_check(ssl, av[i]);
-			mdc_stdin_process(ssl);
-		}
+			mdc_option_p(ssl, av, i);
 		else if (av[i][0] == '-')
 			mdc_option_check(ssl, av[i]);
 		else
@@ -88,6 +91,8 @@ void				mdc_read_input(int ac, char **av, t_ssl *ssl)
 				ssl->files[ssl->total++] = av[i++];
 			ssl->files[ssl->total] = NULL;
 		}
+		if (ssl->op & OP_ERROR)
+			return ;
 	}
 	if (ssl->total == 0)
 		ssl->p_stdin = 1;
