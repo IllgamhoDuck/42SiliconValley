@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 22:57:09 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 04:59:49 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/08 17:29:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 void					des_padding(t_ssl *ssl, t_des *des)
 {
-	uint32_t			pad_len;
+	uint64_t			pad_len;
 	uint8_t				pad_number;
 
 	pad_len = des->len;
@@ -54,7 +54,7 @@ void					des_padding(t_ssl *ssl, t_des *des)
 
 void					des_zero_pad(t_des *des)
 {
-	uint32_t			pad_len;
+	uint64_t			pad_len;
 
 	pad_len = des->len;
 	while (pad_len % 8 != 0)
@@ -65,7 +65,7 @@ void					des_zero_pad(t_des *des)
 
 void					des_no_pad(t_des *des)
 {
-	uint32_t			pad_len;
+	uint64_t			pad_len;
 
 	pad_len = des->len;
 	if (pad_len % 8)
@@ -79,8 +79,8 @@ void					des_no_pad(t_des *des)
 
 void					des_remove_padding(t_des *des)
 {
-	uint32_t			i;
-	uint32_t			pad_len;
+	uint64_t			i;
+	uint64_t			pad_len;
 	char				*temp;
 
 	i = des->len - 1;

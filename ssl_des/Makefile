@@ -6,7 +6,7 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/08/22 13:32:30 by hypark            #+#    #+#              #
-#    Updated: 2019/09/04 05:54:16 by hypark           ###   ########.fr        #
+#    Updated: 2019/09/08 17:41:57 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,11 +53,13 @@ $(NAME):
 	$(MAKE) -sC $(FTDIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $(SRC) *.c
 	$(CC) $(LIB) $(OBJ) -o $@
+	mkdir $(OBJECTS)
 	mv *.o $(OBJECTS)
 
 clean:
 	$(MAKE) -sC $(FTDIR) clean
 	rm -f $(OBJECTS)/$(OBJ)
+	rm -r $(OBJECTS)
 
 fclean: clean
 	$(MAKE) -sC $(FTDIR) fclean

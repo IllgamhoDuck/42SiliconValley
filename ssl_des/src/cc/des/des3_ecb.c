@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 02:03:35 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 05:59:59 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/08 16:49:41 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 static void				process_des3_ecb(t_ssl *ssl, t_des *des)
 {
 	uint64_t			*m;
-	uint8_t				block_n;
+	uint64_t			block_n;
 	uint64_t			subkey[3][16];
 
 	des3_key_setting(ssl, des, subkey);

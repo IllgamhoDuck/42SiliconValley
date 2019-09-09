@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 23:01:33 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 05:00:42 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/08 16:49:26 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static void				process_des_ofb(t_des *des)
 {
 	uint64_t			*m;
-	uint8_t				block_n;
+	uint64_t			block_n;
 	uint64_t			subkey[16];
 
 	des_generate_subkey(subkey, des->key);

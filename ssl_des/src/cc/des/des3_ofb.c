@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 05:10:41 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 05:59:39 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/08 16:50:17 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 static void				process_des3_ofb(t_ssl *ssl, t_des *des)
 {
 	uint64_t			*m;
-	uint8_t				block_n;
+	uint64_t			block_n;
 	uint64_t			subkey[3][16];
 
 	des3_key_setting(ssl, des, subkey);

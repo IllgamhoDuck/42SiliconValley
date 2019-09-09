@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 23:46:52 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 20:24:25 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/08 17:27:42 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int8_t		cc_arg_parse(t_ssl *ssl, int ac, char **av, uint8_t i)
 
 void				cc_read_input(int ac, char **av, t_ssl *ssl)
 {
-	uint8_t			i;
+	uint16_t		i;
 
 	i = 1;
 	if (!(ssl->cc_info = (t_cc *)ft_memalloc(sizeof(t_cc))))

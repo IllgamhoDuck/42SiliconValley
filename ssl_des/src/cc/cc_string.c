@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 15:42:39 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 05:03:39 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/08 17:26:52 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 uint64_t			cc_atoi_base(char *str, uint8_t base)
 {
 	uint64_t		result;
-	uint16_t		len;
-	uint16_t		i;
+	uint64_t		len;
+	uint64_t		i;
 
 	result = 0;
 	i = 0;
@@ -40,12 +40,12 @@ uint64_t			cc_atoi_base(char *str, uint8_t base)
 	return (result);
 }
 
-char				*cc_pad_zero(char *str, int16_t len)
+char				*cc_pad_zero(char *str, int64_t len)
 {
 	char			*zero;
 	char			*result;
-	int16_t			zero_len;
-	int16_t			i;
+	int64_t			zero_len;
+	int64_t			i;
 
 	zero_len = len - ft_strlen(str);
 	if (zero_len <= 0)
@@ -71,10 +71,10 @@ int8_t				cc_is_hex_str(char *str)
 	return (1);
 }
 
-int32_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str, uint32_t len)
+int64_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str, uint64_t len)
 {
-	uint32_t		i;
-	uint32_t		valid_len;
+	uint64_t		i;
+	uint64_t		valid_len;
 
 	i = 0;
 	valid_len = 0;
@@ -87,13 +87,13 @@ int32_t				cc_count_valid_char(t_ssl *ssl, uint8_t *str, uint32_t len)
 	return (valid_len);
 }
 
-char				*cc_insert_newline(uint8_t *str, int32_t len, int16_t n)
+char				*cc_insert_newline(uint8_t *str, int64_t len, int64_t n)
 {
-	int32_t			newline;
+	int64_t			newline;
 	char			*result;
 	char			*temp;
-	int16_t			i;
-	int16_t			j;
+	int64_t			i;
+	int64_t			j;
 
 	newline = len / n;
 	if (newline == 0)

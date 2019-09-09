@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 03:31:44 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/04 04:37:38 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/08 17:29:02 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ static void			des3_create_key_iv(t_des *des, char *pw_salt, uint32_t len)
 void				des3_process(t_ssl *ssl, t_des *des)
 {
 	char			*pw_salt;
-	uint32_t		pass_len;
+	uint64_t		pass_len;
 
 	if (ssl->op & CC_K)
 	{

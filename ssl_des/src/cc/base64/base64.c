@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 13:00:47 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 18:35:56 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/08 17:24:06 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ uint8_t g_decode_base64[123] = {
 
 static void				padding_encode_input_base64(t_base64 *base64)
 {
-	uint32_t			encode_len;
+	uint64_t			encode_len;
 	uint8_t				*padded_str;
-	int8_t				i;
+	int64_t				i;
 
 	base64->pad_len = 0;
 	while (!(((base64->len + base64->pad_len) / 3) >= 1) || \
@@ -57,8 +57,8 @@ static void				padding_encode_input_base64(t_base64 *base64)
 
 static void				process_encode_base64(t_base64 *base64)
 {
-	int16_t				i;
-	int16_t				total;
+	int64_t				i;
+	int64_t				total;
 
 	i = -1;
 	total = (base64->len + base64->pad_len) / 3;
@@ -83,7 +83,7 @@ static void				process_encode_base64(t_base64 *base64)
 
 static void				decode_input_base64(t_base64 *base64)
 {
-	uint32_t			decode_len;
+	uint64_t			decode_len;
 
 	base64->pad_len = 0;
 	decode_len = (base64->len / 4) * 3;
@@ -96,8 +96,8 @@ static void				decode_input_base64(t_base64 *base64)
 
 static void				process_decode_base64(t_base64 *base64)
 {
-	int16_t				i;
-	int16_t				total;
+	int64_t				i;
+	int64_t				total;
 
 	i = -1;
 	total = base64->len / 4;

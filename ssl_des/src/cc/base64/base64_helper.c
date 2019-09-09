@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 13:48:25 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/03 19:23:30 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/08 17:20:54 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int8_t				is_valid_char_base64(uint8_t c)
 static void			preprocess_base64_decode_input(t_ssl *ssl, t_base64 *base64)
 {
 	uint8_t			*decode;
-	int16_t			decode_len;
-	uint16_t		i;
-	int16_t			j;
+	int64_t			decode_len;
+	uint64_t		i;
+	int64_t			j;
 
 	decode_len = cc_count_valid_char(ssl, base64->str, base64->len);
 	decode = (uint8_t *)ft_strnew(decode_len);
