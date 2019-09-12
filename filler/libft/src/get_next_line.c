@@ -6,118 +6,129 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 05:50:38 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/10 01:12:35 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/12 01:16:17 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static t_finfo		*init(const int fd)
+int		len(char *s, int c)
 {
-	t_finfo			*f;
+	int		i;
 
-	if (!(f = (t_finfo *)malloc(sizeof(t_finfo))))
-		return (0);
-	if (!(f->storage = (char *)malloc(sizeof(char) * 1)))
-		return (0);
-	f->storage[0] = '\0';
-	f->fd = fd;
-	f->right = NULL;
-	f->left = NULL;
-	return (f);
+	i = 0;
+	while (s[i] != '\0' && s[i] != (char)c)
+		i++;
+	return (i);
 }
 
-/*
-** Searching the binary tree and search for the appropriate file
-** information of fd.
-** if there is file information return it or if there isn't
-** create the file information and return it.
-*/
-
-static t_finfo		*find_f(t_finfo *b_list, const int fd)
+char	*ft_str_ljoin(char **s1, char **s2)
 {
-	while (1)
+	char	*without_leaks;
+
+	without_leaks = NULL;
+	if (!s1 && !s2)
+		return (NULL);
+	else if (!*s1 && *s2)
 	{
-		if (b_list->fd == fd)
-			return (b_list);
-		if (b_list->fd < fd)
+		without_leaks = *s2;
+		*s2 = NULL;
+	}
+	else if (!*s2 && *s1)
+	{
+		without_leaks = *s1;
+		*s1 = NULL;
+	}
+	else
+	{
+		without_leaks = ft_strjoin(*s1, *s2);
+		ft_strdel(s1);
+		ft_strdel(s2);
+	}
+	return (without_leaks);
+}
+
+void	get_tail(const int fd, char *buf, t_line **head)
+{
+	t_line	*tail;
+	t_line	*ptr;
+	char	*tmp;
+	int		start;
+
+	tail = NULL;
+	ptr = *head;
+	start = len(buf, '\n') + 1;
+	while (ptr && ptr->fd != fd)
+		ptr = ptr->next;
+	if (ptr == NULL || *head == NULL)
+	{
+		tail = (t_line*)malloc(sizeof(t_line) * 1);
+		tail->fd = fd;
+		tail->next = *head ? *head : NULL;
+		if (!(tail->str = ft_strsub(buf, start, ft_strlen(buf) - start)))
+			ft_memdel((void**)tail);
+		*head = tail;
+	}
+	if (ptr)
+	{
+		tmp = ptr->str;
+		ptr->str = ft_strsub(buf, start, ft_strlen(buf) - start);
+		tmp ? ft_strdel(&tmp) : 0;
+	}
+}
+
+int		reading(int fd, char **line, t_line **head)
+{
+	int		ret;
+	char	buf[BUFF_SIZE + 1];
+	char	*tmp;
+
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
+	{
+		buf[ret] = '\0';
+		if (ft_strchr(buf, '\n') != NULL)
 		{
-			if (b_list->right == NULL)
-			{
-				b_list->right = init(fd);
-				b_list = b_list->right;
-				return (b_list);
-			}
-			b_list = b_list->right;
+			tmp = ft_strsub(buf, 0, len(buf, '\n'));
+			*line = ft_str_ljoin(line, &tmp);
+			get_tail(fd, buf, head);
+			return (1);
 		}
 		else
 		{
-			if (b_list->left == NULL)
-			{
-				b_list->left = init(fd);
-				b_list = b_list->left;
-				return (b_list);
-			}
-			b_list = b_list->left;
+			tmp = ft_strdup(buf);
+			*line = ft_str_ljoin(line, &tmp);
 		}
 	}
-}
-
-static int			fill_line(t_finfo *f, char **line)
-{
-	int				i;
-	char			*tmp;
-
-	i = 0;
-	while (f->storage[i] != '\n' && f->storage[i] != '\0')
-		i++;
-	*line = ft_strsub(f->storage, 0, i);
-	if (f->storage[i] == '\n')
-	{
-		tmp = ft_strdup(&(f->storage[i + 1]));
-		free(f->storage);
-		f->storage = tmp;
-	}
-	else if (f->storage[i] == '\0')
-	{
-		free(f->storage);
-		if (!(f->storage = (char *)malloc(sizeof(char) * 1)))
-			return (0);
-		f->storage[0] = '\0';
-	}
-	return (1);
-}
-
-static int			print_result(t_finfo *f, int result, char **line)
-{
-	if (result < 0)
+	if (ret < 0)
 		return (-1);
-	if (result == 0 && f->storage[0] == '\0')
-		return (0);
-	return (fill_line(f, line));
+	return (*line ? 1 : 0);
 }
 
-int					get_next_line(const int fd, char **line)
+int		get_next_line(const int fd, char **line)
 {
-	t_finfo			*f;
-	static t_finfo	*b_list;
-	char			buf[BUFF_SIZE + 1];
-	char			*tmp;
-	int				result;
+	static	t_line	*head = NULL;
+	t_line			*ptr;
 
-	if (!b_list)
-		if (!(b_list = init(fd)))
-			return (-1);
-	if ((!line) || (fd < 0) || !(f = find_f(b_list, fd)))
+	if (fd < 0 || line == NULL)
 		return (-1);
-	while ((result = read(fd, buf, BUFF_SIZE)) > 0)
+	*line = NULL;
+	if (head)
 	{
-		buf[result] = '\0';
-		tmp = ft_strjoin(f->storage, buf);
-		free(f->storage);
-		f->storage = tmp;
-		if (ft_strchr(f->storage, '\n'))
-			break ;
+		ptr = head;
+		while (ptr && ptr->fd != fd)
+			ptr = ptr->next;
+		if (ptr && ptr->str && ft_strchr(ptr->str, '\n') != NULL)
+		{
+			*line = ft_strsub(ptr->str, 0, len(ptr->str, '\n'));
+			get_tail(fd, ptr->str, &head);
+			return (1);
+		}
+		if (ptr && ptr->str && !ft_strchr(ptr->str, '\n')
+			&& !ft_strequ(ptr->str, ""))
+		{
+			*line = ptr->str;
+			ptr->str = NULL;
+		}
 	}
-	return (print_result(f, result, line));
+	return (reading(fd, line, &head));
 }

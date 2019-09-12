@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 03:37:50 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/11 04:13:49 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/11 20:56:39 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,6 @@ static char			*read_file_stdin(int16_t fd)
 	return (result);
 }
 
-static void				write_file(char *f, char *content, uint32_t len)
-{
-	int32_t				fd;
-
-	if ((fd = open(f, (O_RDWR | O_CREAT | O_TRUNC), \
-				(S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH))) < 0)
-		print_error("Failed to open the file to write");
-	write(fd, content, len);
-	close(fd);
-}
-
 char				**stdin_filler(void)
 {
 	char			*input;
@@ -115,7 +104,6 @@ char				**stdin_filler(void)
 		input == NULL ? exit(1) : free(input);
 		return (NULL);
 	}
-	write_file("duck", input, ft_strlen(input));
 	line = ft_strsplit(input, '\n');
 	free(input);
 	return (line);

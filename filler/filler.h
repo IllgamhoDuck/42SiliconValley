@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 22:04:26 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/11 04:06:56 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/12 13:09:13 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 
 # define MY(i,x,y) filler->map_mine[I(X(i) + x, (Y(i) + y))]
 # define ENEMY(i,x,y) filler->map_enemy[I(X(i) + x, (Y(i) + y))]
+
+# define SOLUTION filler->solution
 
 typedef struct		s_reader
 {
@@ -85,6 +87,9 @@ t_reader			*init_reader(uint16_t fd);
 t_c_list			*init_c_list(char c);
 t_filler			*init_filler(void);
 
+void				filler_error(char *str);
+
+void				reset_filler(t_filler *filler);
 void				free_str(char **str);
 void				free_filler(t_filler *filler);
 void				free_reader(t_reader *r);
