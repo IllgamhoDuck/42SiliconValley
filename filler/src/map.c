@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 00:35:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/13 03:41:08 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/13 12:27:24 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void					process_map(t_filler *filler)
 	filler->map_mine = filler->map;
 	filler->map = temp;
 	free(filler->map);
-	filler->map = copy_map(filler,filler->map_original);
+	filler->map = copy_map(filler, filler->map_original);
 	generate_0_enemy(filler);
 	filler->map_enemy = copy_map(filler, filler->map);
 	delete_12_map(filler);
@@ -128,6 +128,5 @@ void					process_map(t_filler *filler)
 	filler->map_enemy = filler->map;
 	filler->map = temp;
 	free(filler->map);
-	filler->map = copy_map(filler,filler->map_original);
-	//print_my_map(filler);
+	filler->map = copy_map(filler, filler->map_original);
 }

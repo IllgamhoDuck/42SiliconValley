@@ -6,13 +6,13 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/09 20:57:25 by hypark            #+#    #+#              #
-#    Updated: 2019/09/09 22:05:40 by hypark           ###   ########.fr        #
+#    Updated: 2019/09/13 12:48:49 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := hypark.filler
 CC := gcc
-CFLAGS := -Wall -Wextra -Wextra -g
+CFLAGS := -Wall -Wextra -Wextra
 OBJ := *.o
 
 SRCDIR := ./src
@@ -21,7 +21,7 @@ FTDIR := ./libft
 FTINC := includes
 OBJECTS := objects
 
-SRC = *.c
+SRC = $(SRCDIR)/*.c
 INCLUDES := -I$(FTDIR)/$(FTINC) -I$(INCDIR) 
 LIB := -L $(FTDIR) -lft
 

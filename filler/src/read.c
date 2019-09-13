@@ -5,89 +5,139 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/22 15:04:17 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/10 20:10:08 by hypark           ###   ########.fr       */
+/*   Created: 2019/09/09 22:36:00 by hypark            #+#    #+#             */
+/*   Updated: 2019/09/13 12:27:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
 #include "libft.h"
-int g_finish = 0;
+#include "filler.h"
 
-static char			get_next_char(t_reader *r)
+static void				convert_map_to_int(t_filler *filler, char *map)
 {
-	if (r->i < r->len)
-		return (r->buff[r->i++]);
-	if (g_finish == 1)
-		return (0);
-	if ((r->len = read(r->fd, r->buff, BUFF_SIZE_SSL)) < 0)
-		return (-1);
-	g_finish = 1;
-	if (r->len == 0)
-		return (0);
-	r->i = 0;
-	return (r->buff[r->i++]);
+	int					map_size;
+	int					i;
+
+	map_size = filler->map_x * filler->map_y;
+	i = -1;
+	while (++i < map_size)
+	{
+		if (map[i] == '.')
+			filler->map[i] = -3;
+		else if (map[i] == 'o' || map[i] == 'O')
+			filler->map[i] = filler->player == 1 ? -1 : -2;
+		else if (map[i] == 'x' || map[i] == 'X')
+			filler->map[i] = filler->player == 2 ? -1 : -2;
+	}
+	free(map);
 }
 
-static int			fill_list(t_reader *r, t_c_list **c_list, uint32_t *len)
-{
-	t_c_list		*current;
-	char			c;
+/*
+** What is a read map?
+** ===========================
+** 1. map 1d array
+** 2. init map 1d int array
+*/
 
-	current = NULL;
-	while ((c = get_next_char(r)))
+static char				*read_map(t_filler *filler)
+{
+	char				**info;
+	char				*map;
+	char				*temp;
+	char				*line;
+	int					i;
+
+	i = -1;
+	map = "\0";
+	get_next_line(0, &line);
+	ft_strdel(&line);
+	while (++i < filler->map_y)
 	{
-		if (c == -1)
-			return (0);
-		if (current == NULL)
-		{
-			current = init_c_list(c);
-			*c_list = current;
-		}
-		else
-		{
-			current->next = init_c_list(c);
-			current = current->next;
-		}
-		(*len)++;
+		get_next_line(0, &line);
+		info = ft_strsplit(line, ' ');
+		ft_strdel(&line);
+		temp = map;
+		map = ft_strjoin(map, info[1]);
+		i != 0 ? free(temp) : 0;
+		free_str(info);
 	}
-	if (current == NULL)
-		*c_list = NULL;
+	return (map);
+}
+
+/*
+** What is a base information?
+** ===========================
+** 1. player number
+** 2. map size (x, y)
+** 3. piece size (x, y)
+** 4. piece 1d array
+*/
+
+static void				read_map_info(t_filler *filler, char *line)
+{
+	char				**info;
+	char				*map;
+	int					map_size;
+
+	if (filler->map_x == 0)
+	{
+		info = ft_strsplit(line, ' ');
+		filler->map_y = ft_atoi(info[1]);
+		filler->map_x = ft_atoi(info[2]);
+		free_str(info);
+	}
+	map = read_map(filler);
+	map_size = filler->map_x * filler->map_y;
+	filler->map = (int *)malloc(sizeof(int) * map_size);
+	convert_map_to_int(filler, map);
+}
+
+static void				read_piece(t_filler *filler, char *line)
+{
+	char				**info;
+	char				*temp;
+	int					i;
+
+	info = ft_strsplit(line, ' ');
+	filler->piece_y = ft_atoi(info[1]);
+	filler->piece_x = ft_atoi(info[2]);
+	free_str(info);
+	filler->piece = "\0";
+	i = -1;
+	while (++i < filler->piece_y)
+	{
+		get_next_line(0, &line);
+		temp = filler->piece;
+		filler->piece = ft_strjoin(filler->piece, line);
+		ft_strdel(&line);
+		i != 0 ? free(temp) : 0;
+	}
+}
+
+int						process_file(t_filler *filler)
+{
+	char				**info;
+	char				*line;
+
+	while (get_next_line(0, &line) > 0)
+	{
+		if (ft_strlen(line) >= 3 && ft_strncmp(line, "$$$", 3) == 0)
+		{
+			info = ft_strsplit(line, ' ');
+			filler->player = ft_strcmp(info[2], "p1") ? 2 : 1;
+			free_str(info);
+		}
+		else if (ft_strlen(line) >= 7 && ft_strncmp(line, "Plateau", 7) == 0)
+			read_map_info(filler, line);
+		else if (ft_strlen(line) >= 5 && ft_strncmp(line, "Piece", 5) == 0)
+		{
+			read_piece(filler, line);
+			process_map(filler);
+			process_solution(filler);
+			reset_filler(filler);
+			ft_printf("%d %d\n", Y(SOLUTION), X(SOLUTION));
+		}
+		ft_strdel(&line);
+	}
 	return (1);
-}
-
-static char			*compress_data(t_c_list *c_list, uint32_t len)
-{
-	char			*result;
-	uint32_t		i;
-
-	if (!(result = (char *)malloc(sizeof(char) * (len + 1))))
-		malloc_error("compress_data - char *result");
-	i = 0;
-	while (i < len)
-	{
-		result[i++] = c_list->c;
-		c_list = c_list->next;
-	}
-	result[i - 1] = '\0';
-	result[i] = '\0';
-	return (result);
-}
-
-char				*read_file_stdin(void)
-{
-	t_reader		*r;
-	t_c_list		*c_list;
-	char			*result;
-	uint32_t		len;
-
-	len = 0;
-	g_finish = 0;
-	!(r = init_reader(fd)) ? malloc_error("t_reader") : 0;
-	if (fill_list(r, &c_list, &len) == 0)
-		p_error_ssl(ssl, "Error occur while reading the file");
-	result = len == 0 ? NULL : compress_data(c_list, len);
-	free_reader(r);
-	free_c_list(c_list);
-	return (result);
 }

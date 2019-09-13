@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 22:04:26 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/13 03:07:59 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/13 12:33:42 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,6 @@
 
 # define SOLUTION filler->solution
 
-typedef struct		s_reader
-{
-	char			*buff;
-	unsigned short	i;
-	short			len;
-	int				fd;
-}					t_reader;
-
-typedef struct		s_c_list
-{
-	char			c;
-	struct s_c_list	*next;
-}					t_c_list;
-
 typedef struct		s_filler
 {
 	uint8_t			player;
@@ -73,8 +59,6 @@ typedef struct		s_filler
 	int32_t			solution;
 }					t_filler;
 
-int					stdin_filler(char ***line);
-
 int					process_file(t_filler *filler);
 void				process_map(t_filler *filler);
 void				process_solution(t_filler *filler);
@@ -88,16 +72,10 @@ void				print_enemy_map(t_filler *filler);
 void				delete_12_map(t_filler *filler);
 void				recover_12_map(t_filler *filler, int *map);
 
-t_reader			*init_reader(uint16_t fd);
-t_c_list			*init_c_list(char c);
 t_filler			*init_filler(void);
-
-void				filler_error(char *str);
 
 void				reset_filler(t_filler *filler);
 void				free_str(char **str);
 void				free_filler(t_filler *filler);
-void				free_reader(t_reader *r);
-void				free_c_list(t_c_list *c_list);
 
 #endif

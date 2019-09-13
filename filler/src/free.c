@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 22:44:49 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/12 22:25:16 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/13 12:34:36 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void				free_filler(t_filler *filler)
 	{
 		if (filler->map)
 			free(filler->map);
+		if (filler->map_original)
+			free(filler->map_original);
 		if (filler->map_mine)
 			free(filler->map_mine);
 		if (filler->map_enemy)
@@ -39,22 +41,6 @@ void				free_filler(t_filler *filler)
 	}
 }
 
-void				free_reader(t_reader *r)
-{
-	free(r->buff);
-	free(r);
-}
-
-void				free_c_list(t_c_list *c_list)
-{
-	if (c_list)
-	{
-		if (c_list->next)
-			free_c_list(c_list->next);
-		free(c_list);
-	}
-}
-
 void				reset_filler(t_filler *filler)
 {
 	if (filler)
@@ -62,6 +48,8 @@ void				reset_filler(t_filler *filler)
 		filler->enemy_score = INT_MAX;
 		if (filler->map)
 			free(filler->map);
+		if (filler->map_original)
+			free(filler->map_original);
 		if (filler->map_mine)
 			free(filler->map_mine);
 		if (filler->map_enemy)
@@ -69,6 +57,7 @@ void				reset_filler(t_filler *filler)
 		if (filler->piece)
 			free(filler->piece);
 		filler->map = NULL;
+		filler->map_original = NULL;
 		filler->map_mine = NULL;
 		filler->map_enemy = NULL;
 		filler->piece = NULL;

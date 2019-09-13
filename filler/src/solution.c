@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 00:46:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/13 03:14:19 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/13 12:28:39 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,16 @@ static int			cal_enemy_score(t_filler *filler, int i)
 	return (total);
 }
 
-
-
 static void			compare_solution(t_filler *filler, int x, int y)
 {
 	int				enemy_score;
 
-		enemy_score = cal_enemy_score(filler, I(x, y));
-		if (enemy_score < filler->enemy_score)
-		{
-			filler->enemy_score = enemy_score;
-			filler->solution = I(x, y);
-		}
+	enemy_score = cal_enemy_score(filler, I(x, y));
+	if (enemy_score < filler->enemy_score)
+	{
+		filler->enemy_score = enemy_score;
+		filler->solution = I(x, y);
+	}
 }
 
 void				process_solution(t_filler *filler)
