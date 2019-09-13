@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 22:04:26 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/12 13:40:37 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/13 03:07:59 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define VALID_OFFSET(i,x,y) VALID(X(i) + x, Y(i) + y)
 # define OFFSET(i,x,y) filler->map[I(X(i) + x, (Y(i) + y))]
 
+# define NOT_12(x) (x != -1 && x != -2)
 # define NOT_123(x) (x != -1 && x != -2 && x != -3)
 
 # define P_X filler->piece_x
@@ -63,6 +64,7 @@ typedef struct		s_filler
 	uint8_t			piece_x;
 	uint8_t			piece_y;
 	int32_t			*map;
+	int32_t			*map_original;
 	int32_t			*map_mine;
 	int32_t			*map_enemy;
 	char			*piece;
@@ -77,11 +79,14 @@ int					process_file(t_filler *filler);
 void				process_map(t_filler *filler);
 void				process_solution(t_filler *filler);
 
-int					*copy_map(t_filler *filler);
+int					*copy_map(t_filler *filler, int *copy_map);
 
 void				print_map(t_filler *filler);
 void				print_my_map(t_filler *filler);
 void				print_enemy_map(t_filler *filler);
+
+void				delete_12_map(t_filler *filler);
+void				recover_12_map(t_filler *filler, int *map);
 
 t_reader			*init_reader(uint16_t fd);
 t_c_list			*init_c_list(char c);

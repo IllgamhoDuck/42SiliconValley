@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 22:36:00 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/12 23:58:53 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/13 03:26:12 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,8 @@ int						process_file(t_filler *filler)
 	char				*line;
 
 	line = NULL;
-	while (get_next_line(0, &line) > -1)
+	while (get_next_line(0, &line) > 0)
 	{
-		if (!line)
-			continue ;
 		if (ft_strlen(line) >= 3 && ft_strncmp(line, "$$$", 3) == 0)
 		{
 			info = ft_strsplit(line, ' ');
@@ -135,7 +133,9 @@ int						process_file(t_filler *filler)
 		else if (ft_strlen(line) >= 5 && ft_strncmp(line, "Piece", 5) == 0)
 		{
 			read_piece(filler, line);
+			//ft_printf("%2@map!\n");
 			process_map(filler);
+			//ft_printf("%2@solution!\n");
 			process_solution(filler);
 			reset_filler(filler);
 			ft_printf("%d %d\n", Y(SOLUTION), X(SOLUTION));
