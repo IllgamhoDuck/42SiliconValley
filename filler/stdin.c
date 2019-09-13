@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 03:37:50 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/11 20:56:39 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/12 14:01:43 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,15 @@ static char			*read_file_stdin(int16_t fd)
 	return (result);
 }
 
-char				**stdin_filler(void)
+int					stdin_filler(char ***line)
 {
 	char			*input;
-	char			**line;
 
 	input = NULL;
 	input = read_file_stdin(0);
 	if (input == NULL || input[0] == '\0')
-	{
-		input == NULL ? exit(1) : free(input);
-		return (NULL);
-	}
-	line = ft_strsplit(input, '\n');
+		return (0);
+	*line = ft_strsplit(input, '\n');
 	free(input);
-	return (line);
+	return (1);
 }

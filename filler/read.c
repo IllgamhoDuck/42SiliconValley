@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 22:36:00 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/12 13:29:16 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/12 23:58:53 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,15 +119,12 @@ int						process_file(t_filler *filler)
 	char				**info;
 	char				*line;
 
+	line = NULL;
 	while (get_next_line(0, &line) > -1)
 	{
-		filler_error(line);
 		if (!line)
-		{
-			filler_error("line is empty!");
 			continue ;
-		}
-		if (filler->player == 0)
+		if (ft_strlen(line) >= 3 && ft_strncmp(line, "$$$", 3) == 0)
 		{
 			info = ft_strsplit(line, ' ');
 			filler->player = ft_strcmp(info[2], "p1") ? 2 : 1;
@@ -141,15 +138,9 @@ int						process_file(t_filler *filler)
 			process_map(filler);
 			process_solution(filler);
 			reset_filler(filler);
-			if (SOLUTION != INT_MAX)
-				ft_printf("%d %d\n", X(SOLUTION), Y(SOLUTION));
-			else
-				filler_error("No solution");
+			ft_printf("%d %d\n", Y(SOLUTION), X(SOLUTION));
 		}
 		ft_strdel(&line);
 	}
-	filler_error("passing here!");
-	if (line == NULL || line[0] == '\0')
-		filler_error("line is empty!");
 	return (1);
 }

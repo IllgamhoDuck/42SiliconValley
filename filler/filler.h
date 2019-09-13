@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/09 22:04:26 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/12 13:09:13 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/12 13:40:37 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct		s_filler
 	int32_t			solution;
 }					t_filler;
 
-char				**stdin_filler(void);
+int					stdin_filler(char ***line);
 
 int					process_file(t_filler *filler);
 void				process_map(t_filler *filler);

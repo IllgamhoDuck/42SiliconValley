@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/11 00:35:29 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/11 00:48:01 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/12 23:16:35 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int				decide_number(t_filler *filler, int i)
 		y = -2;
 		while (++y < 2)
 		{
-			if (x != y && (-1 * x != y))
+			if (x != y && ((-1 * x) != y))
 			{
 				if (VALID_OFFSET(i, x, y) && NOT_123(OFFSET(i, x, y)))
 					OFFSET(i, x, y) < min ? min = OFFSET(i, x, y) : 0;
