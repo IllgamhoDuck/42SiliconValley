@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 00:38:43 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/14 01:06:08 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/14 01:22:35 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void				fill_room_info(t_b_tree *b_tree, int16_t x, int16_t y)
 	b_tree->y = y;
 }
 
-t_b_tree			*find_room(t_b_tree *b_tree, char *room)
+t_b_tree			*find_room(t_b_tree *b_tree, char *room_name)
 {
 	while (1)
 	{

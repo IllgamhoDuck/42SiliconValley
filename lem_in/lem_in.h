@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:25:46 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/14 01:16:41 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/14 01:27:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ typedef struct			s_ant
 
 void					read_file(t_ant *ant);
 
-t_b_tree				*init_b_tree(char *name);
-t_b_tree				*find_room(t_b_tree *b_tree, char *room);
-void					flll_room_info(t_b_tree *b_tree, int16_t x, int16_t y);
+t_b_tree				*find_room(t_b_tree *b_tree, char *room_name);
+void					fill_room_info(t_b_tree *b_tree, int16_t x, int16_t y);
 
 t_ant					*init_ant(void);
-t_node					*init_node(void);
+t_adj					*init_adj(void);
+t_b_tree				*init_b_tree(char *name);
 
 void					free_ant(t_ant *ant);
 void					free_b_tree(t_b_tree *b_tree);
 void					free_strsplit(char **str);
 
 void					ant_error(void);
-void					print_error(char *str);
+void					lem_error(char *str);
 void					malloc_error(char *str);
 
 #endif

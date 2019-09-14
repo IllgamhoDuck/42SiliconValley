@@ -6,9 +6,12 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 23:17:23 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/13 23:47:41 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/14 01:27:21 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "lem_in.h"
+#include "libft.h"
 
 void				malloc_error(char *str)
 {
@@ -16,7 +19,7 @@ void				malloc_error(char *str)
 	exit(1);
 }
 
-void				print_error(char *str)
+void				lem_error(char *str)
 {
 	ft_printf("%2@%s\n", str);
 	exit(1);

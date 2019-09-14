@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:26:40 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/14 01:14:11 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/14 01:27:42 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static void			read_room(t_ant *ant, char *line)
 {
-	t_b_tree		b_tree;
+	t_b_tree		*b_tree;
 	char			**room_info;
 	int16_t			i;
 
@@ -24,18 +24,18 @@ static void			read_room(t_ant *ant, char *line)
 	i = 0;
 	while (room_info[i] != NULL)
 		i++;
-	i == 3 ? 0 : print_error("r has more than 3 values [r name][x][y]");
+	i == 3 ? 0 : lem_error("r has more than 3 values [r name][x][y]");
 	i = -1;
 	while (room_info[1][i])
 		if (ft_isdigit(room_info[1][i] == 0))
-			print_error("r x coordinate format is wrong [number]");
+			lem_error("r x coordinate format is wrong [number]");
 	i = -1;
 	while (room_info[2][i])
 		if (ft_isdigit(room_info[2][i] == 0))
-			print_error("r y coordinate format is wrong [number]");
+			lem_error("r y coordinate format is wrong [number]");
 	b_tree = NULL;
 	if (ant->room == NULL)
-		ant->room = init_b_tree(ft_strdup(room_info[0]))
+		ant->room = init_b_tree(ft_strdup(room_info[0]));
 	else
 		b_tree = find_room(ant->room, ft_strdup(room_info[0]));
 	b_tree == NULL ? b_tree = ant->room : 0;
@@ -76,7 +76,7 @@ static void			read_ant_number(t_ant *ant, char *line)
 	while (line[++i])
 	{
 		if (ft_isdigit(line[i] == 0))
-			print_error("Ant number format is wrong [number]");
+			lem_error("Ant number format is wrong [number]");
 	}
 	ant->ant_number = ft_atoi(line);
 }

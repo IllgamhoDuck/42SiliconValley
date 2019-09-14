@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 23:13:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/14 01:17:38 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/14 01:23:33 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void				free_ant(t_ant *ant)
 	if (ant)
 	{
 		if (ant->room)
-			free_b_tree(room);
+			free_b_tree(ant->room);
 		free(ant);
 	}
 }
