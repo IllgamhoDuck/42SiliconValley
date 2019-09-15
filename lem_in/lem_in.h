@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:25:46 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 01:34:51 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/15 15:57:26 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,14 @@ typedef struct			s_ant
 	t_b_tree			*end_room;
 	t_b_tree			*room;
 	t_adj				*adj;
+	t_queue				*queue;
 }						t_ant;
-
-typedef struct			s_path
-{
-	int32_t				i;
-	struct s_path		next;
-}						t_path;
 
 typedef struct			s_queue
 {
-	struct t_path		*path;
+	int32_t 			*path;
+	int32_t				len;
+	int32_t				current_i;
 	struct s_queue		next;
 }						t_queue;
 
@@ -66,6 +63,14 @@ extern uint32_t g_start;
 extern uint32_t g_end;
 
 void					read_file(t_ant *ant);
+
+void					search_path(t_ant *ant);
+
+t_path					*init_path(int32_t i);
+t_queue					*init_queue(int32_t i);
+t_queue					*copy_queue(t_queue *q, int32_t i);
+void					push_queue(t_queue **q, t_queue *c, int32_t i);
+void					free_queue(t_queue *queue);
 
 t_b_tree				*find_room(t_b_tree *b_tree, char *room_name);
 t_b_tree				*build_ant_room(t_b_tree *b_tree, char *room_name);
