@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 23:13:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/14 01:23:33 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/15 01:24:29 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,35 @@ void				free_ant(t_ant *ant)
 	{
 		if (ant->room)
 			free_b_tree(ant->room);
+		if (ant->adj)
+			free_adj_list(ant);
 		free(ant);
+	}
+}
+
+void				free_adj(t_adj *adj)
+{
+	if (adj)
+	{
+		if (adj->next)
+			free_adj(adj->next);
+		if (adj->room_name)
+			free(adj->room_name);
+		free(adj);
 	}
 }
 
 void				free_b_tree(t_b_tree *b_tree)
 {
-	//NOT IMPLEMENTED YET
-	b_tree = 0;
+	if (b_tree)
+	{
+		if (b_tree->left)
+			free_b_tree(b_tree->left);
+		if (b_tree->right)
+			free_b_tree(b_tree->right);
+		free(b_tree->room_name);
+		free(b_tree);
+	}
 }
 
 void				free_strsplit(char **str)

@@ -6,13 +6,13 @@
 #    By: hypark <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/13 21:17:49 by hypark            #+#    #+#              #
-#    Updated: 2019/09/13 21:24:55 by hypark           ###   ########.fr        #
+#    Updated: 2019/09/14 22:18:45 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := lem-in
 CC := gcc
-CFLAGS := -Wall -Wextra -Wextra
+CFLAGS := -Wall -Wextra -Wextra -g
 OBJ := *.o
 
 SRCDIR := ./src
