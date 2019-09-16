@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 23:13:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 01:24:29 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/15 22:52:37 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,23 @@
 
 void				free_ant(t_ant *ant)
 {
+	int32_t			i;
+
+	i = -1;
 	if (ant)
 	{
 		if (ant->room)
 			free_b_tree(ant->room);
 		if (ant->adj)
 			free_adj_list(ant);
+		if (ant->adj_01)
+		{
+			while (++i < ant->room_number)
+				free(ant->adj_01[i]);
+			free(ant->adj_01);
+		}
+		if (ant->queue)
+			free_queue(ant->queue);
 		free(ant);
 	}
 }

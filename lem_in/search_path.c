@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 01:26:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 15:56:15 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/15 23:44:11 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Check this index is a way i passed before
 */
 
-static void			valid_i(t_queue *q, int32_t index)
+static int8_t		valid_i(t_queue *q, int32_t index)
 {
 	int32_t			i;
 
@@ -55,14 +55,16 @@ static void			breath_first_search(t_ant *ant, t_queue **queue)
 	while (*queue)
 	{
 		current_q = *queue;
+		*queue = (*queue)->next;
 		current_q->next = NULL;
-		*queue = *queue->next;
 		adj = ant->adj[current_q->current_i].next;
 		while (adj)
 		{
 			if (adj->i == ant->end_room->i)
 			{
 				push_queue_to_ant(ant, copy_queue(current_q, adj->i));
+				ant->path_number++;
+				adj = adj->next;
 				continue ;
 			}
 			if (valid_i(current_q, adj->i))
@@ -79,4 +81,6 @@ void				search_path(t_ant *ant)
 
 	queue = init_queue(ant->start_room->i);
 	breath_first_search(ant, &queue);
+	if (ant->path_number == 0)
+		lem_error("No path have been found");
 }

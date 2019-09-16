@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:26:40 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 00:02:46 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/15 22:49:56 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static void			read_link(t_ant *ant, char *line)
 	valid_link(ant, link_info, i);
 	link1 = find_room(ant->room, link_info[0]);
 	link2 = find_room(ant->room, link_info[1]);
+	ant->adj_01[link1->i][link2->i] = 1;
+	ant->adj_01[link2->i][link1->i] = 1;
 	is_empty(&(ant->adj[link1->i])) ? init_link(ant, link1) : 0;
 	is_empty(&(ant->adj[link2->i])) ? init_link(ant, link2) : 0;
 	push_adj(&(ant->adj[link1->i].next), link2->i);
@@ -128,14 +130,14 @@ void				read_file(t_ant *ant)
 		else if (ft_strchr(line, '-'))
 		{
 			if (ant->adj == NULL)
+			{
 				ant->adj = INIT_ADJ_LIST;
+				ant->adj_01 = init_adj_01(ant->room_number);
+			}
 			read_link(ant, line);
 		}
 		else
-		{
-			ft_printf("%2@%s\n", line);
-			lem_error("Invalid line has been inputed");
-		}
+			line_error(line);
 		ft_strdel(&line);
 	}
 	valid_input(ant);

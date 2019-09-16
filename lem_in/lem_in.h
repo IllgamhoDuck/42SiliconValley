@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:25:46 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 15:57:26 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/15 23:03:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,25 +38,27 @@ typedef	struct			s_b_tree
 	struct s_b_tree		*left;
 }						t_b_tree;
 
-typedef struct			s_ant
-{
-	int32_t				ant_number;
-	int32_t				room_number;
-	int32_t				link_number;
-	t_b_tree			*start_room;
-	t_b_tree			*end_room;
-	t_b_tree			*room;
-	t_adj				*adj;
-	t_queue				*queue;
-}						t_ant;
-
 typedef struct			s_queue
 {
 	int32_t 			*path;
 	int32_t				len;
 	int32_t				current_i;
-	struct s_queue		next;
+	struct s_queue		*next;
 }						t_queue;
+
+typedef struct			s_ant
+{
+	int32_t				ant_number;
+	int32_t				room_number;
+	int32_t				link_number;
+	int32_t				path_number;
+	t_b_tree			*start_room;
+	t_b_tree			*end_room;
+	t_b_tree			*room;
+	t_adj				*adj;
+	int32_t				**adj_01;
+	t_queue				*queue;
+}						t_ant;
 
 extern uint32_t g_index;
 extern uint32_t g_start;
@@ -66,7 +68,7 @@ void					read_file(t_ant *ant);
 
 void					search_path(t_ant *ant);
 
-t_path					*init_path(int32_t i);
+int32_t					*init_path(int32_t i);
 t_queue					*init_queue(int32_t i);
 t_queue					*copy_queue(t_queue *q, int32_t i);
 void					push_queue(t_queue **q, t_queue *c, int32_t i);
@@ -77,6 +79,7 @@ t_b_tree				*build_ant_room(t_b_tree *b_tree, char *room_name);
 void					fill_room_info(t_b_tree *b_tree, int16_t x, int16_t y);
 
 t_adj					*init_adj(char *room_name, uint32_t i);
+int32_t					**init_adj_01(int32_t len);
 void					push_adj(t_adj **start_adj, uint32_t i);
 void					free_adj_list(t_ant *ant);
 int8_t					is_empty(t_adj *adj);
@@ -95,9 +98,12 @@ void					free_b_tree(t_b_tree *b_tree);
 void					free_strsplit(char **str);
 
 void					print_ant(t_ant *ant);
+void					print_path(t_ant *ant);
+void					print_adj_01(t_ant *ant);
 
 void					ant_error(void);
 void					lem_error(char *str);
 void					malloc_error(char *str);
+void					line_error(char *line);
 
 #endif

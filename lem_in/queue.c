@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:03:49 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 15:55:55 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/15 23:44:01 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int32_t				*init_path(int32_t len)
 {
 	int32_t			*path;
 
-	if (!(path = (t_path *)ft_memalloc(sizeof(int32_t) * len)))
+	if (!(path = (int32_t *)ft_memalloc(sizeof(int32_t) * len)))
 		malloc_error("path");
 	return (path);
 }
@@ -30,7 +30,7 @@ t_queue				*init_queue(int32_t i)
 		malloc_error("queue");
 	queue->len = 1;
 	queue->path = init_path(queue->len);
-	queue->current = i;
+	queue->current_i = i;
 	queue->path[0] = i;
 	return (queue);
 }
@@ -40,7 +40,7 @@ t_queue				*copy_queue(t_queue *q, int32_t index)
 	t_queue			*c_q;
 	int32_t			i;
 
-	if (!(c-q = (t_queue *)ft_memalloc(sizeof(t_queue))))
+	if (!(c_q = (t_queue *)ft_memalloc(sizeof(t_queue))))
 		malloc_error("copy queue");
 	c_q->len = q->len + 1;
 	c_q->path = init_path(c_q->len);
@@ -48,7 +48,7 @@ t_queue				*copy_queue(t_queue *q, int32_t index)
 	while (++i < q->len)
 		c_q->path[i] = q->path[i];
 	c_q->path[i] = index;
-	c_q->current = index;
+	c_q->current_i = index;
 	return (c_q);
 }
 

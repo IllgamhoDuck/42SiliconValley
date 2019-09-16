@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 18:53:59 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 01:24:58 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/15 22:48:37 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ t_adj				*init_adj(char *room_name, uint32_t i)
 	adj->room_name = room_name;
 	adj->i = i;
 	return (adj);
+}
+
+int32_t				**init_adj_01(int32_t len)
+{
+	int32_t			**adj_01;
+	int32_t			i;
+
+	if (!(adj_01 = (int32_t **)ft_memalloc(sizeof(int32_t *) * len)))
+		malloc_error("adj_01");
+	i = -1;
+	while (++i < len)
+		if (!(adj_01[i] = (int32_t *)ft_memalloc(sizeof(int32_t) * len)))
+			malloc_error("adj_01");
+	return (adj_01);
 }
 
 void				push_adj(t_adj **start_adj, uint32_t i)
