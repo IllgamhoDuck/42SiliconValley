@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 01:26:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 23:44:11 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/16 21:23:44 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,16 @@ static void			breath_first_search(t_ant *ant, t_queue **queue)
 {
 	t_queue			*current_q;
 	t_adj			*adj;
+	int				i;
 
+	i = 0;
 	while (*queue)
 	{
+		ft_printf("searching %d\n", i++);
 		current_q = *queue;
 		*queue = (*queue)->next;
 		current_q->next = NULL;
-		adj = ant->adj[current_q->current_i].next;
+		adj = ant->adj_list[current_q->current_i].next;
 		while (adj)
 		{
 			if (adj->i == ant->end_room->i)

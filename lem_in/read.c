@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:26:40 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 22:49:56 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:53:26 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ static void			read_link(t_ant *ant, char *line)
 	valid_link(ant, link_info, i);
 	link1 = find_room(ant->room, link_info[0]);
 	link2 = find_room(ant->room, link_info[1]);
-	ant->adj_01[link1->i][link2->i] = 1;
-	ant->adj_01[link2->i][link1->i] = 1;
-	is_empty(&(ant->adj[link1->i])) ? init_link(ant, link1) : 0;
-	is_empty(&(ant->adj[link2->i])) ? init_link(ant, link2) : 0;
-	push_adj(&(ant->adj[link1->i].next), link2->i);
-	push_adj(&(ant->adj[link2->i].next), link1->i);
+	ant->adj_matrix[link1->i][link2->i] = 1;
+	ant->adj_matrix[link2->i][link1->i] = 1;
+	is_empty(&(ant->adj_list[link1->i])) ? init_link(ant, link1) : 0;
+	is_empty(&(ant->adj_list[link2->i])) ? init_link(ant, link2) : 0;
+	push_adj(&(ant->adj_list[link1->i].next), link2->i);
+	push_adj(&(ant->adj_list[link2->i].next), link1->i);
 	free_strsplit(link_info);
 	ant->link_number++;
 }
@@ -129,10 +129,10 @@ void				read_file(t_ant *ant)
 			read_room(ant, line);
 		else if (ft_strchr(line, '-'))
 		{
-			if (ant->adj == NULL)
+			if (ant->adj_list == NULL)
 			{
-				ant->adj = INIT_ADJ_LIST;
-				ant->adj_01 = init_adj_01(ant->room_number);
+				ant->adj_list = INIT_ADJ_LIST;
+				ant->adj_matrix = init_adj_matrix(ant->room_number);
 			}
 			read_link(ant, line);
 		}

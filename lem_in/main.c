@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:17:08 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 23:09:53 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:59:29 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int					main(int ac, char **av)
 	read_file(ant);
 	search_path(ant);
 	print_ant(ant);
-	print_adj_01(ant);
+	print_adj_matrix(ant);
 	print_path(ant);
 	free_ant(ant);
 	return (0);

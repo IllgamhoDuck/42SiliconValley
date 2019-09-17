@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 21:05:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 23:25:00 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:56:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void				print_ant(t_ant *ant)
 	i = -1;
 	while (++i < ant->room_number)
 	{
-		ft_printf("ROOM NAME : %s ,", ant->adj[i].room_name);
-		current = ant->adj[i].next;
+		ft_printf("ROOM NAME : %s ,", ant->adj_list[i].room_name);
+		current = ant->adj_list[i].next;
 		while (current)
 		{
 			ft_printf("%d -> ", current->i);
@@ -56,7 +56,7 @@ void				print_path(t_ant *ant)
 	}
 }
 
-void				print_adj_01(t_ant *ant)
+void				print_adj_matrix(t_ant *ant)
 {
 	int32_t			i;
 	int32_t			j;
@@ -67,7 +67,7 @@ void				print_adj_01(t_ant *ant)
 		ft_printf("room %d : ", i);
 		j = -1;
 		while (++j < ant->room_number)
-			ft_printf("%d ", ant->adj_01[i][j]);
+			ft_printf("%d ", ant->adj_matrix[i][j]);
 		ft_putchar('\n');
 	}
 }

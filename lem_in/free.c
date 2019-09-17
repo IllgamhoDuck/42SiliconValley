@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 23:13:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 22:52:37 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:58:31 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ void				free_ant(t_ant *ant)
 	{
 		if (ant->room)
 			free_b_tree(ant->room);
-		if (ant->adj)
+		if (ant->adj_list)
 			free_adj_list(ant);
-		if (ant->adj_01)
+		if (ant->adj_matrix)
 		{
 			while (++i < ant->room_number)
-				free(ant->adj_01[i]);
-			free(ant->adj_01);
+				free(ant->adj_matrix[i]);
+			free(ant->adj_matrix);
 		}
 		if (ant->queue)
 			free_queue(ant->queue);

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:25:46 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 23:03:40 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/16 20:57:21 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct			s_ant
 	t_b_tree			*start_room;
 	t_b_tree			*end_room;
 	t_b_tree			*room;
-	t_adj				*adj;
-	int32_t				**adj_01;
+	t_adj				*adj_list;
+	int32_t				**adj_matrix;
 	t_queue				*queue;
 }						t_ant;
 
@@ -79,7 +79,7 @@ t_b_tree				*build_ant_room(t_b_tree *b_tree, char *room_name);
 void					fill_room_info(t_b_tree *b_tree, int16_t x, int16_t y);
 
 t_adj					*init_adj(char *room_name, uint32_t i);
-int32_t					**init_adj_01(int32_t len);
+int32_t					**init_adj_matrix(int32_t len);
 void					push_adj(t_adj **start_adj, uint32_t i);
 void					free_adj_list(t_ant *ant);
 int8_t					is_empty(t_adj *adj);
@@ -99,7 +99,7 @@ void					free_strsplit(char **str);
 
 void					print_ant(t_ant *ant);
 void					print_path(t_ant *ant);
-void					print_adj_01(t_ant *ant);
+void					print_adj_matrix(t_ant *ant);
 
 void					ant_error(void);
 void					lem_error(char *str);
