@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 01:26:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 00:15:11 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 13:13:32 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,59 @@
 ** Check this index is a way i passed before
 */
 
+static int8_t		check_complete_list(t_ant *ant, t_queue *q)
+{
+	int32_t			i;
+	int32_t			index;
+
+	i = -1;
+	while (++i < q->len)
+	{
+		index = q->path[i];
+		if (index == ant->start_room->i || index == ant->end_room->i)
+			continue ;
+		if (ant->complete_list[index] == 1)
+			return (0);
+	}
+	return (1);
+}
+
 static int8_t		valid_i(t_ant *ant, t_queue *q, int32_t index)
 {
 	int32_t			i;
 
+	if (check_complete_list(ant, q) == 0)
+		return (0);
 	if (ant->adj_matrix[q->current_i][index] == 1)
 		return (0);
 	i = -1;
 	while (++i < q->len)
-		if (q->path[i] == index)
+	{
+		if (index == q->path[i])
 			return (0);
+	}
 	return (1);
 }
 
 static void			push_queue_to_ant(t_ant *ant, t_queue *q)
 {
 	t_queue			*current;
+	int32_t			i;
 
+	ft_printf("solution!\n");
+	i = -1;
+	while (++i < q->len)
+		ft_printf("%s->", ant->adj_list[q->path[i]].room_name);
+	ft_putchar('\n');
+	if (check_complete_list(ant, q) == 0)
+	{
+		free_queue(q);
+		return ;
+	}
+	ant->path_number++;
+	i = -1;
+	while (++i < q->len)
+		ant->complete_list[q->path[i]] = 1;
 	current = ant->queue;
 	if (current == NULL)
 	{
@@ -65,7 +101,6 @@ static void			breath_first_search(t_ant *ant, t_queue **queue)
 			if (adj->i == ant->end_room->i)
 			{
 				push_queue_to_ant(ant, copy_queue(current_q, adj->i));
-				ant->path_number++;
 				adj = adj->next;
 				continue ;
 			}

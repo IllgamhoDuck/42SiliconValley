@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:26:40 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 00:07:36 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 13:15:17 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,25 +84,28 @@ static void			read_room(t_ant *ant, char *line)
 
 static void			read_command(t_ant *ant, char *line)
 {
+	char			*line_2;
+
 	if (ft_strcmp(line, "##start") == 0)
 	{
 		g_start = 1;
-		if (get_next_line(3, &line) > 0)
-			read_room(ant, line);
+		if (get_next_line(3, &line_2) > 0)
+			read_room(ant, line_2);
 		else
 			ant_error();
 		g_start = 0;
+		ft_strdel(&line_2);
 	}
 	if (ft_strcmp(line, "##end") == 0)
 	{
 		g_end = 1;
-		if (get_next_line(3, &line) > 0)
-			read_room(ant, line);
+		if (get_next_line(3, &line_2) > 0)
+			read_room(ant, line_2);
 		else
 			ant_error();
 		g_end = 0;
+		ft_strdel(&line_2);
 	}
-	ft_strdel(&line);
 }
 
 static void			read_ant_number(t_ant *ant, char *line)
@@ -136,7 +139,7 @@ void				read_file(t_ant *ant)
 			if (ant->adj_list == NULL)
 			{
 				ant->adj_list = INIT_ADJ_LIST;
-				ant->adj_matrix = init_adj_matrix(ant->room_number);
+				init_path_check(ant);
 			}
 			read_link(ant, line);
 		}

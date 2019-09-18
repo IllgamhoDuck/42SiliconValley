@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:25:46 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 00:12:12 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 11:25:20 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdint.h>
 
 # define INIT_ADJ_LIST (t_adj *)ft_memalloc(sizeof(t_adj) * ant->room_number)
+# define INIT_INT (int32_t *)ft_memalloc(sizeof(int32_t) * ant->room_number)
 
 /*
 ** Adjacency list
@@ -57,6 +58,8 @@ typedef struct		s_ant
 	t_b_tree		*room;
 	t_adj			*adj_list;
 	int32_t			**adj_matrix;
+	int32_t			*path_check;
+	int32_t			*complete_list;
 	t_queue			*queue;
 }					t_ant;
 
@@ -91,6 +94,7 @@ void				valid_input(t_ant *ant);
 t_ant				*init_ant(void);
 void				init_link(t_ant *ant, t_b_tree *link);
 t_b_tree			*init_b_tree(char *name);
+void				init_path_check(t_ant *ant);
 
 void				free_ant(t_ant *ant);
 void				free_adj(t_adj *adj);

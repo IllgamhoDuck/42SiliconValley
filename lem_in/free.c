@@ -6,12 +6,15 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 23:13:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/16 20:58:31 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 13:15:46 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
+
+
+
 
 void				free_ant(t_ant *ant)
 {
@@ -30,6 +33,8 @@ void				free_ant(t_ant *ant)
 				free(ant->adj_matrix[i]);
 			free(ant->adj_matrix);
 		}
+		if (ant->complete_list)
+			free(ant->complete_list);
 		if (ant->queue)
 			free_queue(ant->queue);
 		free(ant);
