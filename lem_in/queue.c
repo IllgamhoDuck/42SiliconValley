@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:03:49 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/15 23:44:01 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 00:13:18 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ t_queue				*copy_queue(t_queue *q, int32_t index)
 	return (c_q);
 }
 
-void				push_queue(t_queue **q, t_queue *c, int32_t i)
+void				push_queue(t_ant *ant, t_queue **q, t_queue *c, int32_t i)
 {
 	t_queue			*last;
 	t_queue			*add;
 
 	add = copy_queue(c, i);
+	ant->adj_matrix[c->current_i][i] = 1;
 	last = *q;
 	if (last == NULL)
 	{
