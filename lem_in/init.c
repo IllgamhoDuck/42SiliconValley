@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 23:13:02 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 13:15:32 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 20:48:11 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void				init_link(t_ant *ant, t_b_tree *link)
 
 void				init_path_check(t_ant *ant)
 {
-	if (!(ant->adj_matrix = init_adj_matrix(ant->room_number)))
-		malloc_error("adjacency matrix");
-	if (!(ant->complete_list = INIT_INT))
+	if (!(ant->path_check = INIT_INT(ant->room_number)))
+		malloc_error("path_check");
+	if (!(ant->complete_list = INIT_INT(ant->room_number)))
 		malloc_error("complete_list");
 }

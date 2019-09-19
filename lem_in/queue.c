@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 11:03:49 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 13:05:05 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 20:47:39 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void				push_queue(t_ant *ant, t_queue **q, t_queue *c, int32_t i)
 	t_queue			*add;
 
 	add = copy_queue(c, i);
-	ant->adj_matrix[c->current_i][i] = 1;
+	ant->path_check[i] = 1;
 	last = *q;
 	if (last == NULL)
 	{

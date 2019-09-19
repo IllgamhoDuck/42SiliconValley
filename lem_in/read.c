@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:26:40 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 13:15:17 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 21:19:08 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void			read_link(t_ant *ant, char *line)
 	char			**link_info;
 	int16_t			i;
 
+	valid_number_of_link(line);
 	link_info = ft_strsplit(line, '-');
 	i = 0;
 	while (link_info[i] != NULL)
@@ -63,6 +64,7 @@ static void			read_room(t_ant *ant, char *line)
 	while (room_info[i] != NULL)
 		i++;
 	valid_room(ant, room_info, i);
+	valid_check_double_room(ant, room_info[0]);
 	room = NULL;
 	if (ant->room == NULL)
 		ant->room = init_b_tree(ft_strdup(room_info[0]));

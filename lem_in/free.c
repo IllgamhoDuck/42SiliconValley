@@ -6,15 +6,21 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 23:13:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 13:15:46 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 21:27:19 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
 
-
-
+/*
+**		if (ant->adj_matrix)
+**		{
+**			while (++i < ant->room_number)
+**				free(ant->adj_matrix[i]);
+**			free(ant->adj_matrix);
+**		}
+*/
 
 void				free_ant(t_ant *ant)
 {
@@ -27,12 +33,8 @@ void				free_ant(t_ant *ant)
 			free_b_tree(ant->room);
 		if (ant->adj_list)
 			free_adj_list(ant);
-		if (ant->adj_matrix)
-		{
-			while (++i < ant->room_number)
-				free(ant->adj_matrix[i]);
-			free(ant->adj_matrix);
-		}
+		if (ant->path_check)
+			free(ant->path_check);
 		if (ant->complete_list)
 			free(ant->complete_list);
 		if (ant->queue)

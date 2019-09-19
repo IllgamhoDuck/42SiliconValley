@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 21:05:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 12:37:29 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 21:28:38 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void				print_path(t_ant *ant)
 	int32_t			i;
 	t_queue			*q;
 
+	ft_printf("There is total %d path finded!\n", ant->path_number);
 	q = ant->queue;
 	path = 1;
 	while (q)

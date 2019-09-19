@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/15 01:26:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 13:13:32 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 20:48:59 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 /*
 ** Check this index is a way i passed before
 */
+
+static int32_t g_solution_number = 0;
 
 static int8_t		check_complete_list(t_ant *ant, t_queue *q)
 {
@@ -34,20 +36,10 @@ static int8_t		check_complete_list(t_ant *ant, t_queue *q)
 	return (1);
 }
 
-static int8_t		valid_i(t_ant *ant, t_queue *q, int32_t index)
+static int8_t		valid_i(t_ant *ant, int32_t index)
 {
-	int32_t			i;
-
-	if (check_complete_list(ant, q) == 0)
+	if (ant->path_check[index] == 1)
 		return (0);
-	if (ant->adj_matrix[q->current_i][index] == 1)
-		return (0);
-	i = -1;
-	while (++i < q->len)
-	{
-		if (index == q->path[i])
-			return (0);
-	}
 	return (1);
 }
 
@@ -56,17 +48,13 @@ static void			push_queue_to_ant(t_ant *ant, t_queue *q)
 	t_queue			*current;
 	int32_t			i;
 
-	ft_printf("solution!\n");
-	i = -1;
-	while (++i < q->len)
-		ft_printf("%s->", ant->adj_list[q->path[i]].room_name);
-	ft_putchar('\n');
 	if (check_complete_list(ant, q) == 0)
 	{
 		free_queue(q);
 		return ;
 	}
 	ant->path_number++;
+	g_solution_number++;
 	i = -1;
 	while (++i < q->len)
 		ant->complete_list[q->path[i]] = 1;
@@ -104,7 +92,7 @@ static void			breath_first_search(t_ant *ant, t_queue **queue)
 				adj = adj->next;
 				continue ;
 			}
-			if (valid_i(ant, current_q, adj->i))
+			if (valid_i(ant, adj->i))
 				push_queue(ant, queue, current_q, adj->i);
 			adj = adj->next;
 		}
@@ -115,9 +103,23 @@ static void			breath_first_search(t_ant *ant, t_queue **queue)
 void				search_path(t_ant *ant)
 {
 	t_queue			*queue;
+	int32_t			i;
 
-	queue = init_queue(ant->start_room->i);
-	breath_first_search(ant, &queue);
-	if (ant->path_number == 0)
-		lem_error("No path have been found");
+	while (1)
+	{
+		g_solution_number = 0;
+		i = -1;
+		while (++i < ant->room_number)
+			ant->path_check[i] = ant->complete_list[i];
+		queue = init_queue(ant->start_room->i);
+		breath_first_search(ant, &queue);
+		if (g_solution_number == 0)
+		{
+			if (ant->queue == NULL)
+				lem_error("No path have been found");
+			else
+				break ;
+		}
+	}
+
 }

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:25:46 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 11:25:20 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/18 21:24:25 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdint.h>
 
 # define INIT_ADJ_LIST (t_adj *)ft_memalloc(sizeof(t_adj) * ant->room_number)
-# define INIT_INT (int32_t *)ft_memalloc(sizeof(int32_t) * ant->room_number)
+# define INIT_INT(x) ((int32_t *)ft_memalloc(sizeof(int32_t) * x))
 
 /*
 ** Adjacency list
@@ -49,7 +49,7 @@ typedef struct		s_queue
 
 typedef struct		s_ant
 {
-	int32_t			ant_number;
+	uint64_t		ant_number;
 	int32_t			room_number;
 	int32_t			link_number;
 	int32_t			path_number;
@@ -87,9 +87,11 @@ void				push_adj(t_adj **start_adj, uint32_t i);
 void				free_adj_list(t_ant *ant);
 int8_t				is_empty(t_adj *adj);
 
+void				valid_check_double_room(t_ant *ant, char *room_name);
 void				valid_room(t_ant *ant, char **room_info, int16_t i);
 void				valid_link(t_ant *ant, char **link_info, int16_t i);
 void				valid_input(t_ant *ant);
+void				valid_number_of_link(char *line);
 
 t_ant				*init_ant(void);
 void				init_link(t_ant *ant, t_b_tree *link);
