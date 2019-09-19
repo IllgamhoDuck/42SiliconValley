@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 23:13:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 21:27:19 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/19 03:01:58 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void				free_ant(t_ant *ant)
 	i = -1;
 	if (ant)
 	{
+		if (ant->line)
+			free(ant->line);
+		if (ant->c_list)
+			free_c_list(ant->c_list);
 		if (ant->room)
 			free_b_tree(ant->room);
 		if (ant->adj_list)
@@ -40,6 +44,20 @@ void				free_ant(t_ant *ant)
 		if (ant->queue)
 			free_queue(ant->queue);
 		free(ant);
+	}
+}
+
+void				free_deploy(t_deploy *deploy)
+{
+	if (deploy)
+	{
+		if (deploy->spare_room)
+			free(deploy->spare_room);
+		if (deploy->ant_deploy)
+			free(deploy->ant_deploy);
+		if (deploy->start_num)
+			free(deploy->start_num);
+		free(deploy);
 	}
 }
 

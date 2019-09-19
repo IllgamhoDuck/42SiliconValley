@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/13 21:26:40 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 21:19:08 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/19 03:08:17 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 */
 
 uint32_t g_index = 0;
-uint32_t g_start = 0;
-uint32_t g_end = 0;
+uint8_t g_start = 0;
+uint8_t g_end = 0;
 
 static void			read_link(t_ant *ant, char *line)
 {
@@ -91,21 +91,23 @@ static void			read_command(t_ant *ant, char *line)
 	if (ft_strcmp(line, "##start") == 0)
 	{
 		g_start = 1;
-		if (get_next_line(3, &line_2) > 0)
+		if (get_next_line(0, &line_2) > 0)
 			read_room(ant, line_2);
 		else
 			ant_error();
 		g_start = 0;
+		store_line(ant, line_2);
 		ft_strdel(&line_2);
 	}
 	if (ft_strcmp(line, "##end") == 0)
 	{
 		g_end = 1;
-		if (get_next_line(3, &line_2) > 0)
+		if (get_next_line(0, &line_2) > 0)
 			read_room(ant, line_2);
 		else
 			ant_error();
 		g_end = 0;
+		store_line(ant, line_2);
 		ft_strdel(&line_2);
 	}
 }
@@ -121,15 +123,21 @@ static void			read_ant_number(t_ant *ant, char *line)
 			lem_error("Ant number format is wrong, usage : [number]");
 	}
 	ant->ant_number = ft_atoi(line);
+	if (ant->ant_number > 1000000000)
+		lem_error("are you going to spend your lifetime watching ants moving?");
 }
+
+/*
+** Store line makes the performance 4000 rooms 3.5 -> 18 seconds
+*/
 
 void				read_file(t_ant *ant)
 {
 	char			*line;
 
-	line = NULL;
-	while (get_next_line(3, &line) > 0)
+	while (get_next_line(0, &line) > 0)
 	{
+		store_line(ant, line);
 		if (ant->ant_number == 0)
 			read_ant_number(ant, line);
 		else if (line[0] == '#')

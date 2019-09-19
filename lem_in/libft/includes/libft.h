@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 23:06:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/08/16 21:57:55 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/19 02:22:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <string.h>
 # include "ft_printf.h"
 
-# define BUFF_SIZE 1024
+# define BUFF_SIZE 64
 
 typedef struct		s_list
 {

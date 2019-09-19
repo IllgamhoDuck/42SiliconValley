@@ -6,12 +6,37 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 21:05:28 by hypark            #+#    #+#             */
-/*   Updated: 2019/09/18 21:28:38 by hypark           ###   ########.fr       */
+/*   Updated: 2019/09/19 02:19:49 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 #include "libft.h"
+
+void				print_line(char *line)
+{
+	char			**split;
+	int32_t			i;
+
+	if (line == NULL)
+		return ;
+	split = ft_strsplit(line, '\n');
+	i = -1;
+	while (split[++i])
+	{
+		if (split[i][0] == '#')
+		{
+			if (ft_strcmp(split[i], "##start") == 0)
+				ft_printf("%s\n", split[i]);
+			else if (ft_strcmp(split[i], "##end") == 0)
+				ft_printf("%s\n", split[i]);
+		}
+		else
+			ft_printf("%s\n", split[i]);
+	}
+	free_strsplit(split);
+	ft_putchar('\n');
+}
 
 void				print_ant(t_ant *ant)
 {
@@ -55,6 +80,27 @@ void				print_path(t_ant *ant)
 		ft_putchar('\n');
 		q = q->next;
 	}
+}
+
+void				print_deploy(t_ant *ant, t_deploy *deploy)
+{
+	int32_t			i;
+
+	ft_printf("SPARE ROOM : ");
+	i = -1;
+	while (++i < ant->path_number)
+		ft_printf("%d->", deploy->spare_room[i]);
+	ft_putchar('\n');
+	ft_printf("ANT DEPLOY : ");
+	i = -1;
+	while (++i < ant->path_number)
+		ft_printf("%d->", deploy->ant_deploy[i]);
+	ft_putchar('\n');
+	ft_printf("START NUM : ");
+	i = -1;
+	while (++i < ant->path_number)
+		ft_printf("%d->", deploy->start_num[i]);
+	ft_putchar('\n');
 }
 
 void				print_adj_matrix(t_ant *ant)
