@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "typeinfo": "c",
+        "ft_printf.h": "c"
+    }
+}
