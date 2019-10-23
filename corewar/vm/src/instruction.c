@@ -20,6 +20,21 @@ static t_instr_hdlr instruction[] = {
 	ft_aff
 };
 
+int16_t			pc_idx_mod(t_process *cp, int16_t offset)
+{
+	if (offset < 0)
+	{
+		offset = ((-1) * offset) % IDX_MOD;
+		offset *= -1;
+	}
+	else
+		offset %= IDX_MOD;
+	offset = cp->pc + offset;
+	if (offset < 0)
+		return (MEM_SIZE - offset);
+	return (offset % MEM_SIZE);
+}
+
 /*
 ** -----------------------------------------------------------
 ** Store the information based on the op.c
@@ -32,7 +47,7 @@ static int8_t	instruction_get_info(t_cw *cw, t_process *cp)
 {
 	int8_t		i;
 	int8_t		trunc;
-	uint8_t		*param_byte;
+	int8_t		*param_byte;
 
 	trunc = g_op_tab[cp->op].trunc;
 	if (OCP)
@@ -42,12 +57,16 @@ static int8_t	instruction_get_info(t_cw *cw, t_process *cp)
 	}
 	else
 	{
-		param_byte = cp->param_value;
+		cp->param_type[0] = T_DIR;
+		param_byte = (int8_t *)cp->param_value;
 		param_byte += 4 - (trunc ? 2 : 4);
 		i = -1;
 		while (++i < (trunc ? 2 : 4))
-			*param_byte = cw->memory[(cp->pc + 1 + i) & MEM_SIZE];
-		swap_32(cp->param_value);
+		{
+			*param_byte = (int8_t)cw->memory[(cp->pc + 1 + i) % MEM_SIZE];
+			param_byte++;
+		}
+		swap_32((uint32_t *)cp->param_value);
 		cp->next_pc_distance += 1 + (trunc ? 2 : 4);
 	}
 	return (0);
@@ -55,20 +74,21 @@ static int8_t	instruction_get_info(t_cw *cw, t_process *cp)
 
 void			instruction_proceed(t_cw *cw, t_process *cp)
 {
-	ft_putstr(cp->id->name);
-	ft_putstr(":\t");
+	ft_printf("%s : ", cp->id->name);
 
 	// store the information before doing instruction
 	if (instruction_get_info(cw, cp) == 0)
-		instruction[cp->op](cw, cp); // do the instruction
+		instruction[cp->op](cw, cp); // do the instruction if valid
 
-	// move the pc
-	cp->pc = (cp->pc + cp->next_pc_distance) % MEM_SIZE;
+	// move the pc if it not a jump
+	if (cp->op != 8)
+		cp->pc = (cp->pc + cp->next_pc_distance) % MEM_SIZE;
 
 	// initialize the information
 	cp->next_pc_distance = 0;
-	bzero(param_type, 3);
-	bzero(param_size, 3);
+	bzero(cp->param_type, 3);
+	bzero(cp->param_size, 3);
+	bzero(cp->param_value, 12);
 
 	// initialize to next instruction
 	cp->op = cw->memory[cp->pc] - 1;

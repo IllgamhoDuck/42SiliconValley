@@ -70,7 +70,7 @@ void			corewar_env(t_cw *cw, int ac, char **av)
 	cw->parsing.av = av;
 	cw->process_list = NULL;
 	cw->cycle.kill_cycle = CYCLE_TO_DIE;
-	cw->cycle.cycle = 1;
+	cw->cycle.cycle = 0;
 	cw->parsing.flag = 0;
 	cw->n_process = 0;
 	env_init_champ(cw);

@@ -6,7 +6,7 @@
 /*   By: anjansse <anjansse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:26:46 by anjansse          #+#    #+#             */
-/*   Updated: 2019/10/21 23:20:10 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/23 01:05:07 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct		s_champ
 {
 	int				fd;
 	char			manual_assign;
-	int				prog_number;
+	uint32_t		prog_number;
 	char			*name;
 	char			*comment;
 	unsigned int	prog_size;
@@ -90,7 +90,7 @@ typedef struct		s_process
 	uint8_t			op;
 	uint8_t			ocp;
 	uint8_t			param_num;
-	uint32_t		param_value[3];
+	int32_t			param_value[3];
 	uint8_t			param_type[3];
 	uint8_t			param_size[3];
 	uint16_t		pc;
@@ -132,9 +132,12 @@ typedef struct      s_cw
 	t_cycle			cycle;
 }                   t_cw;
 
-typedef void		(*t_instr_hdlr)(t_cw *, t_process *, int8_t trunc);
+typedef void		(*t_instr_hdlr)(t_cw *, t_process *);
 
-int8_t				process_ocp(t_process *cp);
+int16_t				pc_idx_mod(t_process *cp, int16_t offset);
+
+void				process_add(t_cw *cw, t_process *cp);
+int8_t				process_ocp(t_cw *cw, t_process *cp, int8_t trunc);
 
 void				instruction_proceed(t_cw *cw, t_process *cp);
 
@@ -143,7 +146,7 @@ void				champ_assign(t_cw *cw);
 
 void				print_memory(t_cw *cw);
 
-void				process_init(t_cw *cw, t_champ *id, uint16_t pc);
+t_process			*process_init(t_cw *cw, t_champ *id, uint16_t pc);
 void				process_update(t_cw *cw);
 void				process_check_live(t_cw *cw);
 

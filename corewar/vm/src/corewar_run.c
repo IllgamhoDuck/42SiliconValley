@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   corewar_run.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/22 22:50:18 by hypark            #+#    #+#             */
+/*   Updated: 2019/10/22 23:00:00 by hypark           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 
 /*
@@ -83,12 +95,12 @@ void        corewar_run(t_cw *cw)
 		player_intro(cw);
 	while (1)
 	{
+		process_update(cw);
+		cycle_check(cw);
 		if (GUI)
 			gui_update(cw);
 		if (DUMP && CYCLE == DUMP_CYCLE)
 			dump_memory(cw);
-		process_update(cw);
-		cycle_check(cw);
 		++CYCLE;
 	}
 }

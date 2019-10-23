@@ -13,20 +13,23 @@
 
 void		champ_assign(t_cw *cw)
 {
+	uint16_t	pc;
 	int 		i;
 	int			tmp_i;
-	uint16_t	pc;
 
 	i = -1;
 	tmp_i = 0;
 	while (++i < cw->n_players)
 	{
 		if (CHAMP(i).manual_assign == 0)
-			CHAMP(i) = cw->tmp_champ[tmp_i++];
+		{
+			ft_memcpy(&CHAMP(i), &cw->tmp_champ[tmp_i++], sizeof(t_champ));
+			CHAMP(i).prog_number = i + 1;
+		}
 		pc = (MEM_SIZE / cw->n_players) * i;
 		ft_memset(&cw->owner[(MEM_SIZE / cw->n_players) * i], i, CHAMP(i).prog_size);
 		read(CHAMP(i).fd, &cw->memory[pc], CHAMP(i).prog_size);
-		process_init(cw, &CHAMP(i), pc);
+		process_add(cw, process_init(cw, &CHAMP(i), pc));
 		close(CHAMP(i).fd);
 	}
 	cw->winner = &CHAMP(i - 1);
@@ -47,15 +50,26 @@ void		champ_assign(t_cw *cw)
 
 static void			champ_init(t_cw *cw, t_hdr *hdr, int fd, int champ_num)
 {
-	t_champ		*new_champ;
+	t_champ			*new_champ;
+	int8_t			i;
 
-	if (cw->champions[champ_num].manual_assign == 1)
-		new_champ = &(cw->champions[champ_num]);
+	if (champ_num == -1)
+	{
+		i = -1;
+		while (++i < cw->n_players)
+			if (cw->tmp_champ[i].manual_assign == 0)
+				break ;
+		new_champ = &(cw->tmp_champ[i]);
+		cw->tmp_champ[i].manual_assign = 1;
+	}
 	else
-		new_champ = &(cw->tmp_champ[champ_num]);
+		new_champ = &(cw->champions[champ_num]);
 	new_champ->name = ft_strdup(hdr->prog_name);
 	new_champ->comment = ft_strdup(hdr->comment);
-	new_champ->prog_number = champ_num + 1;
+	if (champ_num == -1)
+		new_champ->prog_number = -1; 
+	else
+		new_champ->prog_number = champ_num + 1;
 	new_champ->prog_size = hdr->prog_size;
 	new_champ->fd = fd;
 }

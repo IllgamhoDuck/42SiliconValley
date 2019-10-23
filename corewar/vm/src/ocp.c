@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 21:13:12 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/21 23:37:17 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/23 00:07:44 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int8_t	check_ocp_error(t_process *cp)
 	{
 		if (cp->param_type[i] == 'X')
 			error = 1;
-		if (g_op_tab[cp->op].param[i] & cp->param_type[i] == 0)
+		if ((g_op_tab[cp->op].param[i] & cp->param_type[i]) == 0)
 			error = 1;
 		cp->next_pc_distance += cp->param_size[i];
 	}
@@ -81,19 +81,19 @@ static void		get_param_value(t_cw *cw, t_process *cp)
 {
 	int8_t		i;
 	int8_t		j;
-	uint8_t		*param_byte;
+	int8_t		*param_byte;
 	uint8_t		parsed_n;
 	
 	parsed_n = 0;
 	i = -1;
 	while (++i < cp->param_num)
 	{
-		param_byte = cp->param_value + i;
+		param_byte = (int8_t *)(cp->param_value + i);
 		param_byte += 4 - cp->param_size[i];
 		j = -1;
 		while (++j < cp->param_size[i])
 		{
-			*param_byte = cw->memory[(cp->pc + 2 + parsed_n) & MEM_SIZE];
+			*param_byte = (int8_t)cw->memory[(cp->pc + 2 + parsed_n) % MEM_SIZE];
 			param_byte++;
 			parsed_n++;
 		}
@@ -117,6 +117,6 @@ int8_t			process_ocp(t_cw *cw, t_process *cp, int8_t trunc)
 	get_param_value(cw, cp);
 	i = -1;
 	while (++i < cp->param_num)
-		swap_32(cp->param_value + i);
+		swap_32((uint32_t *)(cp->param_value + i));
 	return (0);
 }

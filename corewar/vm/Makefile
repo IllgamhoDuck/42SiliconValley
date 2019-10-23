@@ -6,7 +6,7 @@
 #    By: anjansse <anjansse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:57:22 by anjansse          #+#    #+#              #
-#    Updated: 2019/10/17 20:33:52 by anjansse         ###   ########.fr        #
+#    Updated: 2019/10/22 17:52:33 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		= 	corewar
 
 GENERAL		=	corewar.c corewar_parser.c corewar_run.c corewar_env.c\
 				champ_load.c process.c op.c print.c instruction.c gui.c\
-				extra_functions.c
+				extra_functions.c ocp.c
 
 INSTR		=	ft_live.c ft_ld.c ft_st.c ft_add.c ft_sub.c ft_and.c\
 				ft_or.c ft_xor.c ft_zjump.c ft_ldi.c ft_sti.c ft_fork.c\
@@ -34,7 +34,7 @@ SDL			=	-I SDL2/include/ -L SDL2/lib -l SDL2-2.0.0
 
 DEBUG		=	-g -fsanitize=undefined -fsanitize=address
 
-CFLAGS		=	 $(NCURSES) $(DEBUG)
+CFLAGS		=	 $(NCURSES)
 
 LLIB		=	libft.a
 
