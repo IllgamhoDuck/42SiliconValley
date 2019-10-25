@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 23:50:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/24 23:48:00 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/25 13:28:08 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,13 @@ void       		 process_update(t_cw *cw)
 t_process       *process_init(t_cw *cw, t_champ *id, uint16_t pc)
 {
 	t_process   *cp;
-	uint32_t	big_endian_name;
 
 	if (!(cp = (t_process*)ft_memalloc(sizeof(t_process))))
 		send_error("Error occured at process initializing\n");
 	cp->pc = pc;
 	cp->op = cw->memory[pc] - 1;
 	cp->id = id;
-	big_endian_name = (uint32_t)(id->prog_number * -1);
-	swap_32(&big_endian_name);
-	cp->registers[1] = big_endian_name;
+	cp->registers[1] = (uint32_t)(id->prog_number * -1);
 	cp->process_number = cw->process_index;
 	cw->process_index++;
 	cp->init_cycle = 0;

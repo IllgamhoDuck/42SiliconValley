@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 23:12:50 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/25 00:07:07 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/25 13:32:03 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,12 @@ void				ft_and(t_cw *cw, t_process *cp)
 	int32_t			param1;
 	int32_t			param2;
 
-	FLAG & FL_VER4 ? ft_printf("P%4d | and ", P_I) : 0;
+	FLAG & FL_VER4 ? ft_printf("P%5d | and ", P_I) : 0;
 	param1 = param_1(cw, cp);
 	param2 = param_2(cw, cp);
-	if (cp->param_type[0] == T_REG && FLAG & FL_VER4)
-		ft_printf("r");
+	cp->registers[cp->param_value[2]] = param1 & param2;
 	FLAG & FL_VER4 ? ft_printf("%d ", param1) : 0;
-	if (cp->param_type[1] == T_REG && FLAG & FL_VER4)
-		ft_printf("r");
 	FLAG & FL_VER4 ? ft_printf("%d ", param2) : 0;
 	FLAG & FL_VER4 ? ft_printf("r%d\n", cp->param_value[2]) : 0;
-	cp->registers[cp->param_value[2]] = param1 & param2;
 	cp->carry = 1;
 }

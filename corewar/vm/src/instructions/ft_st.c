@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 21:27:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/24 20:33:59 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/25 13:29:14 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void				ft_st(t_cw *cw, t_process *cp)
 {
 	int32_t			store;
 	int16_t			address;
-	uint8_t			*reg_byte;
+	int8_t			*reg_byte;
 	int8_t			i;
 
 	store = cp->registers[cp->param_value[0]];
@@ -31,7 +31,8 @@ void				ft_st(t_cw *cw, t_process *cp)
 		address = (int16_t)cp->param_value[1];
 		FLAG & FL_VER4 ? ft_printf("%d\n", address) : 0;
 		address = pc_idx_mod(cp, address);
-		reg_byte = (uint8_t *)(&store); 
+		swap_int32(&store);
+		reg_byte = (int8_t *)(&store); 
 		i = -1;
 		while (++i < 4)
 			cw->memory[(address + i) % MEM_SIZE] = reg_byte[i];

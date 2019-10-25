@@ -6,7 +6,7 @@
 /*   By: anjansse <anjansse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:26:46 by anjansse          #+#    #+#             */
-/*   Updated: 2019/10/24 23:56:10 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/25 13:22:58 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define KILL_CYCLE cw->cycle.kill_cycle
 # define KC_CHECK	cw->cycle.kc_check
 
-# define P_I cw->process_number
+# define P_I		 cp->process_number
 
 # define CHAMP(i)	cw->champions[i]
 
@@ -176,6 +176,7 @@ void				gui_update(t_cw *cw);
 
 void				dump_memory(t_cw *cw);
 void    			h_rev_bytes(void *ptr, size_t n);
+void				swap_int32(int32_t *x);
 void				swap_32(uint32_t *x);
 void				swap_8(uint8_t *x);
 

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 21:46:45 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/24 23:57:42 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/25 11:26:19 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,5 @@ void				ft_live(t_cw *cw, t_process *cp)
 	else
 		cw->n_live_call -= 1;
     cp->live_call = cw->cycle.cycle;
-	FLAG & FL_VER4 ? ft_printf("P%4d | live %d\n", P_I, prog_num) : 0;
+	FLAG & FL_VER4 ? ft_printf("P%5d | live %d\n", P_I, prog_num) : 0;
 }
