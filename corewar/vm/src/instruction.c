@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   instruction.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/10/24 00:37:56 by hypark            #+#    #+#             */
+/*   Updated: 2019/10/24 01:42:16 by hypark           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "vm.h"
 #include "op.h"
 
@@ -31,7 +43,7 @@ int16_t			pc_idx_mod(t_process *cp, int16_t offset)
 		offset %= IDX_MOD;
 	offset = cp->pc + offset;
 	if (offset < 0)
-		return (MEM_SIZE - offset);
+		return (MEM_SIZE + offset);
 	return (offset % MEM_SIZE);
 }
 
@@ -74,14 +86,14 @@ static int8_t	instruction_get_info(t_cw *cw, t_process *cp)
 
 void			instruction_proceed(t_cw *cw, t_process *cp)
 {
-	ft_printf("%s : ", cp->id->name);
+	//ft_printf("%s : ", cp->id->name);
 
 	// store the information before doing instruction
 	if (instruction_get_info(cw, cp) == 0)
 		instruction[cp->op](cw, cp); // do the instruction if valid
 
 	// move the pc if it not a jump
-	if (cp->op != 8)
+	if (cp->op != 8 || cp->carry == 0)
 		cp->pc = (cp->pc + cp->next_pc_distance) % MEM_SIZE;
 
 	// initialize the information

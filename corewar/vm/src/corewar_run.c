@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 22:50:18 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/22 23:00:00 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/23 22:43:45 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void         corewar_end(t_cw *cw)
 
 static void         cycle_check(t_cw *cw)
 {
-	if (CYCLE % KILL_CYCLE == 0)
+	if (CYCLE % KILL_CYCLE == 0 && CYCLE)
 	{
 		if ((cw->n_live_call >= NBR_LIVE) || (KC_CHECK == MAX_CHECKS))
 		{

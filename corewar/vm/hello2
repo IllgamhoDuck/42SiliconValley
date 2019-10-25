@@ -1,0 +1,2182 @@
+Introducing contestants...
+sti r1 391 1
+-> store to 391 + 1 = 392 (with pc and mod 392)
+sti r1 399 1
+-> store to 399 + 1 = 400 (with pc and mod 407)
+sti r1 400 1
+-> store to 400 + 1 = 401 (with pc and mod 415)
+sti r1 87 1
+-> store to 87 + 1 = 88 (with pc and mod 109)
+sti r1 397 1
+-> store to 397 + 1 = 398 (with pc and mod 426)
+sti r1 390 9
+-> store to 390 + 9 = 399 (with pc and mod 434)
+sti r1 383 17
+-> store to 383 + 17 = 400 (with pc and mod 442)
+sti r1 421 1
+-> store to 421 + 1 = 422 (with pc and mod 471)
+sti r1 393 2
+-> store to 393 + 2 = 395 (with pc and mod 451)
+sti r1 461 1
+-> store to 461 + 1 = 462 (with pc and mod 525)
+sti r1 454 9
+-> store to 454 + 9 = 463 (with pc and mod 533)
+sti r1 408 1
+-> store to 408 + 1 = 409 (with pc and mod 486)
+ld 0 r16
+fork 323 (414)
+ld 0 r2
+ld 0 r16
+live -1
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+fork -8 (414)
+st r2 -384
+st r2 -393
+live -1
+live -1
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+fork 94 (524)
+st r2 -195
+st r2 -204
+live -1
+live -1
+st r2 -213
+st r2 -222
+fork -8 (414)
+st r2 -231
+st r2 -240
+live -1
+live -1
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+fork 47 (485)
+fork -104 (425)
+live -1
+live -1
+live -1
+live -1
+live -1
+st r2 -24
+st r2 -33
+fork 94 (524)
+st r2 -42
+st r2 -51
+live -1
+live -1
+st r2 -60
+st r2 -69
+fork -8 (414)
+st r2 -78
+st r2 -87
+live -1
+live -1
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+st r2 -402
+st r2 -411
+st r2 -420
+st r2 -429
+st r2 -438
+st r2 -447
+st r2 -456
+st r2 -465
+st r2 -474
+st r2 -483
+st r2 -492
+st r2 -501
+st r2 -510
+live -1
+st r2 -24
+st r2 -33
+st r2 -42
+st r2 -51
+st r2 -60
+st r2 -69
+st r2 -78
+st r2 -87
+st r2 -96
+st r2 -105
+st r2 -114
+st r2 -123
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+st r2 -186
+st r2 -195
+st r2 -204
+st r2 -213
+st r2 -222
+st r2 -231
+st r2 -240
+st r2 -249
+st r2 -258
+st r2 -267
+st r2 -276
+st r2 -285
+st r2 -294
+st r2 -303
+st r2 -312
+st r2 -321
+st r2 -330
+st r2 -339
+st r2 -348
+st r2 -357
+fork 132 (578)
+fork -146 (391)
+fork -396 (94)
+fork 94 (524)
+st r2 -366
+ld -1 r2
+ld -65280 r2
+ld 251883523 r2
+ld 57672192 r2
+ld 0 r2
+st r2 -375
+ld 251883523 r3
+ld 436432899 r3
+ld 386101251 r3
+live -1
+ld 318992387 r3
+live -1
+ld 0 r16
+live -1
+st r2 -384
+ld 0 r16
+ld 0 r16
+ld 0 r16
+ld 0 r16
+st r2 -393
+fork 47 (485)
+ld 0 r16
+ld 0 r16
+fork -104 (425)
+live -1
+st r2 -402
+live -1
+ld 0 r16
+st r2 -24
+st r2 -411
+ld 0 r16
+live -1
+live -1
+st r2 -33
+live -1
+live -1
+st r2 -420
+st r2 -42
+st r2 -429
+fork 94 (524)
+st r2 15
+st r2 -51
+st r2 -438
+st r2 15
+st r3 -1
+st r2 -60
+st r2 -447
+st r2 3
+live -1
+st r2 -69
+live -1
+st r2 -456
+st r2 1
+live 0
+st r2 -78
+st r2 -465
+st r3 3840
+fork -8 (414)
+st r3 3840
+st r2 -87
+st r2 -474
+st r2 -96
+live 0
+st r2 -483
+live -1
+st r2 -105
+live -1
+live 0
+st r3 3840
+st r2 -492
+st r2 -114
+st r3 3840
+st r2 -501
+st r2 -123
+st r2 -510
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+live -1
+st r2 -186
+st r2 -24
+st r2 -195
+st r2 -33
+st r2 -204
+st r2 -42
+st r2 -213
+st r2 -51
+st r2 -222
+st r2 -60
+st r2 -231
+st r2 -69
+st r2 -240
+st r2 -78
+st r2 -249
+st r2 -87
+st r2 -258
+st r2 -96
+st r2 -267
+st r2 -105
+st r2 -276
+st r2 -114
+st r2 -285
+st r2 -123
+st r2 -294
+st r2 -132
+st r2 -303
+st r2 -141
+st r2 -312
+st r2 -150
+st r2 -321
+st r2 -159
+st r2 -330
+st r2 -168
+st r2 -339
+st r2 -177
+st r2 -348
+st r2 -186
+st r2 -357
+st r2 -195
+st r2 -366
+st r2 -204
+st r2 -375
+st r2 -213
+st r2 -384
+st r2 -222
+st r2 -393
+st r2 -231
+st r2 -402
+st r2 -240
+st r2 -411
+st r2 -249
+st r2 -420
+st r2 -258
+st r2 -429
+st r2 -267
+st r2 -438
+st r2 -276
+st r2 -447
+st r2 -285
+st r2 -456
+st r2 -294
+st r2 -465
+st r2 -303
+st r2 -474
+st r2 -312
+st r2 -483
+st r2 -321
+st r2 -492
+st r2 -330
+st r2 -501
+st r2 -339
+st r2 -510
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r3 3840
+st r3 3840
+st r2 -384
+st r2 -393
+live -1
+st r3 3840
+st r2 -402
+st r2 -24
+st r3 3840
+st r2 -411
+st r2 -33
+st r2 -420
+st r2 -42
+st r2 -429
+st r2 -51
+st r2 -438
+st r2 -60
+st r2 -447
+st r2 -69
+st r2 -456
+st r2 -78
+st r2 -465
+st r2 -87
+st r2 -474
+st r2 -96
+st r2 -483
+st r2 -105
+st r2 -492
+st r2 -114
+st r2 -501
+st r2 -123
+st r2 -510
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+live -1
+st r2 -186
+st r2 -24
+st r2 -195
+st r2 -33
+st r2 -204
+st r2 -42
+st r2 -213
+st r2 -51
+st r2 -222
+st r2 -60
+st r2 -231
+st r2 -69
+st r2 -240
+st r2 -78
+st r2 -249
+st r2 -87
+st r2 -258
+st r2 -96
+st r2 -267
+st r2 -105
+st r2 -276
+st r2 -114
+st r2 -285
+st r2 -123
+st r2 -294
+st r2 -132
+st r2 -303
+st r2 -141
+st r2 -312
+st r2 -150
+st r2 -321
+st r2 -159
+st r2 -330
+st r2 -168
+st r2 -339
+st r2 -177
+st r2 -348
+st r2 -186
+st r2 -357
+st r2 -195
+st r2 -366
+st r2 -204
+st r2 -375
+st r2 -213
+st r2 -384
+st r2 -222
+st r2 -393
+st r2 -231
+st r2 -402
+st r2 -240
+st r2 -411
+st r2 -249
+st r2 -420
+st r2 -258
+st r2 -429
+st r2 -267
+st r2 -438
+st r2 -276
+st r2 -447
+st r2 -285
+st r2 -456
+st r3 3840
+st r3 3840
+st r2 -294
+st r2 -465
+st r2 -303
+st r2 -474
+st r2 -312
+st r3 3840
+st r2 -483
+st r2 -321
+st r3 3840
+st r2 -492
+st r2 -330
+st r2 -501
+st r2 -339
+st r2 -510
+st r2 -348
+st r2 -357
+st r2 -366
+st r2 -375
+st r2 -384
+st r2 -393
+live -1
+st r2 -402
+st r2 -24
+st r2 -411
+st r2 -33
+st r2 -420
+st r2 -42
+st r2 -429
+st r2 -51
+st r2 -438
+st r2 -60
+st r2 -447
+st r2 -69
+st r2 -456
+st r2 -78
+st r2 -465
+st r2 -87
+st r2 -474
+st r2 -96
+st r2 -483
+st r2 -105
+st r2 -492
+st r2 -114
+st r2 -501
+st r2 -123
+st r2 -510
+st r2 -132
+st r2 -141
+st r2 -150
+st r2 -159
+st r2 -168
+st r2 -177
+live -1
+st r2 -186
+st r2 -24
+st r2 -195
+st r2 -33
+st r2 -204
+st r2 -42
+st r2 -213
+st r2 -51
+st r2 -222
+st r2 -60
+st r2 -231
+st r2 -69
+st r2 -240
+st r2 -78
+st r2 -249
+st r2 -87
+st r2 -258
+st r2 -96
+st r2 -267
+st r2 -105
+st r2 -276
+st r2 -114
+st r2 -285
+st r2 -123
+st r2 -294
+st r2 -132
+st r2 -303
+st r2 -141
+st r2 -312
+st r2 -150
+st r2 -321
+st r2 -159
+st r2 -330
+st r2 -168
+fork 47 (485)
+fork -5 (391)
+st r2 -339
+fork -104 (425)
+st r2 -177
+ld 0 r16
+st r2 -348
+st r2 -186
+live -1
+st r2 -357
+live -1
+live -1
+live -1
+live -1
+st r2 -195
+live -1
+st r2 -366
+st r2 -204
+fork 132 (578)
+fork -146 (391)
+st r2 -375
+fork -396 (94)
+fork 94 (524)
+st r3 3840
+st r3 3840
+st r2 -213
+ld -1 r2
+ld -65280 r2
+st r2 -384
+ld 251883523 r2
+ld 57672192 r2
+ld 0 r2
+st r2 -222
+ld 251883523 r3
+ld 436432899 r3
+st r2 -393
+ld 386101251 r3
+live -1
+ld 318992387 r3
+live -1
+ld 0 r16
+live -1
+st r3 3840
+st r2 -231
+ld 0 r16
+ld 0 r16
+st r2 -402
+ld 0 r16
+ld 0 r16
+st r3 3840
+st r2 -240
+fork 47 (485)
+ld 0 r16
+st r2 -411
+ld 0 r16
+fork -104 (425)
+live -1
+st r2 -249
+live -1
+ld 0 r16
+live -1
+st r2 -420
+st r2 -24
+st r2 -258
+ld 0 r16
+live -1
+st r2 -429
+live -1
+st r2 -33
+live -1
+live -1
+st r2 -267
+st r2 -438
+st r2 -42
+st r2 -276
+fork 94 (524)
+st r2 -447
+st r2 -51
+st r2 -285
+st r2 -456
+st r2 -60
+st r2 -294
+live -1
+st r2 -465
+st r2 -69
+live -1
+st r2 -303
+live -1
+st r2 -474
+live 0
+st r2 -78
+st r2 -312
+st r2 -483
+live 0
+fork -8 (414)
+st r3 3840
+st r2 -87
+st r2 -321
+live 0
+st r2 -492
+st r3 3840
+st r2 -96
+st r2 -330
+live 0
+st r3 3840
+st r2 -501
+live -1
+st r2 -105
+live -1
+st r2 -339
+st r3 3840
+st r2 -510
+st r2 -114
+st r2 -348
+st r2 -123
+st r2 -357
+live -1
+st r2 -132
+st r2 -366
+st r2 -141
+st r2 -375
+st r2 -150
+st r2 -384
+st r2 -159
+st r2 -393
+live -1
+st r2 -168
+st r2 -402
+st r2 -24
+st r2 -177
+st r2 -411
+live -1
+st r2 -33
+st r2 -186
+st r2 -420
+st r2 -42
+st r2 -195
+st r2 -429
+st r2 -51
+st r2 -204
+st r2 -438
+st r2 -60
+st r2 -213
+st r2 -447
+st r2 -69
+st r2 -222
+st r2 -456
+st r2 -78
+st r2 -231
+st r2 -465
+live -1
+st r2 -87
+st r2 -240
+st r2 -474
+st r2 -96
+st r2 -249
+st r2 -483
+st r2 -105
+st r2 -258
+st r2 -492
+st r2 -114
+st r2 -267
+st r2 -501
+st r2 -123
+st r2 -276
+st r2 -510
+st r2 -132
+st r2 -285
+live -1
+st r2 -141
+st r2 -294
+st r2 -150
+st r2 -303
+st r2 -159
+st r2 -312
+st r2 -168
+st r2 -321
+st r2 -177
+st r2 -330
+live -1
+st r2 -186
+st r2 -339
+st r2 -24
+live -1
+st r2 -195
+st r2 -348
+st r2 -33
+st r2 -204
+st r2 -357
+st r2 -42
+st r2 -213
+st r2 -366
+st r2 -51
+st r2 -222
+st r2 -375
+st r2 -60
+st r2 -231
+st r2 -384
+st r2 -69
+st r2 -240
+st r2 -393
+st r2 -78
+live -1
+st r2 -249
+st r2 -402
+st r2 -87
+st r2 -258
+st r2 -411
+st r2 -96
+st r2 -267
+st r2 -420
+st r2 -105
+st r2 -276
+st r2 -429
+st r2 -114
+st r2 -285
+st r2 -438
+st r3 3840
+st r3 3840
+st r2 -123
+st r2 -294
+st r2 -447
+st r2 -132
+live -1
+st r2 -303
+st r2 -456
+st r3 3840
+st r2 -141
+st r2 -312
+st r2 -465
+st r3 3840
+st r2 -150
+st r2 -321
+st r2 -474
+st r2 -159
+st r2 -330
+st r2 -483
+st r2 -168
+st r2 -339
+st r2 -492
+st r2 -177
+st r2 -348
+st r2 -501
+st r2 -186
+live -1
+st r2 -357
+st r2 -510
+st r2 -195
+st r2 -366
+st r2 -204
+st r2 -375
+st r2 -213
+st r2 -384
+st r2 -222
+st r2 -393
+st r3 3840
+st r2 -231
+st r2 -402
+st r3 3840
+st r2 -240
+live -1
+st r2 -411
+live -1
+st r3 3840
+st r2 -249
+st r2 -420
+st r2 -24
+st r3 3840
+st r2 -258
+st r2 -429
+st r2 -33
+st r2 -267
+st r2 -438
+st r2 -42
+st r2 -276
+st r2 -447
+st r2 -51
+st r2 -285
+st r2 -456
+st r2 -60
+st r2 -294
+live -1
+st r2 -465
+st r2 -69
+st r2 -303
+st r2 -474
+st r2 -78
+st r2 -312
+st r2 -483
+st r2 -87
+st r2 -321
+st r2 -492
+st r2 -96
+st r2 -330
+st r2 -501
+st r2 -105
+st r2 -339
+st r2 -510
+st r2 -114
+st r2 -348
+live -1
+st r2 -123
+st r2 -357
+st r2 -132
+st r2 -366
+st r2 -141
+st r2 -375
+st r2 -150
+st r2 -384
+st r2 -159
+st r2 -393
+live -1
+st r2 -168
+st r2 -402
+live -1
+st r2 -24
+st r2 -177
+st r2 -411
+st r2 -33
+st r2 -186
+st r2 -420
+st r2 -42
+st r2 -195
+st r2 -429
+st r2 -51
+st r2 -204
+st r2 -438
+st r2 -60
+st r2 -213
+st r2 -447
+st r2 -69
+st r2 -222
+st r2 -456
+live -1
+st r2 -78
+st r2 -231
+st r2 -465
+st r2 -87
+st r2 -240
+st r2 -474
+st r2 -96
+st r2 -249
+st r2 -483
+st r2 -105
+st r2 -258
+st r2 -492
+st r2 -114
+st r2 -267
+st r2 -501
+st r2 -123
+st r2 -276
+st r2 -510
+live -1
+st r2 -132
+st r2 -285
+st r2 -141
+st r2 -294
+st r2 -150
+st r2 -303
+st r2 -159
+st r2 -312
+st r2 -168
+st r2 -321
+st r2 -177
+st r2 -330
+live -1
+live -1
+st r2 -186
+st r2 -339
+st r2 -24
+st r2 -195
+st r2 -348
+st r2 -33
+st r3 3840
+st r3 3840
+st r2 -204
+st r2 -357
+st r2 -42
+st r2 -213
+st r2 -366
+st r2 -51
+st r2 -222
+st r2 -375
+st r3 3840
+st r2 -60
+st r2 -231
+st r2 -384
+st r3 3840
+st r2 -69
+live -1
+st r2 -240
+st r2 -393
+st r2 -78
+st r2 -249
+st r2 -402
+st r2 -87
+st r2 -258
+st r2 -411
+st r2 -96
+st r2 -267
+st r2 -420
+st r2 -105
+st r2 -276
+st r2 -429
+st r2 -114
+st r2 -285
+st r2 -438
+st r2 -123
+live -1
+st r2 -294
+st r2 -447
+st r2 -132
+st r2 -303
+st r2 -456
+st r3 3840
+st r2 -141
+st r2 -312
+st r2 -465
+st r3 3840
+st r2 -150
+st r2 -321
+st r2 -474
+st r3 3840
+st r2 -159
+st r2 -330
+st r2 -483
+st r3 3840
+st r2 -168
+st r2 -339
+st r2 -492
+st r2 -177
+live -1
+st r2 -348
+st r2 -501
+st r2 -186
+st r2 -357
+st r2 -510
+st r2 -195
+st r2 -366
+st r2 -204
+st r2 -375
+st r2 -213
+st r2 -384
+st r2 -222
+st r2 -393
+st r2 -231
+live -1
+st r2 -402
+st r2 -240
+st r2 -411
+live -1
+st r2 -249
+st r2 -420
+st r2 -24
+st r2 -258
+st r2 -429
+st r2 -33
+st r2 -267
+st r2 -438
+st r2 -42
+st r2 -276
+st r2 -447
+st r2 -51
+st r2 -285
+live -1
+st r2 -456
+st r2 -60
+st r2 -294
+st r2 -465
+st r2 -69
+st r2 -303
+st r2 -474
+st r2 -78
+st r2 -312
+st r2 -483
+st r2 -87
+st r2 -321
+st r2 -492
+st r2 -96
+st r2 -330
+st r2 -501
+st r2 -105
+st r2 -339
+live -1
+st r2 -510
+st r2 -114
+st r2 -348
+st r2 -123
+st r2 -357
+st r2 -132
+st r2 -366
+st r2 -141
+st r2 -375
+st r2 -150
+st r2 -384
+st r2 -159
+st r2 -393
+live -1
+live -1
+st r2 -168
+st r2 -402
+st r2 -24
+st r2 -177
+st r2 -411
+st r2 -33
+st r2 -186
+st r2 -420
+st r2 -42
+st r2 -195
+st r2 -429
+st r2 -51
+st r2 -204
+st r2 -438
+st r2 -60
+st r2 -213
+st r2 -447
+live -1
+st r2 -69
+st r2 -222
+st r2 -456
+st r2 -78
+st r2 -231
+st r2 -465
+st r2 -87
+st r2 -240
+st r2 -474
+st r2 -96
+st r2 -249
+st r2 -483
+st r2 -105
+st r2 -258
+st r2 -492
+st r2 -114
+st r2 -267
+st r3 3840
+st r2 -501
+live -1
+st r2 -123
+st r2 -276
+st r2 -510
+st r2 -132
+st r2 -285
+st r3 3840
+st r2 -141
+st r2 -294
+st r3 3840
+fork 132 (578)
+st r2 -150
+fork -146 (391)
+fork -396 (94)
+fork -5 (391)
+fork 94 (524)
+st r2 -303
+ld -1 r2
+st r2 -159
+ld -65280 r2
+ld 251883523 r2
+ld 0 r16
+st r2 -312
+ld 57672192 r2
+ld 0 r2
+ld 251883523 r3
+st r2 -168
+ld 436432899 r3
+ld 386101251 r3
+live -1
+st r2 -321
+ld 318992387 r3
+live -1
+ld 0 r16
+live -1
+live -1
+ld 0 r16
+live -1
+st r2 -177
+ld 0 r16
+ld 0 r16
+live -1
+st r2 -330
+ld 0 r16
+live -1
+st r2 -186
+ld 0 r16
+fork 47 (485)
+ld 0 r16
+fork -5 (391)
+st r2 -339
+fork -104 (425)
+live -1
+st r2 -24
+live -1
+st r2 -195
+ld 0 r16
+ld 0 r16
+st r2 -348
+st r2 -24
+st r2 -33
+ld 0 r16
+st r2 -204
+live -1
+st r2 -357
+live -1
+st r2 -33
+live -1
+live -1
+live -1
+st r2 -42
+st r2 -213
+live -1
+st r2 -366
+st r2 -42
+st r2 -51
+fork 132 (578)
+st r2 -222
+fork -146 (391)
+st r2 -375
+fork -396 (94)
+fork 94 (524)
+st r2 -51
+st r3 3840
+st r2 -60
+ld -1 r2
+live -1
+st r2 -231
+ld -65280 r2
+live -1
+st r2 -384
+ld 251883523 r2
+st r2 -60
+ld 57672192 r2
+ld 0 r2
+st r3 3840
+st r2 -69
+ld 251883523 r3
+st r2 -240
+ld 436432899 r3
+st r2 -393
+ld 386101251 r3
+live -1
+st r2 -69
+ld 318992387 r3
+live -1
+ld 0 r16
+live -1
+st r3 3840
+st r2 -78
+ld 0 r16
+st r2 -249
+ld 0 r16
+st r2 -402
+ld 0 r16
+live 0
+st r2 -78
+ld 0 r16
+st r3 3840
+st r2 -87
+fork 47 (485)
+st r2 -258
+ld 0 r16
+live 0
+st r2 -411
+ld 0 r16
+fork -104 (425)
+st r3 3840
+st r2 -87
+live -1
+st r2 -96
+live -1
+st r2 -267
+live 0
+ld 0 r16
+st r3 3840
+live -1
+st r2 -420
+st r2 -96
+st r2 -24
+st r2 -105
+ld 0 r16
+live 0
+live -1
+st r2 -276
+st r3 3840
+st r2 -429
+live -1
+st r2 -105
+st r2 -33
+live -1
+live -1
+st r2 -114
+st r3 3840
+live -1
+st r2 -285
+live -1
+st r2 -438
+st r2 -114
+st r2 -42
+st r2 -123
+st r2 -294
+fork 94 (524)
+st r2 -447
+st r2 -123
+st r2 -51
+st r2 -132
+st r2 -303
+st r2 -456
+st r2 -132
+st r2 -60
+st r2 -141
+st r2 -312
+live -1
+st r2 -465
+st r2 -141
+st r2 -69
+live -1
+st r2 -150
+st r2 -321
+live -1
+st r2 -474
+st r2 -150
+live 0
+st r2 -78
+st r2 -159
+st r2 -330
+st r2 -483
+live 0
+fork -8 (414)
+st r2 -159
+st r3 3840
+st r2 -87
+st r2 -168
+live -1
+st r2 -339
+live 0
+live -1
+st r2 -492
+st r3 3840
+st r2 -168
+st r2 -96
+st r2 -177
+live 0
+st r2 -348
+st r3 3840
+st r2 -501
+live -1
+st r2 -177
+st r2 -105
+live -1
+st r2 -186
+st r3 3840
+st r2 -357
+st r2 -510
+st r2 -186
+st r2 -114
+st r2 -195
+st r2 -366
+st r2 -195
+st r2 -123
+st r2 -204
+st r2 -375
+live -1
+st r2 -204
+st r2 -132
+st r2 -213
+st r2 -384
+st r2 -213
+st r2 -141
+st r2 -222
+live -1
+st r2 -393
+live -1
+st r2 -222
+st r2 -150
+st r2 -231
+st r2 -402
+st r2 -231
+st r2 -159
+st r2 -240
+st r2 -411
+live -1
+st r2 -240
+st r2 -168
+st r2 -249
+st r2 -420
+st r2 -24
+st r2 -249
+st r2 -177
+st r2 -258
+st r2 -429
+live -1
+st r2 -33
+st r2 -258
+st r2 -186
+st r2 -267
+st r2 -438
+st r2 -42
+st r2 -267
+st r2 -195
+st r2 -276
+live -1
+st r2 -447
+live -1
+st r2 -51
+st r2 -276
+st r2 -204
+st r2 -285
+st r2 -456
+st r2 -60
+st r2 -285
+st r2 -213
+st r2 -294
+st r2 -465
+st r2 -69
+st r2 -294
+st r2 -222
+st r2 -303
+st r2 -474
+st r2 -78
+st r2 -303
+st r2 -231
+st r2 -312
+st r2 -483
+live -1
+st r2 -87
+st r2 -312
+st r2 -240
+st r2 -321
+st r2 -492
+st r2 -96
+st r2 -321
+st r2 -249
+st r2 -330
+live -1
+st r2 -501
+live -1
+st r2 -105
+st r2 -330
+st r2 -258
+st r2 -339
+st r2 -510
+st r2 -114
+st r2 -339
+st r2 -267
+st r2 -348
+st r2 -123
+st r2 -348
+st r2 -276
+st r2 -357
+st r2 -132
+st r2 -357
+st r2 -285
+st r2 -366
+live -1
+st r2 -141
+st r2 -366
+st r2 -294
+st r2 -375
+st r2 -150
+st r2 -375
+st r2 -303
+st r2 -384
+live -1
+live -1
+st r2 -159
+st r2 -384
+st r2 -312
+st r2 -393
+live -1
+st r2 -168
+st r2 -393
+st r2 -321
+st r2 -402
+st r2 -24
+st r2 -177
+st r2 -402
+st r2 -330
+st r3 3840
+st r2 -411
+st r2 -33
+st r2 -186
+st r2 -411
+st r2 -339
+st r2 -420
+st r2 -42
+live -1
+st r2 -195
+st r2 -420
+st r2 -348
+st r2 -429
+st r3 3840
+st r2 -51
+st r2 -204
+st r2 -429
+st r2 -357
+st r2 -438
+st r3 3840
+live -1
+st r2 -60
+live -1
+st r2 -213
+st r2 -438
+st r2 -366
+st r2 -447
+st r2 -69
+st r2 -222
+st r2 -447
+st r2 -375
+st r2 -456
+st r2 -78
+st r2 -231
+st r2 -456
+st r2 -384
+st r2 -465
+st r2 -87
+st r2 -240
+st r2 -465
+st r2 -393
+st r2 -474
+st r2 -96
+live -1
+st r2 -249
+st r2 -474
+st r2 -402
+st r2 -483
+st r2 -105
+st r2 -258
+st r2 -483
+st r2 -411
+st r2 -492
+live -1
+st r2 -114
+live -1
+st r2 -267
+st r2 -492
+st r2 -420
+st r2 -501
+st r2 -123
+st r2 -276
+st r2 -501
+st r2 -429
+st r2 -510
+st r2 -132
+st r2 -285
+st r2 -510
+st r2 -438
+st r3 3840
+st r2 -141
+st r2 -294
+st r2 -447
+st r3 3840
+st r2 -150
+live -1
+st r2 -303
+st r2 -456
+st r3 3840
+st r2 -159
+st r2 -312
+st r2 -465
+st r3 3840
+live -1
+st r2 -168
+live -1
+st r2 -321
+st r2 -474
+st r3 3840
+st r2 -177
+st r2 -330
+st r2 -483
+st r3 3840
+live -1
+st r2 -186
+st r2 -339
+live -1
+st r2 -492
+st r3 3840
+st r2 -24
+st r2 -195
+st r2 -348
+st r2 -24
+st r2 -501
+st r3 3840
+st r2 -33
+st r2 -204
+live -1
+st r2 -357
+st r2 -33
+st r2 -510
+st r2 -42
+st r2 -213
+st r2 -366
+st r2 -42
+st r2 -51
+live -1
+st r2 -222
+live -1
+st r2 -375
+st r2 -51
+st r2 -60
+st r2 -231
+st r2 -384
+st r2 -60
+st r2 -69
+st r2 -240
+st r2 -393
+st r2 -69
+st r3 3840
+st r2 -78
+st r2 -249
+st r2 -402
+st r2 -78
+st r3 3840
+st r2 -87
+st r2 -258
+live -1
+st r2 -411
+st r2 -87
+live -1
+st r3 3840
+st r2 -96
+st r2 -267
+st r2 -420
+st r2 -96
+st r2 -24
+st r3 3840
+st r2 -105
+live -1
+st r2 -276
+live -1
+st r2 -429
+st r2 -105
+st r2 -33
+st r2 -114
+st r2 -285
+st r2 -438
+st r2 -114
+st r2 -42
+st r2 -123
+st r2 -294
+st r2 -447
+st r2 -123
+st r2 -51
+st r2 -132
+st r2 -303
+st r2 -456
+st r2 -132
+st r2 -60
+st r2 -141
+st r2 -312
+live -1
+st r2 -465
+st r2 -141
+st r2 -69
+st r2 -150
+st r2 -321
+st r2 -474
+st r2 -150
+st r2 -78
+st r2 -159
+live -1
+st r2 -330
+live -1
+st r2 -483
+st r2 -159
+st r2 -87
+st r2 -168
+st r2 -339
+st r2 -492
+st r2 -168
+st r2 -96
+st r2 -177
+st r2 -348
+st r2 -501
+st r2 -177
+st r2 -105
+st r2 -186
+st r2 -357
+st r2 -510
+st r2 -186
+st r2 -114
+st r2 -195
+st r2 -366
+live -1
+st r2 -195
+st r2 -123
+st r2 -204
+st r2 -375
+st r2 -204
+st r2 -132
+st r2 -213
+live -1
+st r2 -384
+live -1
+st r2 -213
+st r2 -141
+st r2 -222
+st r2 -393
+st r2 -222
+st r2 -150
+st r2 -231
+st r2 -402
+st r2 -231
+st r2 -159
+st r2 -240
+st r2 -411
+live -1
+st r2 -240
+st r2 -168
+st r2 -249
+st r2 -420
+live -1
+st r2 -24
+st r2 -249
+st r2 -177
+st r2 -258
+st r2 -429
+st r2 -33
+st r2 -258
+st r2 -186
+st r2 -267
+live -1
+st r2 -438
+live -1
+st r2 -42
+st r2 -267
+st r2 -195
+st r2 -276
+st r2 -447
+st r2 -51
+st r2 -276
+st r2 -204
+st r2 -285
+st r2 -456
+st r2 -60
+st r2 -285
+st r2 -213
+st r2 -294
+st r2 -465
+st r2 -69
+st r2 -294
+st r2 -222
+st r2 -303
+st r2 -474
+live -1
+st r2 -78
+st r2 -303
+st r2 -231
+st r2 -312
+st r2 -483
+st r2 -87
+st r2 -312
+st r2 -240
+st r2 -321
+live -1
+st r2 -492
+live -1
+st r2 -96
+st r2 -321
+st r2 -249
+st r3 3840
+st r2 -330
+st r2 -501
+st r2 -105
+st r2 -330
+st r2 -258
+st r2 -339
+st r2 -510
+st r2 -114
+st r2 -339
+st r2 -267
+st r3 3840
+st r2 -348
+st r2 -123
+st r2 -348
+st r2 -276
+st r3 3840
+st r2 -357
+live -1
+st r2 -132
+st r2 -357
+st r2 -285

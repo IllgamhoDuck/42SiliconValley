@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 23:50:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/22 23:28:56 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/24 23:48:00 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ void				process_add(t_cw *cw, t_process *cp)
 		cw->process_list = cp;
 	else
 	{
-		while (process->next)
-			process = process->next;
-		process->next = cp;
+		cp->next = process;
+		cw->process_list = cp;
 	}
 }
 
@@ -31,7 +30,6 @@ static void			process_kill(t_cw *cw, t_process *cp)
 {
 	t_process		*pre_node;
 
-	cw->n_process--;
 	// if the deleting processor is the first one
 	if (cw->process_list == cp)
 	{
@@ -102,7 +100,8 @@ t_process       *process_init(t_cw *cw, t_champ *id, uint16_t pc)
 	big_endian_name = (uint32_t)(id->prog_number * -1);
 	swap_32(&big_endian_name);
 	cp->registers[1] = big_endian_name;
-	++cw->n_process;
+	cp->process_number = cw->process_index;
+	cw->process_index++;
 	cp->init_cycle = 0;
 	cp->next = NULL;
 	return (cp);

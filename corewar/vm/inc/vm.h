@@ -6,7 +6,7 @@
 /*   By: anjansse <anjansse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:26:46 by anjansse          #+#    #+#             */
-/*   Updated: 2019/10/23 01:05:07 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/24 23:56:10 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define DUMP_CYCLE	cw->cycle.dump_cycle
 # define KILL_CYCLE cw->cycle.kill_cycle
 # define KC_CHECK	cw->cycle.kc_check
+
+# define P_I cw->process_number
 
 # define CHAMP(i)	cw->champions[i]
 
@@ -48,11 +50,24 @@
 ** Macros used for paser (flags).
 **
 ** @macro {FL_DUMP} - Macro for defining dump flag.
+** @macro {FL_GUI} - Graphic User Interface
+** @macro {FL_VER0} - Show only essential
+** @macro {FL_VER1} - Show lives
+** @macro {FL_VER2} - Show cycles
+** @macro {FL_VER4} - Show operations (Params are NOT literal ...)
+** @macro {FL_VER8} - Show deaths
+** @macro {FL_VER16} - Show PC movements (Except for jumps)
 ** ----------------------------------------------------------------------------
 */
 
 # define FL_DUMP (1 << 0) 
 # define FL_GUI (1 << 1)
+# define FL_VER0 (1 << 2)
+# define FL_VER1 (1 << 3)
+# define FL_VER2 (1 << 4)
+# define FL_VER4 (1 << 5)
+# define FL_VER8 (1 << 6)
+# define FL_VER16 (1 << 7)
 
 # define GUI		((cw->parsing.flag) & FL_GUI)
 # define DUMP		((cw->parsing.flag) & FL_DUMP)
@@ -84,6 +99,7 @@ typedef struct		s_champ
 
 typedef struct		s_process
 {
+	int				process_number;
 	int				init_cycle;
 	int				carry;
 	int				live_call;
@@ -125,7 +141,7 @@ typedef struct      s_cw
 	t_gui			gui;
 	int				n_players;
 	uint32_t		n_live_call;
-	uint32_t		n_process;
+	uint32_t		process_index;
 	t_process		*process_list;
 	uint8_t			memory[MEM_SIZE];
 	int8_t			owner[MEM_SIZE];
