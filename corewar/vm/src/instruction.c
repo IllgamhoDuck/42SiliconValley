@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 00:37:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/24 01:42:16 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/26 02:02:02 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ static t_instr_hdlr instruction[] = {
 	ft_lfork,
 	ft_aff
 };
+
+int16_t			pc_relative(t_process *cp, int16_t offset)
+{
+	offset = cp->pc + offset;
+	if (offset < 0)
+		return (MEM_SIZE + offset);
+	return (offset % MEM_SIZE);
+}
 
 int16_t			pc_idx_mod(t_process *cp, int16_t offset)
 {
@@ -93,7 +101,7 @@ void			instruction_proceed(t_cw *cw, t_process *cp)
 		instruction[cp->op](cw, cp); // do the instruction if valid
 
 	// move the pc if it not a jump
-	if (cp->op != 8 || cp->carry == 0)
+	if ((cp->op != 8 && cp->op != 14) || cp->carry == 0)
 		cp->pc = (cp->pc + cp->next_pc_distance) % MEM_SIZE;
 
 	// initialize the information

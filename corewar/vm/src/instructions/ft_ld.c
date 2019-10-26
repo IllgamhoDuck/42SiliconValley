@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 13:14:58 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/24 20:27:55 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/26 01:13:50 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ static int32_t		param_1(t_cw *cw, t_process *cp)
 		address = pc_idx_mod(cp, address);
 		i = -1;
 		while (++i < 4)
+		{
 			*param_byte = cw->memory[(address + i) % MEM_SIZE];
-		swap_32((uint32_t *)&param);
+			param_byte++;
+		}
+		swap_int32(&param);
 		return (param);
 	}
 	else
@@ -45,5 +48,6 @@ void				ft_ld(t_cw *cw, t_process *cp)
 	copy = param_1(cw, cp);
 	cp->registers[cp->param_value[1]] = copy; 
 	cp->carry = 1;
+	FLAG & FL_VER4 ? ft_printf("P%5d | ", P_I) : 0;
 	FLAG & FL_VER4 ? ft_printf("ld %d r%d\n", copy, cp->param_value[1]) : 0;
 }
