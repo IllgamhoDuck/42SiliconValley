@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 01:58:20 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/26 02:06:11 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/27 15:17:10 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ void				ft_lfork(t_cw *cw, t_process *cp)
 			address %= MEM_SIZE;
 		FLAG & FL_VER4 ? ft_printf("(%d)\n", address) : 0;
 		process_add(cw, process_copy(cw, cp, address));
+		cw->owner[address % MEM_SIZE] = cp->id->prog_number - 1;
 	}
 }

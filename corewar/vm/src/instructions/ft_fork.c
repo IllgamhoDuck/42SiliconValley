@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 23:48:34 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/25 22:26:30 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/27 15:16:55 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void				ft_fork(t_cw *cw, t_process *cp)
 		address = pc_idx_mod(cp, address);
 		FLAG & FL_VER4 ? ft_printf("(%d)\n", address) : 0;
 		process_add(cw, process_copy(cw, cp, address));
+		cw->owner[address % MEM_SIZE] = cp->id->prog_number - 1;
 	}
 }

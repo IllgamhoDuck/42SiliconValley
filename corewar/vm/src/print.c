@@ -27,6 +27,7 @@ void		print_memory(t_cw *cw)
 				printf("%#06x : ", i);
 		}
 		h_puthex(cw->memory[i]);
+		//h_puthex(cw->owner[i]);
 		printf(" ");
 		i++;
 	}

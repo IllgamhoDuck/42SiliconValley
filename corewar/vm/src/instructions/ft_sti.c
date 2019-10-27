@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 21:46:23 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/26 23:19:09 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/27 15:11:40 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ void				ft_sti(t_cw *cw, t_process *cp)
 	reg_byte = (int8_t *)(&cp->registers[cp->param_value[0]]); 
 	i = -1;
 	while (++i < 4)
+	{
 		cw->memory[(offset + i) % MEM_SIZE] = reg_byte[3 - i];
+		cw->owner[(offset + i) % MEM_SIZE] = cp->id->prog_number - 1;
+	}
 	cp->carry = modify_carry(cp->registers[cp->param_value[0]]);
 }
