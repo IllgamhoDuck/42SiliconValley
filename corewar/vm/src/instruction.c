@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 00:37:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/26 02:02:02 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/26 23:08:53 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ static t_instr_hdlr instruction[] = {
 	ft_lfork,
 	ft_aff
 };
+
+int8_t			modify_carry(int value)
+{
+	if (value == 0)
+		return (1);
+	else
+		return (0);
+}
 
 int16_t			pc_relative(t_process *cp, int16_t offset)
 {

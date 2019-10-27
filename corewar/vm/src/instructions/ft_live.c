@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 21:46:45 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/25 11:26:19 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/26 21:37:30 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void				ft_live(t_cw *cw, t_process *cp)
 {
-    uint32_t		prog_num;
+    int32_t			prog_num;
 	uint8_t			*param_byte;
 	int8_t			i;
 
@@ -26,7 +26,7 @@ void				ft_live(t_cw *cw, t_process *cp)
 		*param_byte = cw->memory[(cp->pc + 1 + i) % MEM_SIZE];
 		param_byte++;
 	}
-    swap_32(&prog_num);
+    swap_int32(&prog_num);
 	if (prog_num <= -1 && prog_num >= -4)
 		cw->winner = &CHAMP((prog_num * -1) - 1);
 	else

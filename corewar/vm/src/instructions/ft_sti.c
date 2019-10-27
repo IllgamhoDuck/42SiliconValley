@@ -6,12 +6,31 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 21:46:23 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/25 22:07:46 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/26 23:19:09 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vm.h"
 #include "op.h"
+
+static int32_t		indirect_process(t_cw *cw, t_process *cp, int i)
+{
+	int16_t			address;
+	int16_t			param;
+	int8_t			*param_byte;
+
+	param_byte = (int8_t *)(&param);
+	address = (int16_t)cp->param_value[i];
+	address = pc_idx_mod(cp, address);
+	i = -1;
+	while (++i < IND_SIZE)
+	{
+		*param_byte = cw->memory[(address + i) % MEM_SIZE];
+		param_byte++;
+	}
+	param = ((param & 0x00FF) << 8) | ((param & 0xFF00) >> 8);
+	return ((int32_t)param);
+}
 
 static int32_t		param_1(t_cw *cw, t_process *cp)
 {
@@ -22,10 +41,16 @@ static int32_t		param_1(t_cw *cw, t_process *cp)
 		FLAG & FL_VER4 ? ft_printf("r%d ", cp->param_value[1]) : 0;
 		return (cp->registers[cp->param_value[1]]);
 	}
-	else if (cp->param_type[1] == T_DIR || cp->param_type[1] == T_IND)
+	else if (cp->param_type[1] == T_DIR)
 	{
 		param = (int32_t)(int16_t)cp->param_value[1];
 		FLAG & FL_VER4 ? ft_printf("%d ", param) : 0;
+		return (param);
+	}
+	else if (cp->param_type[1] == T_IND)
+	{
+		param = indirect_process(cw, cp, 1);
+		FLAG & FL_VER4 ? ft_printf("%d", param) : 0;
 		return (param);
 	}
 	else
@@ -72,4 +97,5 @@ void				ft_sti(t_cw *cw, t_process *cp)
 	i = -1;
 	while (++i < 4)
 		cw->memory[(offset + i) % MEM_SIZE] = reg_byte[3 - i];
+	cp->carry = modify_carry(cp->registers[cp->param_value[0]]);
 }

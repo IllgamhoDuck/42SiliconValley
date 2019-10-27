@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 23:12:50 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/25 13:32:03 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/26 23:20:52 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ static int32_t		param_1(t_cw *cw, t_process *cp)
 		param_byte = (int8_t *)(&param);
 		i = -1;
 		while (++i < 4)
+		{
 			*param_byte = cw->memory[(offset + i) % MEM_SIZE];
-		swap_32((uint32_t *)&param);
+			param_byte++;
+		}
+		swap_int32(&param);
 		return (param);
 	}
 	else
@@ -56,8 +59,11 @@ static int32_t		param_2(t_cw *cw, t_process *cp)
 		offset = pc_idx_mod(cp, offset);
 		i = -1;
 		while (++i < 4)
+		{
 			*param_byte = cw->memory[(offset + i) % MEM_SIZE];
-		swap_32((uint32_t *)&param);
+			param_byte++;
+		}
+		swap_int32(&param);
 		return (param);
 	}
 	else
@@ -73,8 +79,8 @@ void				ft_and(t_cw *cw, t_process *cp)
 	param1 = param_1(cw, cp);
 	param2 = param_2(cw, cp);
 	cp->registers[cp->param_value[2]] = param1 & param2;
+	cp->carry = modify_carry(cp->registers[cp->param_value[2]]);
 	FLAG & FL_VER4 ? ft_printf("%d ", param1) : 0;
 	FLAG & FL_VER4 ? ft_printf("%d ", param2) : 0;
 	FLAG & FL_VER4 ? ft_printf("r%d\n", cp->param_value[2]) : 0;
-	cp->carry = 1;
 }

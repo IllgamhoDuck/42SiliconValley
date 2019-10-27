@@ -6,7 +6,7 @@
 /*   By: anjansse <anjansse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:26:46 by anjansse          #+#    #+#             */
-/*   Updated: 2019/10/25 13:22:58 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/26 23:10:33 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct      s_cw
 
 typedef void		(*t_instr_hdlr)(t_cw *, t_process *);
 
+int8_t				modify_carry(int value);
 int16_t				pc_idx_mod(t_process *cp, int16_t offset);
 
 void				process_add(t_cw *cw, t_process *cp);

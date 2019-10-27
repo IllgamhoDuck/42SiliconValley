@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 22:50:18 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/26 02:23:25 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/26 20:58:19 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void			player_intro(t_cw *cw)
 	while (++i < cw->n_players)
 	{
 		cc = CHAMP(i);
-		printf("* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",\
+		ft_printf("* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",\
 		cc.prog_number, cc.prog_size, cc.name, cc.comment);
 	}
 }
