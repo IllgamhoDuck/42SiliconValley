@@ -6,7 +6,7 @@
 #    By: anjansse <anjansse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/28 21:57:22 by anjansse          #+#    #+#              #
-#    Updated: 2019/10/22 17:52:33 by hypark           ###   ########.fr        #
+#    Updated: 2019/10/27 23:28:00 by hypark           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SDL			=	-I SDL2/include/ -L SDL2/lib -l SDL2-2.0.0
 
 DEBUG		=	-g -fsanitize=undefined -fsanitize=address
 
-CFLAGS		=	 $(NCURSES)
+CFLAGS		=	 $(NCURSES) $(DEBUG)
 
 LLIB		=	libft.a
 

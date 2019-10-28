@@ -1,0 +1,64 @@
+84c84
+<        | -> store to 0 + -182 = -182 (with pc and mod -136)
+---
+>        | -> store to 0 + -182 = -182 (with pc and mod 3960)
+86c86
+<        | -> store to 0 + -194 = -194 (with pc and mod -148)
+---
+>        | -> store to 0 + -194 = -194 (with pc and mod 3948)
+88c88
+<        | -> store to 0 + -190 = -190 (with pc and mod -144)
+---
+>        | -> store to 0 + -190 = -190 (with pc and mod 3952)
+90c90
+<        | -> store to 0 + -186 = -186 (with pc and mod -140)
+---
+>        | -> store to 0 + -186 = -186 (with pc and mod 3956)
+385c385
+<        | -> store to 0 + -182 = -182 (with pc and mod -122)
+---
+>        | -> store to 0 + -182 = -182 (with pc and mod 3974)
+387c387
+<        | -> store to 0 + -194 = -194 (with pc and mod -134)
+---
+>        | -> store to 0 + -194 = -194 (with pc and mod 3962)
+389c389
+<        | -> store to 0 + -190 = -190 (with pc and mod -130)
+---
+>        | -> store to 0 + -190 = -190 (with pc and mod 3966)
+391c391
+<        | -> store to 0 + -186 = -186 (with pc and mod -126)
+---
+>        | -> store to 0 + -186 = -186 (with pc and mod 3970)
+561c561
+<        | -> store to 0 + -182 = -182 (with pc and mod -9)
+---
+>        | -> store to 0 + -182 = -182 (with pc and mod 4087)
+563c563
+<        | -> store to 0 + -194 = -194 (with pc and mod -21)
+---
+>        | -> store to 0 + -194 = -194 (with pc and mod 4075)
+565c565
+<        | -> store to 0 + -190 = -190 (with pc and mod -17)
+---
+>        | -> store to 0 + -190 = -190 (with pc and mod 4079)
+567c567
+<        | -> store to 0 + -186 = -186 (with pc and mod -13)
+---
+>        | -> store to 0 + -186 = -186 (with pc and mod 4083)
+955c955
+<        | -> store to 0 + -182 = -182 (with pc and mod -104)
+---
+>        | -> store to 0 + -182 = -182 (with pc and mod 3992)
+957c957
+<        | -> store to 0 + -194 = -194 (with pc and mod -116)
+---
+>        | -> store to 0 + -194 = -194 (with pc and mod 3980)
+959c959
+<        | -> store to 0 + -190 = -190 (with pc and mod -112)
+---
+>        | -> store to 0 + -190 = -190 (with pc and mod 3984)
+961c961
+<        | -> store to 0 + -186 = -186 (with pc and mod -108)
+---
+>        | -> store to 0 + -186 = -186 (with pc and mod 3988)

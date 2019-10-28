@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 21:13:12 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/23 00:07:44 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/27 17:23:08 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,20 @@ static void		get_param_value(t_cw *cw, t_process *cp)
 	}
 }
 
+static int8_t	check_register_error(t_process *cp)
+{
+	int8_t		i;
+
+	i = -1;
+	while (++i < cp->param_num)
+	{
+		if (cp->param_type[i] == T_REG)
+			if (!(cp->param_value[i] >= 1 && cp->param_value[i] <= 16))
+				return (1);
+	}
+	return (0);
+}
+
 int8_t			process_ocp(t_cw *cw, t_process *cp, int8_t trunc)
 {
 	int8_t		i;
@@ -108,15 +122,16 @@ int8_t			process_ocp(t_cw *cw, t_process *cp, int8_t trunc)
 	cp->ocp = cw->memory[(cp->pc + 1) % MEM_SIZE];
 	cp->param_num = g_op_tab[cp->op].n_param;
 	store_info_ocp(cp, cp->ocp, trunc);
-	error = check_ocp_error(cp);
 	// Add 2 because we need to add ocp and one more step to the next op
 	cp->next_pc_distance += 2;
-	if (error)
+	if (check_ocp_error(cp))
 		return (1);
 	// Get param value if there is no error
 	get_param_value(cw, cp);
 	i = -1;
 	while (++i < cp->param_num)
 		swap_32((uint32_t *)(cp->param_value + i));
+	if (check_register_error(cp))
+		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/26 21:45:53 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/26 23:22:12 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/27 22:07:10 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,14 @@ static int32_t		param_2(t_cw *cw, t_process *cp)
 
 	if (cp->param_type[1] == T_REG)
 	{
-		FLAG & FL_VER4 ? ft_printf("r%d\n", cp->param_value[1]) : 0;
-		return (cp->registers[cp->param_value[1]]);
+		param = cp->registers[cp->param_value[1]];
+		FLAG & FL_VER4 ? ft_printf("%d", param) : 0;
+		return (param);
 	}
 	else if (cp->param_type[1] == T_DIR)
 	{
 		param = (int32_t)(int16_t)cp->param_value[1];
-		FLAG & FL_VER4 ? ft_printf("%d\n", param) : 0;
+		FLAG & FL_VER4 ? ft_printf("%d", param) : 0;
 		return (param);
 	}
 	else
@@ -85,13 +86,18 @@ void				ft_ldi(t_cw *cw, t_process *cp)
 	int8_t			i;
 
 	FLAG & FL_VER4 ? ft_printf("P%5d | ", P_I) : 0;
-	FLAG & FL_VER4 ? ft_printf("ldi r%d ", cp->param_value[0]) : 0;
+	FLAG & FL_VER4 ? ft_printf("ldi ") : 0;
 	param1 = param_1(cw, cp);
-	param2 = param_1(cw, cp);
+	param2 = param_2(cw, cp);
+	FLAG & FL_VER4 ? ft_printf(" r%d\n", cp->param_value[2]) : 0;
+	FLAG & FL_VER4 ? ft_printf("       | ") : 0;
+	FLAG & FL_VER4 ? ft_printf("-> load from %d + %d", param1, param2) : 0;
+	FLAG & FL_VER4 ? ft_printf(" = %d ", param1 + param2) : 0;
 	offset = pc_idx_mod(cp, param1 + param2);
+	FLAG & FL_VER4 ? ft_printf("(with pc and mod %d)\n", offset) : 0;
 	reg_byte = (int8_t *)(&cp->registers[cp->param_value[2]]); 
 	i = -1;
 	while (++i < 4)
 		 reg_byte[3 - i] = cw->memory[(offset + i) % MEM_SIZE];
-	cp->carry = modify_carry(cp->registers[cp->param_value[2]]);
+	//cp->carry = modify_carry(cp->registers[cp->param_value[2]]);
 }

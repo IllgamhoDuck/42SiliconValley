@@ -90,6 +90,8 @@ static void        parse_flag(t_cw *cw, int *curr_arg)
 		parse_verbose_number(cw, ++(*curr_arg));
 	else if (*AV[*curr_arg] == 'g')
 		FLAG |= FL_GUI;
+	else if (*AV[*curr_arg] == 'a')
+		FLAG |= FL_A;
 	else if (*AV[*curr_arg] == 'n' && (*curr_arg) + 2 < AC)
 		parse_prog_number(cw, ++(*curr_arg), ++(*curr_arg));
 	else

@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 21:46:23 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/27 15:11:40 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/27 23:21:37 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ static int32_t		param_2(t_cw *cw, t_process *cp)
 
 	if (cp->param_type[2] == T_REG)
 	{
-		FLAG & FL_VER4 ? ft_printf("r%d\n", cp->param_value[2]) : 0;
-		return (cp->registers[cp->param_value[2]]);
+		param = cp->registers[cp->param_value[2]];
+		FLAG & FL_VER4 ? ft_printf("%d\n", param) : 0;
+		return (param);
 	}
 	else if (cp->param_type[2] == T_DIR)
 	{
@@ -100,5 +101,5 @@ void				ft_sti(t_cw *cw, t_process *cp)
 		cw->memory[(offset + i) % MEM_SIZE] = reg_byte[3 - i];
 		cw->owner[(offset + i) % MEM_SIZE] = cp->id->prog_number - 1;
 	}
-	cp->carry = modify_carry(cp->registers[cp->param_value[0]]);
+	//cp->carry = modify_carry(cp->registers[cp->param_value[0]]);
 }

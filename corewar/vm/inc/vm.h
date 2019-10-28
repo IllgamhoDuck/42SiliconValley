@@ -6,7 +6,7 @@
 /*   By: anjansse <anjansse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 23:26:46 by anjansse          #+#    #+#             */
-/*   Updated: 2019/10/26 23:10:33 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/27 23:23:33 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,13 @@
 
 # define FL_DUMP (1 << 0) 
 # define FL_GUI (1 << 1)
-# define FL_VER0 (1 << 2)
-# define FL_VER1 (1 << 3)
-# define FL_VER2 (1 << 4)
-# define FL_VER4 (1 << 5)
-# define FL_VER8 (1 << 6)
-# define FL_VER16 (1 << 7)
+# define FL_A (1 << 2)
+# define FL_VER0 (1 << 3)
+# define FL_VER1 (1 << 4)
+# define FL_VER2 (1 << 5)
+# define FL_VER4 (1 << 6)
+# define FL_VER8 (1 << 7)
+# define FL_VER16 (1 << 8)
 
 # define GUI		((cw->parsing.flag) & FL_GUI)
 # define DUMP		((cw->parsing.flag) & FL_DUMP)

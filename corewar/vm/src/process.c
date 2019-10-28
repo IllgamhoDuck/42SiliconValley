@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 23:50:19 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/25 13:28:08 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/27 23:40:16 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void				process_add(t_cw *cw, t_process *cp)
 	}
 }
 
-static void			process_kill(t_cw *cw, t_process *cp)
+static t_process	*process_kill(t_cw *cw, t_process *cp)
 {
 	t_process		*pre_node;
 
@@ -35,6 +35,7 @@ static void			process_kill(t_cw *cw, t_process *cp)
 	{
 		cw->process_list = cp->next;
 		free(cp);
+		return (cw->process_list);
 	}
 	else
 	{
@@ -44,6 +45,7 @@ static void			process_kill(t_cw *cw, t_process *cp)
 			pre_node = pre_node->next;
 		pre_node->next = cp->next;
 		free(cp);
+		return (pre_node->next);
 	}
 }
 
@@ -55,8 +57,9 @@ void			process_check_live(t_cw *cw)
 	while (cp)
 	{
 		if ((cp->live_call >= (CYCLE - KILL_CYCLE)) == 0)
-			process_kill(cw, cp);
-		cp = cp->next;
+			cp = process_kill(cw, cp);
+		else
+			cp = cp->next;
 	}
 	// if there is no processor live then end the corewar
 	if (cw->process_list == NULL)
@@ -70,18 +73,17 @@ void       		 process_update(t_cw *cw)
 	cp = cw->process_list;
 	while (cp)
 	{
-		if (cp->op < 16)
+		if (cp->op <= 16 && cp->op >= 0)
 		{
 			if (CYCLE - cp->init_cycle == g_op_tab[cp->op].n_cycle)
 				instruction_proceed(cw, cp);
 		}
-		else if (cw->memory[cp->pc] <= 16 && cw->memory[cp->pc])
+		else
 		{
+			cp->pc = (cp->pc + 1) % MEM_SIZE;
 			cp->op = cw->memory[cp->pc] - 1;
 			cp->init_cycle = CYCLE;
 		}
-		else
-			cp->pc = (cp->pc + 1) % MEM_SIZE;
 		cp = cp->next;
 	}
 }
