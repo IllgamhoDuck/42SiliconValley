@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 00:37:56 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/27 22:30:10 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/28 22:44:01 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,16 @@ static int8_t	instruction_get_info(t_cw *cw, t_process *cp)
 
 void			instruction_proceed(t_cw *cw, t_process *cp)
 {
+	int8_t		error;
 	//ft_printf("%s : ", cp->id->name);
 
 	// store the information before doing instruction
-	if (instruction_get_info(cw, cp) == 0)
+	error = instruction_get_info(cw, cp);
+	if (error == 0)
 		instruction[cp->op](cw, cp); // do the instruction if valid
 
 	// move the pc if it not a jump
-	if ((cp->op != 8 && cp->op != 14) || cp->carry == 0)
+	if ((cp->op != 8) || cp->carry == 0 || error)
 		cp->pc = (cp->pc + cp->next_pc_distance) % MEM_SIZE;
 
 	// initialize the information

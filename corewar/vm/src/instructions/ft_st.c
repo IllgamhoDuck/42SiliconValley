@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/23 21:27:15 by hypark            #+#    #+#             */
-/*   Updated: 2019/10/27 22:10:05 by hypark           ###   ########.fr       */
+/*   Updated: 2019/10/28 23:01:08 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void				ft_st(t_cw *cw, t_process *cp)
 	int8_t			i;
 
 	store = cp->registers[cp->param_value[0]];
-	//cp->carry = modify_carry(store);
 	FLAG & FL_VER4 ? ft_printf("P%5d | st r%d ", P_I, cp->param_value[0]) : 0;
 	if (cp->param_type[1] == T_REG)
 	{
