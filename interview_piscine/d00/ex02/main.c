@@ -14,7 +14,8 @@ int main(void)
 	/*-------------------
 	launch your test here
 	--------------------*/
-	//printf("price for the art \'%s\' is %d\n", "Guernica", searchPrice(arts, "Guernica"));
+	printf("price for the art \'%s\' is %d\n", "Guernica", searchPrice(arts, arrlen(arts), "Guernica"));
+	printf("price for the art \'%s\' is %d\n", "not here", searchPrice(arts, arrlen(arts), "not here"));
 
 	return (0);
 }

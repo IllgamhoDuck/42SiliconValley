@@ -29,5 +29,6 @@ struct s_art **getArts(int *n);
   &  your own other function
   --------------------------------*/
 
+int arrlen(struct s_art **arts);
 
 #endif
