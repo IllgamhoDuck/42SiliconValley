@@ -27,14 +27,20 @@ struct s_dict {
 
 // DICTIONNARY
 
-size_t hash(char *input); //return hash result
+//return hash result
+size_t hash(char *input);
 
-struct s_dict *dictInit(int capacity); //initialize the dictionnary, given as parameter the capacity of the array.
-int	dictInsert(struct s_dict *dict, char *key, struct s_art *value); //add one element in the dictionnary, if FAIL return 0, otherwise 1
-struct s_art *dictSearch(struct s_dict *dict, char *key); //find one element in the dictionnary, if not found, return NULL
+//initialize the dictionnary, given as parameter the capacity of the array.
+struct s_dict *dictInit(int capacity);
+
+//add one element in the dictionnary, if FAIL return 0, otherwise 1
+int	dictInsert(struct s_dict *dict, char *key, struct s_art *value);
+
+//find one element in the dictionnary, if not found, return NULL
+struct s_art *dictSearch(struct s_dict *dict, char *key);
+
 
 // OTHER
-
 int searchPrice(struct s_dict *dict, char *name);
 
 

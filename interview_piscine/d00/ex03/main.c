@@ -14,9 +14,21 @@ int main(void)
 	/*-------------------
 	launch your test here
 	--------------------*/
-	//struct s_dict *dict;
-	//
-	//
+	//printf("hash of %s is %zu\n", "duck", hash("duck"));
+	struct s_dict *dict = dictInit(95000);
+
+	int i = -1;
+	while (1)
+	{
+		i++;
+		if (arts[i] == NULL)
+			break ;
+		if (dictInsert(dict, arts[i]->name, arts[i]) == 0)
+			dprintf(STDERR_FILENO, "Failed to insert the art to hash table\n");
+	}
+
+	printf("price for the art \'%s\' is %d\n", "Guernica", searchPrice(dict, "Guernica"));
+	printf("price for the art \'%s\' is %d\n", "not here", searchPrice(dict, "not here"));
 
 	return (0);
 }

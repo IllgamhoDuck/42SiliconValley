@@ -1,2 +1,2 @@
-O(logn) time, with n the number of element in the array
+O(1) time, with n the number of element in the array
 O(n) space.
