@@ -1,0 +1,2 @@
+O(n) time, with n the number of element in the array
+O(n) space.
