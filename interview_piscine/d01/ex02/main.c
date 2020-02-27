@@ -18,7 +18,7 @@ int main(int ac, char **av)
 	/*-------------------
 	launch your test here
 	--------------------*/
-	//printReverse(lst);
+	printReverseV2(lst);
 
 	return (0);
 }
