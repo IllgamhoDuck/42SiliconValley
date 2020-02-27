@@ -1,0 +1,4 @@
+M : Pattern length
+N : Total text length
+O(MN) time, with n the number of element in the array
+O(n) space.
