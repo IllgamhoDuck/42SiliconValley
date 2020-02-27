@@ -7,10 +7,20 @@
 
 int main(void)
 {
+	struct s_queue *queue;
 
 	/*-------------------
 	launch your test here
 	--------------------*/
+	queue = queueInit();
+	printf("isEmpty : %d\n", isEmpty(queue));
+	enqueue(queue, "first message");
+	printf("isEmpty : %d\n", isEmpty(queue));
+	enqueue(queue, "second message");
+	printf("peek : %s\n", peek(queue));
+	printf("dequeue : %s\n", dequeue(queue));
+	printf("dequeue : %s\n", dequeue(queue));
+	printf("dequeue : %s\n", dequeue(queue));
 
 	return (0);
 }
