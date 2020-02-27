@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/25 21:59:42 by hypark            #+#    #+#             */
-/*   Updated: 2020/02/26 01:12:05 by hypark           ###   ########.fr       */
+/*   Updated: 2020/02/26 19:42:04 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,63 +17,6 @@
 #include <ctype.h> //isalnum
 
 #include "header.h"
-
-/*
-** m : word length
-** n : text length
-** d : Number of characters in the alphabet
-** q : A prime number
-** h : d^(m-1)
-**
-** hash( txt[s+1 .. s+m] ) 
-** = d( hash( txt[s .. s+m-1] ) - txt[s]*h ) + txt[s+m] ) % q
-*/
-
-int howManyWord(char *bible, char *word)
-{
-	int		word_len = strlen(word);
-	int		text_len = strlen(bible);
-	int		i;
-	int		j;
-	int		word_hash = 0;
-	int		text_hash = 0;
-	int		h = 1;
-	int		d = 256;
-	int		q = 101;
-	int		count = 0;
-	
-	if (word_len > text_len)
-		return 0;
-	i = -1;
-	while (++i < word_len - 1)
-		h = (h*d)%q;
-	i = -1;
-	while (++i < word_len)
-	{
-		word_hash = (d*word_hash + word[i])%q;
-		text_hash = (d*text_hash + bible[i])%q;
-	}
-	i = -1;
-	while (++i <= (text_len - word_len))
-	{
-		if (word_hash == text_hash)
-		{
-			j = -1;
-			while (++j < word_len)
-				if (word[j] != bible[i + j])
-					break ;
-			if (j == word_len)
-				count++;
-		}
-		if (i < (text_len - word_len))
-		{
-			text_hash = (d*(text_hash - bible[i]*h) + bible[i + word_len])%q;
-			if (text_hash < 0)
-				text_hash += q;
-		}
-	}
-	return count;
-}
 
 //return hash result
 size_t hash(char *input)
@@ -150,18 +93,15 @@ int dictSearch(struct s_dict *dict, char *key)
 	return -1;
 }
 
-char **processWords(struct s_dict *dict, char *book, int *header_len, int *compress_len)
+char **processWords(struct s_dict *dict, int *header_len)
 {
 	char	*word;
-	int		word_count;
-	int		i;
-	int		j;
 	struct s_item *item;
 	char	**word_list;
+	int		i;
 
-	i = -1;
-	j = 0;
 	word_list = (char **)malloc(sizeof(char *) * (dict->capacity + 1));
+	i = -1;
 	while (++i < dict->capacity)
 	{
 		item = dict->items[i];
@@ -170,17 +110,12 @@ char **processWords(struct s_dict *dict, char *book, int *header_len, int *compr
 		while (item)
 		{
 			word = item->key;
-			word_list[j++] = strdup(word);
+			word_list[item->value] = strdup(word);
 			*header_len += strlen(word) + 1;
-			word_count = howManyWord(book, word);
-			if (word_count >= 0)
-				*compress_len += word_count*(strlen(word) - 2);
-			//printf("word %d: %s count : %d, compress size : %lu\n", j, word, word_count, word_count*(strlen(word) - 2));
 			item = item->next;
 		}
 	}
 	(*header_len)++;
-	//printf("total compress size : %d\n", *compress_len);
 	return word_list;
 }
 
@@ -210,7 +145,6 @@ void add_header(char *cbook, char **word_list, int list_len)
 char *compress(char *book, struct s_dict *dict)
 {
 	int		header_len = 0;
-	int		compress_len = 0;
 	int		book_len;
 	int		cbook_len;
 	char	*cbook;
@@ -221,9 +155,9 @@ char *compress(char *book, struct s_dict *dict)
 	char	*word;
 	char	value;
 
-	word_list = processWords(dict, book, &header_len, &compress_len);
+	word_list = processWords(dict, &header_len);
 	book_len = strlen(book);
-	cbook_len = book_len + header_len - compress_len;
+	cbook_len = book_len + header_len;
 	cbook = (char *)malloc(sizeof(char) * (cbook_len + 1));
 
 	add_header(cbook, word_list, dict->capacity);
@@ -253,16 +187,10 @@ char *compress(char *book, struct s_dict *dict)
 		}
 		else
 			cbook[i++] = book[j];
-		if (i >= cbook_len)
-		{
-			printf("i : %d\n", i);
-			printf("j : %d book length : %d\n", j, book_len);
-			exit(1);
-		}
 	}
 	cbook[i] = '\0';
-	printf("%s", cbook);
-	return NULL;
+	cbook = (char *)realloc(cbook, i + 1);
+	return cbook;
 }
 
 

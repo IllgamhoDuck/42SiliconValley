@@ -50,8 +50,7 @@ void readWordsFile(char ***pWords, int *pLenWords);
   &  your own other function
   --------------------------------*/
 
-int howManyWord(char *bible, char *word);
-char **processWords(struct s_dict *dict, char *book, int *header_len, int *compress_len);
+char **processWords(struct s_dict *dict, int *header_len);
 void add_header(char *cbook, char **word_list, int list_len);
 
 #endif
