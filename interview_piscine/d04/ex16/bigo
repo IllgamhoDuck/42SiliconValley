@@ -1,0 +1,4 @@
+total bit elements in array : n
+total bit array length : l
+O(nl) time
+O(nl) space

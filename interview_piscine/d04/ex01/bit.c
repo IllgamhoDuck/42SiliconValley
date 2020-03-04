@@ -6,7 +6,7 @@
 /*   By: hypark <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 19:38:04 by hypark            #+#    #+#             */
-/*   Updated: 2020/03/02 20:23:18 by hypark           ###   ########.fr       */
+/*   Updated: 2020/03/03 20:23:23 by hypark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 char *getAnd(char *a, char *b)
 {
-	char *result = (char *)malloc(sizeof(char) * 7);
+	char *result = (char *)malloc(sizeof(char) * 5);
 	int i = 3;
 
 	result[4] = '\0';
@@ -36,7 +36,7 @@ char *getAnd(char *a, char *b)
 
 char *getOr(char *a, char *b)
 {
-	char *result = (char *)malloc(sizeof(char) * 7);
+	char *result = (char *)malloc(sizeof(char) * 5);
 	int i = 3;
 
 	result[4] = '\0';

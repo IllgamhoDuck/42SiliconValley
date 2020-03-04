@@ -1,0 +1,3 @@
+m : number of occupied places(active bits)
+O(m) time
+O(1) space

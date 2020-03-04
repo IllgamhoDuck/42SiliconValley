@@ -1,0 +1,3 @@
+s is the length of the longest consecutive sequence of bits
+O(s) time
+O(1) space
