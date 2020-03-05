@@ -1,0 +1,4 @@
+n! : permutation
+n : print
+O(n*n!) time
+O(1) space
