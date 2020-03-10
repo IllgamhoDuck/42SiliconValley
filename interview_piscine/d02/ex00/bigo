@@ -1,0 +1,4 @@
+Total input number : N
+Group number : G
+O(N / G)^2 time
+O(N) space
